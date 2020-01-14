@@ -24,13 +24,19 @@ elex results 03-03-2020 --results-level ru --raceids 25869 --test -o json \
       winner: .winner,
       level: .level,
       fipscode: .fipscode,
-      reportingunitname: .reportingunitname
+      reportingunitname: .reportingunitname,
+      lastupdated: .lastupdated
     }
  ]' > "json/results-test-$download_datetime.json"
 
- if cmp --silent "json/results-test-$download_datetime.json" $LATEST_FILE; then
+# Test that this is a seemingly valid file
+FIRST_OFFICENAME="$(cat "json/results-test-$download_datetime.json" | jq '[.[]][0].officename')"
+if [ $FIRST_OFFICENAME == '"President"' ]; then
+  echo "Seems to be JSON in expected elex format. Checking for changes from last version."
+
+  if cmp --silent "json/results-test-$download_datetime.json" $LATEST_FILE; then
      echo "File unchanged. No upload will be attempted."
- else
+  else
      echo "Changes found. Updating latest file..."
      cp "json/results-test-$download_datetime.json" $LATEST_FILE
 
@@ -38,10 +44,13 @@ elex results 03-03-2020 --results-level ru --raceids 25869 --test -o json \
      --acl public-read \
      --content-type=application/json \
      --content-encoding gzip
- fi
+  fi
 
- # Check response headers
- curl -I $ELEX_S3_URL/$LATEST_FILE
+   # Check response headers
+   curl -I $ELEX_S3_URL/$LATEST_FILE
 
- # Get first entry of uploaded json
- curl -s --compressed $ELEX_S3_URL/$LATEST_FILE | jq '[.[]][0]'
+   # Get first entry of uploaded json
+   curl -s --compressed $ELEX_S3_URL/$LATEST_FILE | jq '[.[]][0]'
+else
+  echo "The newest file doesn't seem to be what we'd expect from elex JSON. Taking no further action."
+fi
