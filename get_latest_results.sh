@@ -1,18 +1,24 @@
 #!/bin/bash
+ELECTION_DATE="03-03-2020"
+STATE_NAME="Minnesota"
 
 download_datetime=$(date '+%Y%m%d%H%M%S');
 
 LATEST_FILE=json/results-test-latest.json
 
+TMPFILE=$(mktemp "/tmp/results-test-$download_datetime.json")
+
+printf "\n\n"
+
 # Make json directory if it doesn't exist
 [ -d json ] || mkdir json
 
 # Get latest results, send to date-stamped file
-elex results 03-03-2020 --results-level ru --raceids 25869 --test -o json \
-| jq -c '[
+elex results $ELECTION_DATE --results-level ru --test --raceids 25869 -o json \
+| jq -c "[
     .[] |
-    select(.statename == "Minnesota" ) |
-    select(.officename == "President") |
+    select(.statename == \"$STATE_NAME\" ) |
+    select(.officename == \"President\") |
     {
       officename: .officename,
       statepostal: .statepostal,
@@ -27,30 +33,53 @@ elex results 03-03-2020 --results-level ru --raceids 25869 --test -o json \
       reportingunitname: .reportingunitname,
       lastupdated: .lastupdated
     }
- ]' > "json/results-test-$download_datetime.json"
+ ]" > $TMPFILE
 
 # Test that this is a seemingly valid file
-FIRST_OFFICENAME="$(cat "json/results-test-$download_datetime.json" | jq '[.[]][0].officename')"
-if [ $FIRST_OFFICENAME == '"President"' ]; then
+FIRST_LEVEL="$(cat $TMPFILE | jq '[.[]][0].level')"
+if [ $FIRST_LEVEL == '"state"' ]; then
   echo "Seems to be JSON in expected elex format. Checking for changes from last version."
 
-  if cmp --silent "json/results-test-$download_datetime.json" $LATEST_FILE; then
+  if cmp --silent $TMPFILE $LATEST_FILE; then
      echo "File unchanged. No upload will be attempted."
   else
      echo "Changes found. Updating latest file..."
-     cp "json/results-test-$download_datetime.json" $LATEST_FILE
+     cp $TMPFILE $LATEST_FILE
 
+     # Push "latest" to s3
      gzip -vc $LATEST_FILE | aws s3 cp - s3://$ELEX_S3_URL/$LATEST_FILE \
      --acl public-read \
      --content-type=application/json \
      --content-encoding gzip
+
+     # Push timestamped to s3
+     gzip -vc $TMPFILE | aws s3 cp - "s3://$ELEX_S3_URL/json/results-test-$download_datetime.json" \
+     --acl public-read \
+     --content-type=application/json \
+     --content-encoding gzip
+
+     # Make local timestamped file for new changed version
+     cp $TMPFILE "json/results-test-$download_datetime.json"
   fi
 
    # Check response headers
-   curl -I $ELEX_S3_URL/$LATEST_FILE
+   RESPONSE_CODE=$(curl -s -o /dev/null -w "%{http_code}" $ELEX_S3_URL/$LATEST_FILE)
+   if [ $RESPONSE_CODE == '200' ]; then
+     echo "Successfully test-retrieved 'latest' file from S3."
+   else
+     echo "***** WARNING WARNING WARNING: No 'latest' file could be retrieved from S3. Response code $RESPONSE_CODE *****"
+   fi
+
+   # curl -I $ELEX_S3_URL/$LATEST_FILE
 
    # Get first entry of uploaded json
-   curl -s --compressed $ELEX_S3_URL/$LATEST_FILE | jq '[.[]][0]'
+   FIRST_ENTRY=$(curl -s --compressed $ELEX_S3_URL/$LATEST_FILE | jq '[.[]][0]')
+   if [ "$(echo $FIRST_ENTRY | jq '.level')" == '"state"' ]; then
+     echo "$FIRST_ENTRY"
+   else
+     echo "***** WARNING WARNING WARNING: Test-retrieved 'latest' file does not seem to be parseable JSON in expected format. *****"
+   fi
 else
-  echo "The newest file doesn't seem to be what we'd expect from elex JSON. Taking no further action."
+  echo "***** WARNING WARNING WARNING: The newest file doesn't seem to be what we'd expect from elex JSON. Taking no further action. *****"
 fi
+printf "\n\n"
