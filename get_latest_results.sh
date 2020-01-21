@@ -1,12 +1,20 @@
 #!/bin/bash
-ELECTION_DATE="03-03-2020"
-STATE_NAME="Minnesota"
+
+# For Minnesota January primary
+# ELECTION_DATE="03-03-2020"
+# STATE_NAME="Minnesota"
+# RACE_ID="25869"
+
+# For Iowa Caucuses
+ELECTION_DATE="02-03-2020"
+STATE_NAME="Iowa"
+RACE_ID="17278"
 
 download_datetime=$(date '+%Y%m%d%H%M%S');
 
 LATEST_FILE=json/results-test-latest.json
 
-TMPFILE=$(mktemp "/tmp/results-test-$download_datetime.json")
+TMPFILE=$(mktemp "/tmp/results-test-$download_datetime.json.XXXXXXX")
 
 printf "\n\n"
 
@@ -14,7 +22,7 @@ printf "\n\n"
 [ -d json ] || mkdir json
 
 # Get latest results, send to date-stamped file
-elex results $ELECTION_DATE --results-level ru --test --raceids 25869 -o json \
+elex results $ELECTION_DATE --results-level ru --test --raceids $RACE_ID -o json \
 | jq -c "[
     .[] |
     select(.statename == \"$STATE_NAME\" ) |
@@ -48,12 +56,14 @@ if [ $FIRST_LEVEL == '"state"' ]; then
 
      # Push "latest" to s3
      gzip -vc $LATEST_FILE | aws s3 cp - s3://$ELEX_S3_URL/$LATEST_FILE \
+     --profile $AWS_PROFILE_NAME \
      --acl public-read \
      --content-type=application/json \
      --content-encoding gzip
 
      # Push timestamped to s3
      gzip -vc $TMPFILE | aws s3 cp - "s3://$ELEX_S3_URL/json/results-test-$download_datetime.json" \
+     --profile $AWS_PROFILE_NAME \
      --acl public-read \
      --content-type=application/json \
      --content-encoding gzip
