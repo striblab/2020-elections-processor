@@ -23,7 +23,7 @@ printf "\n\n"
 [ -d json ] || mkdir json
 
 # Get latest results, send to date-stamped file
-elex results $ELECTION_DATE --results-level ru --test --raceids $RACE_ID -o json \
+$ELEX_INSTALLATION_PREFIX/elex results $ELECTION_DATE --results-level ru --test --raceids $RACE_ID -o json \
 | jq -c "[
     .[] |
     select(.statename == \"$STATE_NAME\" ) |
