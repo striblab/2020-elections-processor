@@ -1,4 +1,5 @@
 #!/bin/bash
+set -o allexport; source .env; set +o allexport
 
 # For Minnesota January primary
 # ELECTION_DATE="03-03-2020"
