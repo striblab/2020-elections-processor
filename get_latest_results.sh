@@ -38,7 +38,9 @@ $ELEX_INSTALLATION_PREFIX/elex results $ELECTION_DATE --results-level ru --test 
       votepct: .votepct,
       winner: .winner,
       level: .level,
+      seatname: .seatname,
       fipscode: .fipscode,
+      reportingunitid: .reportingunitid,
       reportingunitname: .reportingunitname,
       lastupdated: .lastupdated
     }
