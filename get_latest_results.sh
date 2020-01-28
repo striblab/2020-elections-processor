@@ -1,6 +1,8 @@
 #!/bin/bash
 set -o allexport; source .env; set +o allexport
 
+# Hey when this is really real be sure to turn off the --test flag
+
 # For Minnesota January primary
 # ELECTION_DATE="03-03-2020"
 # STATE_NAME="Minnesota"
@@ -13,9 +15,9 @@ RACE_ID="17278"
 
 download_datetime=$(date '+%Y%m%d%H%M%S');
 
-LATEST_FILE=json/results-test-latest.json
+LATEST_FILE=json/results-latest.json
 
-TMPFILE=$(mktemp "/tmp/results-test-$download_datetime.json.XXXXXXX")
+TMPFILE=$(mktemp "/tmp/results-$download_datetime.json.XXXXXXX")
 
 printf "\n\n"
 
@@ -68,14 +70,14 @@ if [ $FIRST_LEVEL == '"state"' ]; then
      --content-encoding gzip
 
      # Push timestamped to s3
-     gzip -vc $TMPFILE | aws s3 cp - "s3://$ELEX_S3_URL/json/results-test-$download_datetime.json" \
+     gzip -vc $TMPFILE | aws s3 cp - "s3://$ELEX_S3_URL/json/results-$download_datetime.json" \
      --profile $AWS_PROFILE_NAME \
      --acl public-read \
      --content-type=application/json \
      --content-encoding gzip
 
      # Make local timestamped file for new changed version
-     cp $TMPFILE "json/results-test-$download_datetime.json"
+     cp $TMPFILE "json/results-$download_datetime.json"
   fi
 
    # Check response headers
