@@ -7,11 +7,15 @@ set -o allexport; source .env; set +o allexport
 # ELECTION_DATE="03-03-2020"
 # STATE_NAME="Minnesota"
 # RACE_ID="25869"
+# TEST=' --test'
+# # TEST=''
 
 # For Iowa Caucuses
 ELECTION_DATE="02-03-2020"
 STATE_NAME="Iowa"
 RACE_ID="17278"
+# TEST=' --test'
+TEST=''
 
 download_datetime=$(date '+%Y%m%d%H%M%S');
 
@@ -25,7 +29,7 @@ printf "\n\n"
 [ -d json ] || mkdir json
 
 # Get latest results, send to date-stamped file
-$ELEX_INSTALLATION_PREFIX/elex results $ELECTION_DATE --results-level ru --test --raceids $RACE_ID -o json \
+$ELEX_INSTALLATION_PREFIX/elex results $ELECTION_DATE --results-level ru$TEST --raceids $RACE_ID -o json \
 | jq -c "[
     .[] |
     select(.statename == \"$STATE_NAME\" ) |
