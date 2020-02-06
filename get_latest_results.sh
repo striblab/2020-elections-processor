@@ -10,12 +10,19 @@ set -o allexport; source .env; set +o allexport
 # TEST=' --test'
 # # TEST=''
 
+# For New Hampshire primary
+ELECTION_DATE="02-11-2020"
+STATE_NAME="New Hampshire"
+RACE_ID="32115"
+TEST=' --test'
+# TEST=''
+
 # For Iowa Caucuses
-ELECTION_DATE="02-03-2020"
-STATE_NAME="Iowa"
-RACE_ID="17278"
-# TEST=' --test'
-TEST=''
+# ELECTION_DATE="02-03-2020"
+# STATE_NAME="Iowa"
+# RACE_ID="17278"
+# # TEST=' --test'
+# TEST=''
 
 download_datetime=$(date '+%Y%m%d%H%M%S');
 
@@ -34,6 +41,7 @@ $ELEX_INSTALLATION_PREFIX/elex results $ELECTION_DATE --results-level ru$TEST --
     .[] |
     select(.statename == \"$STATE_NAME\" ) |
     select(.officename == \"President\") |
+    select(.level == \"state\" or .level == \"county\") |
     {
       officename: .officename,
       statepostal: .statepostal,
@@ -53,7 +61,8 @@ $ELEX_INSTALLATION_PREFIX/elex results $ELECTION_DATE --results-level ru$TEST --
       reportingunitname: .reportingunitname,
       lastupdated: .lastupdated
     }
- ]" > $TMPFILE
+]" > $TMPFILE
+#] | [.[] | .lastupdated = \"1999-09-02 00:00:00\"] | [.[] | .votecount = 7]" > $TMPFILE
 
 # Test that this is a seemingly valid file
 FIRST_LEVEL="$(cat $TMPFILE | jq '[.[]][0].level')"
