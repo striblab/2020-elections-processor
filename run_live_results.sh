@@ -5,5 +5,5 @@ LOGFILE="liveresults.log"
 while true
 do
     ("./get_latest_results.sh") | tee -a $LOGFILE
-    sleep 28
+    sleep 20
 done
