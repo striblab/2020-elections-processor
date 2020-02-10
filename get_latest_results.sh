@@ -3,12 +3,13 @@ set -o allexport; source .env; set +o allexport
 
 # Hey when this is really real be sure to turn off the --test flag
 
-# For Minnesota January primary
+# For Minnesota March primary
 # ELECTION_DATE="03-03-2020"
 # STATE_NAME="Minnesota"
 # RACE_ID="25869"
 # TEST=' --test'
 # # TEST=''
+# MANUAL_WINNER=""  # Use this to override an AP race call (or lack thereof)
 
 # For New Hampshire primary
 ELECTION_DATE="02-11-2020"
@@ -16,6 +17,8 @@ STATE_NAME="New Hampshire"
 RACE_ID="32115"
 TEST=' --test'
 # TEST=''
+# MANUAL_WINNER="Yang"  # Use this to override an AP race call (or lack thereof)
+
 
 # For Iowa Caucuses
 # ELECTION_DATE="02-03-2020"
@@ -23,6 +26,7 @@ TEST=' --test'
 # RACE_ID="17278"
 # # TEST=' --test'
 # TEST=''
+# MANUAL_WINNER=""  # Use this to override an AP race call (or lack thereof)
 
 download_datetime=$(date '+%Y%m%d%H%M%S');
 
@@ -36,13 +40,14 @@ printf "\n\n"
 [ -d json ] || mkdir json
 
 # Get latest results, send to date-stamped file
+echo $ELEX_INSTALLATION_PREFIX/elex results $ELECTION_DATE --results-level ru$TEST --raceids $RACE_ID -o json
 $ELEX_INSTALLATION_PREFIX/elex results $ELECTION_DATE --results-level ru$TEST --raceids $RACE_ID -o json \
 | jq -c "[
-    .[] |
-    select(.statename == \"$STATE_NAME\" ) |
-    select(.officename == \"President\") |
-    select(.level == \"state\" or .level == \"county\") |
-    {
+    .[]
+    | select(.statename == \"$STATE_NAME\" )
+    | select(.officename == \"President\")
+    | select(.level == \"state\" or .level == \"county\")
+    | {
       officename: .officename,
       statepostal: .statepostal,
       first: .first,
@@ -61,8 +66,16 @@ $ELEX_INSTALLATION_PREFIX/elex results $ELECTION_DATE --results-level ru$TEST --
       reportingunitname: .reportingunitname,
       lastupdated: .lastupdated
     }
-]" > $TMPFILE
-#] | [.[] | .lastupdated = \"1999-09-02 00:00:00\"] | [.[] | .votecount = 7]" > $TMPFILE
+]
+| [.[] | .manual_winner = false]
+| [.[]]" > $TMPFILE
+
+# Use these to undeclare an AP winner and/or declare a manual winner
+# | [.[] | .winner = false]
+# | . |= map(if .last == \"$MANUAL_WINNER\" then (.manual_winner=true) else . end)
+
+# Use this to hardcode something else for testing
+# [.[] | .lastupdated = \"1999-09-02 00:00:00\"] | [.[] | .votecount = 7] |
 
 # Test that this is a seemingly valid file
 FIRST_LEVEL="$(cat $TMPFILE | jq '[.[]][0].level')"
