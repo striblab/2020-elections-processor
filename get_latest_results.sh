@@ -15,8 +15,8 @@ set -o allexport; source .env; set +o allexport
 ELECTION_DATE="02-11-2020"
 STATE_NAME="New Hampshire"
 RACE_ID="32115"
-TEST=' --test'
-# TEST=''
+# TEST=' --test'
+TEST=''
 # MANUAL_WINNER="Yang"  # Use this to override an AP race call (or lack thereof)
 
 
