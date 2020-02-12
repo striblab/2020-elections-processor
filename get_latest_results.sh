@@ -75,7 +75,7 @@ $ELEX_INSTALLATION_PREFIX/elex results $ELECTION_DATE --results-level ru$TEST --
 # | . |= map(if .last == \"$MANUAL_WINNER\" then (.manual_winner=true) else . end)
 
 # Use this to hardcode something else for testing
-# [.[] | .lastupdated = \"1999-09-02 00:00:00\"] | [.[] | .votecount = 7] |
+# | [.[] | .lastupdated = \"1988-01-01 00:00:00\"] | [.[] | .votecount = 7500] | [.[] | .precinctsreporting = 66 | .precinctsreportingpct = 0.66]
 
 # Test that this is a seemingly valid file
 FIRST_LEVEL="$(cat $TMPFILE | jq '[.[]][0].level')"
