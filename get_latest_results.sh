@@ -4,20 +4,20 @@ set -o allexport; source .env; set +o allexport
 # Hey when this is really real be sure to turn off the --test flag
 
 # For Minnesota March primary
-# ELECTION_DATE="03-03-2020"
-# STATE_NAME="Minnesota"
-# RACE_ID="25869"
-# TEST=' --test'
-# # TEST=''
-# MANUAL_WINNER=""  # Use this to override an AP race call (or lack thereof)
+ELECTION_DATE="03-03-2020"
+STATE_NAME="Minnesota"
+RACE_ID="25869"
+TEST=' --test'
+# TEST=''
+MANUAL_WINNER=""  # Use this to override an AP race call (or lack thereof)
 
 # For New Hampshire primary
-ELECTION_DATE="02-11-2020"
-STATE_NAME="New Hampshire"
-RACE_ID="32115"
-# TEST=' --test'
-TEST=''
-# MANUAL_WINNER="Yang"  # Use this to override an AP race call (or lack thereof)
+# ELECTION_DATE="02-11-2020"
+# STATE_NAME="New Hampshire"
+# RACE_ID="32115"
+# # TEST=' --test'
+# TEST=''
+# # MANUAL_WINNER="Yang"  # Use this to override an AP race call (or lack thereof)
 
 
 # For Iowa Caucuses
