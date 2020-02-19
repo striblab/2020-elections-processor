@@ -25,18 +25,48 @@ To run locally, it's best to use pipenv. For production, keep reading. To set th
 
 ```bash
 pipenv install
+```
+
+To run the results one time
+```
 pipenv run ./get_latest_results.sh
 ```
 
-### Requirements (Besides what's in the Pipfile)
+To run on 20-second cycle on an election night
+```
+pipenv run ./run_live_results.sh
+```
+
+### Local requirements (Besides what's in the Pipfile)
 Pipenv
 jc
 
 ## Running in production
 So far, getting pipenv to work with crontab seems like a tricky thing. And the only Python thing in this whole script is elex. So for now, I have installed elex globally with pip, then source the .env variables kinda manually at the top of the .sh file.
 
-So...
+To duplicate that install on the server in case of emergency:
 ```bash
-sudo pip install elex
-cd /path/to/2020-elections-processor && ./get_latest_results.sh
+sudo pip install elex awscli
 ```
+
+To pull the results once:
+```bash
+cd apps/2020-elections-processor && ./get_latest_results.sh
+```
+
+To run on 20-second cycle on an election night, you'll want to use a screen session so you can come back and monitor/shut down/restart the process if you lose connection.
+```bash
+# First, ssh to the box...
+# Then, to start a new screen session:
+screen
+# Hit enter
+cd apps/2020-elections-processor
+./run_live_results.sh
+
+# To log out but keep the screen session alive gracefully
+[While holding down control, press A, press D]
+
+# If you got disconnected or the script is already running in a screen session
+screen -r
+# And you're back
+``
