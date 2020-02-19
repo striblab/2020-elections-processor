@@ -16,6 +16,10 @@ export API_API_KEY
 ELEX_S3_URL=YOUR_BUCKET
 export ELEX_S3_URL
 
+# This is really annoying but currently needed so it can be changed in production because python 3 is not the default on the EC2 box.
+ELEX_INSTALLATION_PREFIX='/Users/Coreymj/.local/share/virtualenvs/2020-elections-processor-4MCptR18/bin'
+export ELEX_INSTALLATION_PREFIX
+
 AWS_PROFILE_NAME='default'
 export AWS_PROFILE_NAME
 ```
