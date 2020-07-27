@@ -15,6 +15,8 @@ cand_order;cand_name;suffix;incumbent;party;precincts_reporting;\
 precincts_voting;votes;votes_pct;votes_office" | \
   cat - <(curl -s --ssl --user media:results ftp://ftp.sos.state.mn.us/20200811/allracesbyprecinct.txt | sed 's/\"/@@/g') > sos/mn_2020_primary_aug_sos__allracesbyprecinct.csv  # Replacing quotes with @@ temporarily, undone after json conversion completed in next step
 
+# TODO: City and School District Races and Questions by Precinct localPrct.txt
+
 # This doesn't currently seem to wkr -- it just gives the current server time. Might need to diff the actual file.
 PRECINCTS_MODIFIED_TIME=$(curl -sI --ssl --user media:results ftp://ftp.sos.state.mn.us/20200811/allracesbyprecinct.txt | grep -i Last-Modified | sed 's/Last-Modified: //g' | date | date '+%Y-%m-%dT%H:%M:%S')
 echo $PRECINCTS_MODIFIED_TIME
