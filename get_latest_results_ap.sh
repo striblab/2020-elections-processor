@@ -4,11 +4,11 @@ set -o allexport; source .env; set +o allexport
 # Hey when this is really real be sure to turn off the --test flag
 
 # For Minnesota March primary
-ELECTION_DATE="03-03-2020"
+ELECTION_DATE="08-11-2020"
 STATE_NAME="Minnesota"
-RACE_ID="25869"
-# TEST=' --test'
-TEST=''
+# RACE_ID="25869"
+TEST=' --test'
+# TEST=''
 MANUAL_WINNER=""  # Use this to override an AP race call (or lack thereof)
 
 # For New Hampshire primary
@@ -41,11 +41,10 @@ printf "\n\n"
 
 # Get latest results, send to date-stamped file
 # echo $ELEX_INSTALLATION_PREFIX/elex results $ELECTION_DATE --results-level ru$TEST --raceids $RACE_ID -o json
-$ELEX_INSTALLATION_PREFIX/elex results $ELECTION_DATE --results-level ru$TEST --raceids $RACE_ID -o json \
+$ELEX_INSTALLATION_PREFIX/elex results $ELECTION_DATE --results-level ru$TEST -o json \
 | jq -c "[
     .[]
     | select(.statename == \"$STATE_NAME\" )
-    | select(.officename == \"President\")
     | select(.level == \"state\" or .level == \"county\")
     | {
       officename: .officename,
