@@ -7,7 +7,6 @@ download_datetime=$(date '+%Y%m%d%H%M%S');
 update_datetime=$(date '+%Y-%m-%dT%H:%M:%S');  # For use in JSON
 
 TMPFILE=$(mktemp "/tmp/results-sos-statewide-$download_datetime.json.XXXXXXX")
-# curl_easy_setopt(curl, CURLOPT_FILETIME, 1);
 
 # Summary data
 echo "Downloading U.S. House results, start summary file ..." &&
