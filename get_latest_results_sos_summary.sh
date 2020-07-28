@@ -51,12 +51,10 @@ FIRST_LEVEL="$(cat $TMPFILE | jq '[.[]][0].level')"
 if [ $FIRST_LEVEL == '"statewide"' ]; then
   echo "Seems to be JSON in expected AP-like format. Checking for changes from last version."
 
-  # cat $TMPFILE | ndjson-split | ndjson-map 'd.votecount,d.precinctsreporting' | ndjson-reduce 'p.push(d), p' '[]'> wtf.txt
-
   if test -f $LATEST_FILE; then
       echo "Checking for differences with last file..."
-      new_comparison="$(cat $TMPFILE | ndjson-split | ndjson-map '{"votecount": d.votecount, "precinctsreporting": d.precinctsreporting}')"
-      existing_comparison="$(cat $LATEST_FILE | ndjson-split | ndjson-map '{"votecount": d.votecount, "precinctsreporting": d.precinctsreporting}')"
+      new_comparison="$(cat $TMPFILE | ndjson-split | ndjson-map '{"vc": d.votecount, "pr": d.precinctsreporting}')"
+      existing_comparison="$(cat $LATEST_FILE | ndjson-split | ndjson-map '{"vc": d.votecount, "pr": d.precinctsreporting}')"
 
       if  [[ "$new_comparison" == "$existing_comparison" ]]; then
          echo "File unchanged. No upload will be attempted."
