@@ -19,7 +19,7 @@ echo "Downloading U.S. Senate results, append to summary file ..." &&
 curl -s --ftp-ssl --user media:results ftp://ftp.sos.state.mn.us/20200811/ussenate.txt | sed -e 's/$/;U.S. Senate/' >> sos/mn_2020_primary_aug_sos__statewide.csv
 
 echo "Downloading MN Senate results, append to summary file ..." &&
-curl -s --ftp-ssl --user media:results ftp://ftp.sos.state.mn.us/20200811/stsenate.txt | sed -e 's/$/;MN State Senate/' >> sos/mn_2020_primary_aug_sos__statewide.csv
+curl -s --ftp-ssl --user media:results ftp://ftp.sos.state.mn.us/20200811/stsenate.txt | textutil -cat txt -stdin -stdout -encoding utf-8 | sed -e 's/DuprÈ/Dupré/' | sed -e 's/$/;MN State Senate/' >> sos/mn_2020_primary_aug_sos__statewide.csv
 
 echo "Downloading MN House results, append to summary file ..." &&
 curl -s --ftp-ssl --user media:results ftp://ftp.sos.state.mn.us/20200811/LegislativeByDistrict.txt | sed -e 's/$/;MN State House/' >> sos/mn_2020_primary_aug_sos__statewide.csv
@@ -37,7 +37,8 @@ csv2json -s ";" sos/mn_2020_primary_aug_sos__statewide.csv | \
   ndjson-split > sos/mn_2020_primary_aug_sos__statewide.ndjson
 
 cat sos/mn_2020_primary_aug_sos__statewide.ndjson | \
-  ndjson-map "{'statepostal': 'MN', 'full_name': d.cand_name, 'votecount': d.votes, 'votepct': d.votes_pct, 'winner': false, 'level': 'statewide', 'officename': d.officetype, 'precinctsreporting': d.precincts_reporting, 'precinctstotal': d.precincts_voting, 'precinctsreportingpct': (d.precincts_reporting / d.precincts_voting).toFixed(2), 'seatname': d.office_name, 'fipscode': null, 'county_id_sos': d.county_id, 'lastupdated': '$update_datetime'}" | \
+  ndjson-map "{'officename': d.officetype, 'statepostal': 'MN', 'full_name': d.cand_name, 'party': d.party, 'votecount': d.votes, 'votepct': d.votes_pct, 'winner': false, 'level': 'statewide', 'precinctsreporting': d.precincts_reporting, 'precinctstotal': d.precincts_voting, 'precinctsreportingpct': (d.precincts_reporting / d.precincts_voting).toFixed(2), 'seatname': d.office_name, 'fipscode': null, 'county_id_sos': d.county_id, 'lastupdated': '$update_datetime'}" | \
+  ndjson-filter 'd.party == "DFL" || d.party == "R"' | \
   ndjson-reduce 'p.push(d), p' '[]' > $TMPFILE
 
 printf "\n\n"

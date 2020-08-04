@@ -7,32 +7,33 @@ download_datetime=$(date '+%Y%m%d%H%M%S');
 update_datetime=$(date '+%Y-%m-%dT%H:%M:%S');  # For use in JSON
 
 TMPFILE=$(mktemp "/tmp/results-sos-precinct-$download_datetime.json.XXXXXXX")
-# curl_easy_setopt(curl, CURLOPT_FILETIME, 1);
+
+# Make json/csv directories if they don't exist
+[ -d json ] || mkdir json
+[ -d csv ] || mkdir csv
 
 echo "Downloading precinct results ..." &&
 echo "state;county_id;precinct_id;office_id;office_name;district;\
 cand_order;cand_name;suffix;incumbent;party;precincts_reporting;\
 precincts_voting;votes;votes_pct;votes_office" | \
-  cat - <(curl -s --ssl --user media:results ftp://ftp.sos.state.mn.us/20200811/allracesbyprecinct.txt | sed 's/\"/@@/g') > sos/mn_2020_primary_aug_sos__allracesbyprecinct.csv  # Replacing quotes with @@ temporarily, undone after json conversion completed in next step
+  cat - <(curl -s --ssl --user media:results ftp://ftp.sos.state.mn.us/20200811/allracesbyprecinct.txt | textutil -cat txt -stdin -stdout -encoding utf-8 | sed -e 's/DuprÈ/Dupré/' | sed 's/\"/@@/g') > sos/mn_2020_primary_aug_sos__allracesbyprecinct.csv  # Replacing quotes with @@ temporarily, undone after json conversion completed in next step
 
 echo "Downloading city and school district races, append to precincts file ..." &&
-curl -s --ftp-ssl --user media:results ftp://ftp.sos.state.mn.us/20200811/localPrct.txt | sed 's/\"/@@/g' >> sos/mn_2020_primary_aug_sos__allracesbyprecinct.csv
+curl -s --ftp-ssl --user media:results ftp://ftp.sos.state.mn.us/20200811/localPrct.txt | textutil -cat txt -stdin -stdout -encoding utf-8  | sed 's/\"/@@/g' >> sos/mn_2020_primary_aug_sos__allracesbyprecinct.csv
 
 csv2json -s ";" sos/mn_2020_primary_aug_sos__allracesbyprecinct.csv | \
   sed 's/@@/\\"/g' | \
   ndjson-cat | \
   ndjson-split > sos/mn_2020_primary_aug_sos__allracesbyprecinct.ndjson
 
-# TODO: Filter and tag with level/office type
-
 cat sos/mn_2020_primary_aug_sos__allracesbyprecinct.ndjson | \
-  ndjson-map "{'officename': d.office_name, 'statepostal': 'MN', 'full_name': d.cand_name, 'votecount': d.votes, 'votepct': d.votes_pct, 'winner': false, 'level': 'precinct', 'seatname': d.office_name, 'fipscode': null, 'county_id_sos': d.county_id, 'lastupdated': '$update_datetime'}" | \
+  ndjson-map "{'officename': (d.office_name == 'U.S. Senator' ? 'U.S. Senate' : d.office_name.indexOf('U.S. Representative') != -1 ? 'U.S. House' : d.office_name.indexOf('State Representative') != -1 ? 'State House' : d.office_name.indexOf('State Senator') != -1 ? 'State Senate' : d.office_name.indexOf('QUESTION') != -1 ? 'Question' : 'Local'), 'seatname': d.office_name, 'full_name': d.cand_name, 'party': d.party, 'votecount': d.votes, 'votepct': d.votes_pct, 'winner': false, 'level': 'precinct', 'fipscode': null, 'county_id_sos': d.county_id, 'lastupdated': '$update_datetime'}" | \
+  ndjson-filter 'd.party == "DFL" || d.party == "R"' | \
   ndjson-reduce 'p.push(d), p' '[]' > $TMPFILE
 
-printf "\n\n"
+json2csv -i $TMPFILE > csv/results-sos-precinct-latest.csv
 
-# Make json directory if it doesn't exist
-[ -d json ] || mkdir json
+printf "\n\n"
 
 bool_update=false
 # Test that this is a seemingly valid file
