@@ -46,15 +46,17 @@ printf "\n\n"
 $ELEX_INSTALLATION_PREFIX/elex results $ELECTION_DATE --results-level $RESULTS_LEVEL$TEST -o json \
 | jq -c "[
     .[]
-    | select(.statename == \"$STATE_NAME\" )
-    | select(.level == \"state\" or .level == \"county\")
-
-    | {
+    | select(
+      (.statename == \"$STATE_NAME\")
+      and (.level == \"state\" or .level == \"county\")
+      and (.officename | contains(\"Court\") | not )
+    ) | {
       officename: .officename,
       statepostal: .statepostal,
       first: .first,
       last: .last,
       party: .party,
+      uncontested: .uncontested,
       votecount: .votecount,
       votepct: .votepct,
       winner: .winner,
@@ -70,6 +72,7 @@ $ELEX_INSTALLATION_PREFIX/elex results $ELECTION_DATE --results-level $RESULTS_L
     }
 ]
 | [.[] | .manual_winner = false]
+| [.[] | .winner = false]  # Override AP winner calls for now
 | [.[]]" > $TMPFILE
 
     # | select(.uncontested == false)
@@ -103,7 +106,7 @@ if [ $FIRST_LEVEL == '"state"' ]; then
      --content-encoding gzip
 
      # Push timestamped to s3
-     gzip -vc $TMPFILE | aws s3 cp - "s3://$ELEX_S3_URL/json/results-$download_datetime.json" \
+     gzip -vc $TMPFILE | aws s3 cp - "s3://$ELEX_S3_URL/json/versions/results-$download_datetime.json" \
      --profile $AWS_PROFILE_NAME \
      --acl public-read \
      --content-type=application/json \

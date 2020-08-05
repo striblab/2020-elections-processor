@@ -38,6 +38,7 @@ csv2json -s ";" sos/mn_2020_primary_aug_sos__statewide.csv | \
 
 cat sos/mn_2020_primary_aug_sos__statewide.ndjson | \
   ndjson-map "{'officename': d.officetype, 'statepostal': 'MN', 'full_name': d.cand_name, 'party': d.party, 'votecount': d.votes, 'votepct': d.votes_pct, 'winner': false, 'level': 'statewide', 'precinctsreporting': d.precincts_reporting, 'precinctstotal': d.precincts_voting, 'precinctsreportingpct': (d.precincts_reporting / d.precincts_voting).toFixed(2), 'seatname': d.office_name, 'fipscode': null, 'county_id_sos': d.county_id, 'lastupdated': '$update_datetime'}" | \
+  # ndjson-filter 'd.party == "DFL" || d.party == "R" || d.party == "NP"' | \
   ndjson-filter 'd.party == "DFL" || d.party == "R"' | \
   ndjson-reduce 'p.push(d), p' '[]' > $TMPFILE
 
@@ -79,7 +80,7 @@ if [ $FIRST_LEVEL == '"statewide"' ]; then
     --content-encoding gzip
 
     # Push timestamped to s3
-    gzip -vc $LATEST_FILE | aws s3 cp - "s3://$ELEX_S3_URL/json/results-sos-statewide-$download_datetime.json" \
+    gzip -vc $LATEST_FILE | aws s3 cp - "s3://$ELEX_S3_URL/json/versions/results-sos-statewide-$download_datetime.json" \
     --profile $AWS_PROFILE_NAME \
     --acl public-read \
     --content-type=application/json \
