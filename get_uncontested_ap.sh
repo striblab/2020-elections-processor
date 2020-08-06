@@ -53,6 +53,7 @@ $ELEX_INSTALLATION_PREFIX/elex results $ELECTION_DATE --results-level $RESULTS_L
       first: .first,
       last: .last,
       party: .party,
+      incumbent: .incumbent,
       level: .level,
       seatname: .seatname,
       reportingunitid: .reportingunitid,
@@ -81,7 +82,7 @@ if [ $FIRST_LEVEL == '"state"' ]; then
      --content-encoding gzip
 
      # Push timestamped to s3
-     gzip -vc $TMPFILE | aws s3 cp - "s3://$ELEX_S3_URL/json/uncontested-$download_datetime.json" \
+     gzip -vc $TMPFILE | aws s3 cp - "s3://$ELEX_S3_URL/json/versions/uncontested-$download_datetime.json" \
      --profile $AWS_PROFILE_NAME \
      --acl public-read \
      --content-type=application/json \

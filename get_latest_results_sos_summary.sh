@@ -24,8 +24,8 @@ curl -s --ftp-ssl --user media:results ftp://ftp.sos.state.mn.us/20200811/stsena
 echo "Downloading MN House results, append to summary file ..." &&
 curl -s --ftp-ssl --user media:results ftp://ftp.sos.state.mn.us/20200811/LegislativeByDistrict.txt | sed -e 's/$/;MN State House/' >> sos/mn_2020_primary_aug_sos__statewide.csv
 
-echo "Downloading city results, append to summary file ..." &&
-curl -s --ftp-ssl --user media:results ftp://ftp.sos.state.mn.us/20200811/local.txt | sed -e 's/$/;Local/' >> sos/mn_2020_primary_aug_sos__statewide.csv
+# echo "Downloading city results, append to summary file ..." &&
+# curl -s --ftp-ssl --user media:results ftp://ftp.sos.state.mn.us/20200811/local.txt | sed -e 's/$/;Local/' >> sos/mn_2020_primary_aug_sos__statewide.csv
 
 echo "Replacing quotes temporarily..."
 sed -i .bak 's/\"/@@/g' sos/mn_2020_primary_aug_sos__statewide.csv

@@ -31,9 +31,9 @@ MANUAL_WINNER=""  # Use this to override an AP race call (or lack thereof)
 
 download_datetime=$(date '+%Y%m%d%H%M%S');
 
-LATEST_FILE=json/results-latest.json
+LATEST_FILE=json/incumbents-ap.json
 
-TMPFILE=$(mktemp "/tmp/results-$download_datetime.json.XXXXXXX")
+TMPFILE=$(mktemp "/tmp/incumbents-$download_datetime.json.XXXXXXX")
 
 printf "\n\n"
 
@@ -42,51 +42,25 @@ printf "\n\n"
 
 # Get latest results, send to date-stamped file
 # echo $ELEX_INSTALLATION_PREFIX/elex results $ELECTION_DATE --results-level ru$TEST --raceids $RACE_ID -o json
-# elex results 08-11-2020 --results-level state --test -o json
 $ELEX_INSTALLATION_PREFIX/elex results $ELECTION_DATE --results-level $RESULTS_LEVEL$TEST -o json \
 | jq -c "[
     .[]
-    | select(
-      (.statename == \"$STATE_NAME\")
-      and (.level == \"state\" or .level == \"county\")
-      and (.officename | contains(\"Court\") | not )
-    ) | {
+    | select(.statename == \"$STATE_NAME\" )
+    | select(.level == \"state\" or .level == \"county\")
+    | select(.incumbent == true)
+    | {
       officename: .officename,
-      statepostal: .statepostal,
       first: .first,
       last: .last,
       party: .party,
-      uncontested: .uncontested,
-      incumbent: .incumbent,
-      votecount: .votecount,
-      votepct: .votepct,
-      winner: .winner,
       level: .level,
-      precinctsreporting: .precinctsreporting,
-      precinctstotal: .precinctstotal,
-      precinctsreportingpct: .precinctsreportingpct,
       seatname: .seatname,
-      fipscode: .fipscode,
       reportingunitid: .reportingunitid,
       reportingunitname: .reportingunitname,
       lastupdated: .lastupdated
     }
 ]
-| [.[] | .manual_winner = false]
-| [.[] | .winner = false]  # Override AP winner calls for now
 | [.[]]" > $TMPFILE
-
-    # | select(.uncontested == false)
-
-# Use these to undeclare an AP winner and/or declare a manual winner
-# | [.[] | .winner = false]
-# | . |= map(if .last == \"$MANUAL_WINNER\" then (.manual_winner=true) else . end)
-
-# Use this to zero out before live results come in
-#| [.[] | .lastupdated = \"2020-02-27 12:00:00\"] | [.[] | .votecount = 0] | [.[] | .votepct = 0] | [.[] | .winner = false] | [.[] | .precinctsreporting = 0 | .precinctsreportingpct = 0]
-
-# Use this to hardcode something else for testing
-# | [.[] | .lastupdated = \"1988-01-01 00:00:00\"] | [.[] | .votecount = 7500] | [.[] | .precinctsreporting = 66 | .precinctsreportingpct = 0.66]
 
 # Test that this is a seemingly valid file
 FIRST_LEVEL="$(cat $TMPFILE | jq '[.[]][0].level')"
@@ -107,14 +81,14 @@ if [ $FIRST_LEVEL == '"state"' ]; then
      --content-encoding gzip
 
      # Push timestamped to s3
-     gzip -vc $TMPFILE | aws s3 cp - "s3://$ELEX_S3_URL/json/versions/results-$download_datetime.json" \
+     gzip -vc $TMPFILE | aws s3 cp - "s3://$ELEX_S3_URL/json/versions/incumbents-$download_datetime.json" \
      --profile $AWS_PROFILE_NAME \
      --acl public-read \
      --content-type=application/json \
      --content-encoding gzip
 
      # Make local timestamped file for new changed version
-     cp $TMPFILE "json/results-$download_datetime.json"
+     cp $TMPFILE "json/incumbents-$download_datetime.json"
   fi
 
    # Check response headers
