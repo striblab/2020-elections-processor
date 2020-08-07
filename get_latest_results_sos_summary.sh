@@ -13,16 +13,16 @@ echo "Downloading U.S. House results, start summary file ..." &&
 echo "state;county_id;precinct_id;office_id;office_name;district;\
 cand_order;cand_name;suffix;incumbent;party;precincts_reporting;\
 precincts_voting;votes;votes_pct;votes_office;officetype" | \
-  cat - <(curl -s --ssl --ssl --user media:results ftp://ftp.sos.state.mn.us/20200811/ushouse.txt | sed -e 's/$/;U.S. House/') > sos/mn_2020_primary_aug_sos__statewide.csv
+  cat - <(curl -s $ALLOW_INSECURE --ssl --user media:results ftp://ftp.sos.state.mn.us/20200811/ushouse.txt | sed -e 's/$/;U.S. House/') > sos/mn_2020_primary_aug_sos__statewide.csv
 
 echo "Downloading U.S. Senate results, append to summary file ..." &&
-curl -s --ssl --ssl --user media:results ftp://ftp.sos.state.mn.us/20200811/ussenate.txt | sed -e 's/$/;U.S. Senate/' >> sos/mn_2020_primary_aug_sos__statewide.csv
+curl -s $ALLOW_INSECURE --ssl --user media:results ftp://ftp.sos.state.mn.us/20200811/ussenate.txt | sed -e 's/$/;U.S. Senate/' >> sos/mn_2020_primary_aug_sos__statewide.csv
 
 echo "Downloading MN Senate results, append to summary file ..." &&
-curl -s --ssl --ssl --user media:results ftp://ftp.sos.state.mn.us/20200811/stsenate.txt | textutil -cat txt -stdin -stdout -encoding utf-8 | sed -e 's/DuprÈ/Dupré/' | sed -e 's/$/;MN State Senate/' >> sos/mn_2020_primary_aug_sos__statewide.csv
+curl -s $ALLOW_INSECURE --ssl --user media:results ftp://ftp.sos.state.mn.us/20200811/stsenate.txt | textutil -cat txt -stdin -stdout -encoding utf-8 | sed -e 's/DuprÈ/Dupré/' | sed -e 's/$/;MN State Senate/' >> sos/mn_2020_primary_aug_sos__statewide.csv
 
 echo "Downloading MN House results, append to summary file ..." &&
-curl -s --ssl --ssl --user media:results ftp://ftp.sos.state.mn.us/20200811/LegislativeByDistrict.txt | sed -e 's/$/;MN State House/' >> sos/mn_2020_primary_aug_sos__statewide.csv
+curl -s $ALLOW_INSECURE --ssl --user media:results ftp://ftp.sos.state.mn.us/20200811/LegislativeByDistrict.txt | sed -e 's/$/;MN State House/' >> sos/mn_2020_primary_aug_sos__statewide.csv
 
 # echo "Downloading city results, append to summary file ..." &&
 # curl -s --ftp-ssl --user media:results ftp://ftp.sos.state.mn.us/20200811/local.txt | sed -e 's/$/;Local/' >> sos/mn_2020_primary_aug_sos__statewide.csv

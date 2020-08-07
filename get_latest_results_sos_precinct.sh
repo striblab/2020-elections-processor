@@ -18,10 +18,10 @@ echo "Downloading precinct results ..." &&
 echo "state;county_id;precinct_id;office_id;office_name;district;\
 cand_order;cand_name;suffix;incumbent;party;precincts_reporting;\
 precincts_voting;votes;votes_pct;votes_office" | \
-  cat - <(curl -s $ALLOW_INSECURE--ssl --user media:results ftp://ftp.sos.state.mn.us/20200811/allracesbyprecinct.txt | textutil -cat txt -stdin -stdout -encoding utf-8 | sed -e 's/DuprÈ/Dupré/' | sed 's/\"/@@/g') > sos/mn_2020_primary_aug_sos__allracesbyprecinct.csv  # Replacing quotes with @@ temporarily, undone after json conversion completed in next step
+  cat - <(curl -s $ALLOW_INSECURE --ssl --user media:results ftp://ftp.sos.state.mn.us/20200811/allracesbyprecinct.txt | textutil -cat txt -stdin -stdout -encoding utf-8 | sed -e 's/DuprÈ/Dupré/' | sed 's/\"/@@/g') > sos/mn_2020_primary_aug_sos__allracesbyprecinct.csv  # Replacing quotes with @@ temporarily, undone after json conversion completed in next step
 
 echo "Downloading city and school district races, append to precincts file ..." &&
-curl -s $ALLOW_INSECURE--ssl --user media:results ftp://ftp.sos.state.mn.us/20200811/localPrct.txt | textutil -cat txt -stdin -stdout -encoding utf-8  | sed 's/\"/@@/g' >> sos/mn_2020_primary_aug_sos__allracesbyprecinct.csv
+curl -s $ALLOW_INSECURE --ssl --user media:results ftp://ftp.sos.state.mn.us/20200811/localPrct.txt | textutil -cat txt -stdin -stdout -encoding utf-8  | sed 's/\"/@@/g' >> sos/mn_2020_primary_aug_sos__allracesbyprecinct.csv
 
 csv2json -s ";" sos/mn_2020_primary_aug_sos__allracesbyprecinct.csv | \
   sed 's/@@/\\"/g' | \
