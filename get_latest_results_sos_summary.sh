@@ -19,7 +19,7 @@ echo "Downloading U.S. Senate results, append to summary file ..." &&
 curl -s $ALLOW_INSECURE --ssl --user media:results ftp://ftp.sos.state.mn.us/20200811/ussenate.txt | sed -e 's/$/;U.S. Senate/' >> sos/mn_2020_primary_aug_sos__statewide.csv
 
 echo "Downloading MN Senate results, append to summary file ..." &&
-curl -s $ALLOW_INSECURE --ssl --user media:results ftp://ftp.sos.state.mn.us/20200811/stsenate.txt | textutil -cat txt -stdin -stdout -encoding utf-8 | sed -e 's/DuprÈ/Dupré/' | sed -e 's/$/;MN State Senate/' >> sos/mn_2020_primary_aug_sos__statewide.csv
+curl -s $ALLOW_INSECURE --ssl --user media:results ftp://ftp.sos.state.mn.us/20200811/stsenate.txt | iconv -f ISO-8859-15 -t UTF-8 | sed -e 's/DuprÈ/Dupré/' | sed -e 's/$/;MN State Senate/' >> sos/mn_2020_primary_aug_sos__statewide.csv
 
 echo "Downloading MN House results, append to summary file ..." &&
 curl -s $ALLOW_INSECURE --ssl --user media:results ftp://ftp.sos.state.mn.us/20200811/LegislativeByDistrict.txt | sed -e 's/$/;MN State House/' >> sos/mn_2020_primary_aug_sos__statewide.csv
