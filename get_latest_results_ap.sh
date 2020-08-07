@@ -73,7 +73,9 @@ $ELEX_INSTALLATION_PREFIX/elex results $ELECTION_DATE --results-level $RESULTS_L
     }
 ]
 | [.[] | .manual_winner = false]
+# Use this to zero out before live results come in
 | [.[] | .winner = false]  # Override AP winner calls for now
+| [.[] | .lastupdated = \"2020-08-07 12:00:00\"] | [.[] | .votecount = 0] | [.[] | .votepct = 0] | [.[] | .winner = false] | [.[] | .precinctsreporting = 0 | .precinctsreportingpct = 0]
 | [.[]]" > $TMPFILE
 
     # | select(.uncontested == false)
