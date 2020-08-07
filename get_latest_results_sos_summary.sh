@@ -28,7 +28,7 @@ curl -s $ALLOW_INSECURE --ssl --user media:results ftp://ftp.sos.state.mn.us/202
 # curl -s --ftp-ssl --user media:results ftp://ftp.sos.state.mn.us/20200811/local.txt | sed -e 's/$/;Local/' >> sos/mn_2020_primary_aug_sos__statewide.csv
 
 echo "Replacing quotes temporarily..."
-sed -i .bak 's/\"/@@/g' sos/mn_2020_primary_aug_sos__statewide.csv
+sed -i $SED_SUFFIX 's/\"/@@/g' sos/mn_2020_primary_aug_sos__statewide.csv
 
 echo "Converting summary file to JSON..." &&
 csv2json -s ";" sos/mn_2020_primary_aug_sos__statewide.csv | \
