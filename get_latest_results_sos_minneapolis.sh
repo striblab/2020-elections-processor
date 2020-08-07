@@ -13,7 +13,7 @@ echo "Downloading city results to summary file ..." &&
 echo "state;county_id;precinct_id;office_id;office_name;district;\
 cand_order;cand_name;suffix;incumbent;party;precincts_reporting;\
 precincts_voting;votes;votes_pct;votes_office;officetype" | \
-  cat - <(curl -s $ALLOW_INSECURE--ftp-ssl --user media:results ftp://ftp.sos.state.mn.us/20200811/local.txt | sed -e 's/$/;Local/') > sos/mn_2020_primary_aug_sos__minneapolis.csv
+  cat - <(curl -s $ALLOW_INSECURE --ftp-ssl --user media:results ftp://ftp.sos.state.mn.us/20200811/local.txt | sed -e 's/$/;Local/') > sos/mn_2020_primary_aug_sos__minneapolis.csv
 
 echo "Replacing quotes temporarily..."
 # sed -i .bak 's/\"/@@/g' sos/mn_2020_primary_aug_sos__minneapolis.csv
