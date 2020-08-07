@@ -28,10 +28,10 @@ cat sos/mn_2020_primary_aug_sos__minneapolis.ndjson | \
   ndjson-filter 'd.office_name.indexOf("(Minneapolis)") != -1' | \
   ndjson-map "{'officename': d.officetype, 'statepostal': 'MN', 'full_name': d.cand_name, 'party_orig': d.party, 'votecount': d.votes, 'votepct': d.votes_pct, 'winner': false, 'level': 'local', 'precinctsreporting': d.precincts_reporting, 'precinctstotal': d.precincts_voting, 'precinctsreportingpct': (d.precincts_reporting / d.precincts_voting).toFixed(2), 'seatname': d.office_name, 'fipscode': null, 'county_id_sos': d.county_id, 'party': (d.cand_name == 'AK Hassan' || d.cand_name == 'Michael P. Dougherty' || d.cand_name == 'Mohamoud Hassan' || d.cand_name == 'Nebiha Mohammed' || d.cand_name == 'Suud Olat' || d.cand_name == 'Jamal Osman' || d.cand_name == 'Alex Palacios' || d.cand_name == 'Saciido Shaie' || d.cand_name == 'Abdirizak Bihi' ? 'DFL' : d.cand_name == 'AJ Awed' ? 'Independent' : d.cand_name == 'Sara Mae Engberg' ? 'Humanity Forward' : d.cand_name == 'Joshua Scheunemann' ? 'Green Party' : ''), 'lastupdated': '$update_datetime'}" | \
   # Temp: zeros
-  ndjson-map 'd.votecount = 0, d' | \
-  ndjson-map 'd.votepct = 0, d' | \
-  ndjson-map 'd.precinctsreporting = 0, d' | \
-  ndjson-map 'd.precinctsreportingpct = 0, d' | \
+  # ndjson-map 'd.votecount = 0, d' | \
+  # ndjson-map 'd.votepct = 0, d' | \
+  # ndjson-map 'd.precinctsreporting = 0, d' | \
+  # ndjson-map 'd.precinctsreportingpct = 0, d' | \
   # End zeros
   ndjson-reduce 'p.push(d), p' '[]' > $TMPFILE
 
