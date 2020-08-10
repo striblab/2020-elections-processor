@@ -3,9 +3,9 @@ import json
 import requests
 
 # officename = 'State Senate'
-# officename = 'State House'
+officename = 'State House'
 # officename = 'U.S. Senate'
-officename = 'U.S. House'
+# officename = 'U.S. House'
 output = ''
 
 sos_statewide_json = 'https://static.startribune.com/elections/projects/2020-election-results/august/json/results-sos-statewide-latest.json'

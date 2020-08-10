@@ -73,6 +73,7 @@ $ELEX_INSTALLATION_PREFIX/elex results $ELECTION_DATE --results-level $RESULTS_L
     }
 ]
 | [.[] | .manual_winner = false]
+| [.[] | .lastupdated = \"2020-02-27 12:00:00\"] | [.[] | .votecount = 888] | [.[] | .votepct = 0] | [.[] | .winner = false] | [.[] | .precinctsreporting = 888 | .precinctsreportingpct = 1]
 | [.[]]" > $TMPFILE
 
     # | select(.uncontested == false)
