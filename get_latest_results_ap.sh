@@ -3,14 +3,23 @@ set -o allexport; source .env; set +o allexport
 
 # Hey when this is really real be sure to turn off the --test flag
 
-# For Minnesota March primary
+# For Minnesota August primary
 ELECTION_DATE="08-11-2020"
 STATE_NAME="Minnesota"
 # RACE_ID="25869"
 RESULTS_LEVEL="state"
-TEST=' --test'
-# TEST=''
+# TEST=' --test'
+TEST=''
 MANUAL_WINNER=""  # Use this to override an AP race call (or lack thereof)
+
+# For Minnesota March primary
+# ELECTION_DATE="03-03-2020"
+# STATE_NAME="Minnesota"
+# RACE_ID="25869"
+# RESULTS_LEVEL="ru"
+# # TEST=' --test'
+# TEST=''
+# MANUAL_WINNER=""  # Use this to override an AP race call (or lack thereof)
 
 # For New Hampshire primary
 # ELECTION_DATE="02-11-2020"
@@ -72,8 +81,6 @@ $ELEX_INSTALLATION_PREFIX/elex results $ELECTION_DATE --results-level $RESULTS_L
       lastupdated: .lastupdated
     }
 ]
-| [.[] | .manual_winner = false]
-| [.[] | .lastupdated = \"2020-02-27 12:00:00\"] | [.[] | .votecount = 888] | [.[] | .votepct = 0] | [.[] | .winner = false] | [.[] | .precinctsreporting = 888 | .precinctsreportingpct = 1]
 | [.[]]" > $TMPFILE
 
     # | select(.uncontested == false)
@@ -128,7 +135,9 @@ if [ $FIRST_LEVEL == '"state"' ]; then
    # curl -I $ELEX_S3_URL/$LATEST_FILE
 
    # Get first entry of uploaded json
-   FIRST_ENTRY=$(curl -s --compressed $ELEX_S3_URL/$LATEST_FILE | jq '[.[]][0]')
+   # FIRST_ENTRY=$(curl -s --compressed $ELEX_S3_URL/$LATEST_FILE | jq '[.[]][0]')
+   # Override: Get an interesting race
+   FIRST_ENTRY=$(curl -s --compressed $ELEX_S3_URL/$LATEST_FILE | jq '[.[] | select(.last == "Omar")][0]')
    if [ "$(echo $FIRST_ENTRY | jq '.level')" == '"state"' ]; then
      echo "$FIRST_ENTRY"
    else
