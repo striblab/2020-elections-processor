@@ -1,89 +1,114 @@
 import re
 import json
 import requests
+import datetime
 
 # officename = 'State Senate'
-officename = 'State House'
+# officename = 'State House'
 # officename = 'U.S. Senate'
 # officename = 'U.S. House'
-output = ''
+for officename in ['U.S. Senate', 'U.S. House', 'State Senate', 'State House']:
 
-sos_statewide_json = 'https://static.startribune.com/elections/projects/2020-election-results/august/json/results-sos-statewide-latest.json'
-ap_statewide_json = 'https://static.startribune.com/elections/projects/2020-election-results/august/json/results-latest.json'
+    filenames = {
+        'State Senate': 'MNSEN',
+        'State House': 'MNHSE',
+        'U.S. Senate': 'USSEN',
+        'U.S. House': 'USHSE',
+    }
 
-def district_finder(input_str):
-    '''Extract district name from our processed SOS json'''
-    district = re.search(r'(District \d+[A-z]*)', input_str)
-    if district:
-        return district.group(1)
-    return input_str
+    output = ''
 
-def party_formatter(party):
-    if party in ['DFL', 'Dem']:
-        return 'D'
-    elif party in ['R', 'GOP']:
-        return 'R'
-    return party
+    sos_statewide_json = 'https://static.startribune.com/elections/projects/2020-election-results/august/json/results-sos-statewide-latest.json'
+    ap_statewide_json = 'https://static.startribune.com/elections/projects/2020-election-results/august/json/results-latest.json'
 
-r = requests.get(ap_statewide_json)
+    def district_finder(input_str):
+        '''Extract district name from our processed SOS json'''
+        district = re.search(r'(District) (\d+)([A-z]*)', input_str)
+        if district:
+            # print(district.group(0))
+            numeric = int(district.group(2))
+            # print(numeric)
+            modifier = district.group(3)
+            # print(modifier)
+            return district.group(0), numeric, modifier
+        return input_str, None, None
 
-if r.ok:
-    matching_results = [row for row in r.json() if row['officename'] == officename]
-    races = {}
+    def party_formatter(party):
+        if party in ['DFL', 'Dem']:
+            return 'D'
+        elif party in ['R', 'GOP']:
+            return 'R'
+        return party
 
-    # Sort by district if it's present
-    if matching_results[0]['seatname']:
-        matching_results = sorted([row for row in r.json() if row['officename'] == officename], key = lambda i: i['seatname'])
+    r = requests.get(ap_statewide_json)
 
-    for m in matching_results:
-        if m['seatname']:
-            seat_name = m['seatname']
-        else:
-            seat_name = m['officename']
+    if r.ok:
+        matching_results = [row for row in r.json() if row['officename'] == officename]
+        races = {}
 
-        if seat_name not in races:
-            races[seat_name] = {'d_cands': [], 'r_cands': []}
+        # Sort by district if it's present
+        if matching_results[0]['seatname']:
+            matching_results = [row for row in r.json() if row['officename'] == officename]
+            for m in matching_results:
+                m['district_full'], m['dist_numeric'], m['dist_modifier'] = district_finder(m['seatname'])
+                # m['seatnum_numeric'] = re.search(r'District (\d+[])')
+            matching_results = sorted([row for row in matching_results], key = lambda i: i['dist_numeric'])
 
-        # Split into parties (for primaries)
-        party = party_formatter(m['party'])
-        if party == 'D':
-            races[seat_name]['d_cands'].append(m)
-        elif party == 'R':
-            races[seat_name]['r_cands'].append(m)
+        for m in matching_results:
+            if m['seatname']:
+                seat_name = m['seatname']
+            else:
+                seat_name = m['officename']
 
-    for k, race in races.items():
-        for party_cands in ['d_cands', 'r_cands']:
-            # Ignore uncontested
-            if len(race[party_cands]) > 1:
-                # Find leader
-                candidates = sorted(race[party_cands], key=lambda i: int(i['votecount']), reverse=True)
-                if candidates[0]['seatname']:
-                    seat = district_finder(candidates[0]['seatname'])
-                else:
-                    seat = candidates[0]['officename']
+            if seat_name not in races:
+                races[seat_name] = {'d_cands': [], 'r_cands': []}
 
-                precinctsreporting = int(candidates[0]['precinctsreporting'])
-                precinctstotal = int(candidates[0]['precinctstotal'])
-                precinctsreportingpct = int(float(candidates[0]['precinctsreportingpct']))
+            # Split into parties (for primaries)
+            party = party_formatter(m['party'])
+            if party == 'D':
+                races[seat_name]['d_cands'].append(m)
+            elif party == 'R':
+                races[seat_name]['r_cands'].append(m)
 
-                output += '@Elex_Head1:{}: {}\n'.format(seat, party_formatter(candidates[0]['party']))
-                output += '@Elex_Precinct:{0} of {1} precincts ({2}%)\n'.format(f'{precinctsreporting:,}', f'{precinctstotal:,}', precinctsreportingpct)
-
-                for c in candidates:
-
-                    if 'full_name' in c:
-                        full_name = c['full_name']
+        for k, race in races.items():
+            for party_cands in ['d_cands', 'r_cands']:
+                # Ignore uncontested
+                if len(race[party_cands]) > 1:
+                    # Find leader
+                    candidates = sorted(race[party_cands], key=lambda i: int(i['votecount']), reverse=True)
+                    if candidates[0]['seatname']:
+                        seat = candidates[0]['district_full']
                     else:
-                        full_name = '{} {}'.format(c['first'], c['last'])
-                    # party = party_formatter(c['party'])
-                    votes = int(c['votecount'])
-                    pct = int(float(c['votepct']))
-                    # Winner?
-                    winner = '<saxo:ch value="226 136 154"/>' if c['winner'] else ''
-                    incumbent = ' (i)' if c['incumbent'] else ''
-                    output += '@Elex_Text_2tabsPlusPct:	{}{}{}	{}	{}%\n'.format(winner, full_name, incumbent, f'{votes:,}', pct)
+                        seat = candidates[0]['officename']
 
-    print(output)
+                    precinctsreporting = int(candidates[0]['precinctsreporting'])
+                    precinctstotal = int(candidates[0]['precinctstotal'])
+                    precinctsreportingpct = round(100 * float(candidates[0]['precinctsreportingpct']))
+
+                    output += '@Elex_Head1:{}: {}\n'.format(seat, party_formatter(candidates[0]['party']))
+                    output += '@Elex_Precinct:{0} of {1} precincts ({2}%)\n'.format(f'{precinctsreporting:,}', f'{precinctstotal:,}', precinctsreportingpct)
+
+                    for c in candidates:
+
+                        if 'full_name' in c:
+                            full_name = c['full_name']
+                        else:
+                            full_name = '{} {}'.format(c['first'], c['last'])
+                        # party = party_formatter(c['party'])
+                        votes = int(c['votecount'])
+                        pct = round(100 * float(c['votepct']))
+                        # Winner?
+                        winner = '<saxo:ch value="226 136 154"/>' if c['winner'] else ''
+                        incumbent = ' (i)' if c['incumbent'] else ''
+                        output += '@Elex_Text_2tabsPlusPct:{}	{}{}	{}	{}%\n'.format(winner, full_name, incumbent, f'{votes:,}', pct)
+
+        # print(output)
+        update_time = datetime.datetime.now()
+        outfile_name = 'txt/ELX_{}_{}_{}.txt'.format(filenames[officename], update_time.strftime('%m%d%y'), update_time.strftime('%H%M'))
+        print('Exporting {}'.format(outfile_name))
+        with open(outfile_name, 'w') as outfile:
+            outfile.write(output)
+            outfile.close()
 
 
 # @Elex_Head1:District 1

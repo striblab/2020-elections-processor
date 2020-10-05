@@ -78,8 +78,8 @@ if [ $FIRST_LEVEL == '"precinct"' ]; then
     --content-type=type=text/csv \
     --content-encoding gzip
 
-    # Check response headers
-    RESPONSE_CODE=$(curl -s -o /dev/null -w "%{http_code}" $ELEX_S3_URL/$LATEST_FILE)
+    # Check response headers ... Might need to add pause for big files
+    RESPONSE_CODE=$(curl --compressed -s -o /dev/null -w "%{http_code}" $ELEX_S3_URL/$LATEST_FILE)
     if [ $RESPONSE_CODE == '200' ]; then
       echo "Successfully test-retrieved 'latest' file from S3."
     else
