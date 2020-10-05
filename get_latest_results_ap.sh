@@ -3,46 +3,29 @@ set -o allexport; source .env; set +o allexport
 
 # Hey when this is really real be sure to turn off the --test flag
 
-# For Minnesota August primary
-ELECTION_DATE="08-11-2020"
+# For Minnesota Nov general
+ELECTION_DATE="2020-11-03"
 STATE_NAME="Minnesota"
 # RACE_ID="25869"
-RESULTS_LEVEL="state"
-# TEST=' --test'
-TEST=''
+RESULTS_LEVEL="ru"
+TEST=' --test'
+# TEST=''
 MANUAL_WINNER=""  # Use this to override an AP race call (or lack thereof)
 
-# For Minnesota March primary
-# ELECTION_DATE="03-03-2020"
+# For Minnesota August primary
+# ELECTION_DATE="08-11-2020"
 # STATE_NAME="Minnesota"
-# RACE_ID="25869"
-# RESULTS_LEVEL="ru"
-# # TEST=' --test'
-# TEST=''
-# MANUAL_WINNER=""  # Use this to override an AP race call (or lack thereof)
-
-# For New Hampshire primary
-# ELECTION_DATE="02-11-2020"
-# STATE_NAME="New Hampshire"
-# RACE_ID="32115"
-# # TEST=' --test'
-# TEST=''
-# # MANUAL_WINNER="Yang"  # Use this to override an AP race call (or lack thereof)
-
-
-# For Iowa Caucuses
-# ELECTION_DATE="02-03-2020"
-# STATE_NAME="Iowa"
-# RACE_ID="17278"
+# # RACE_ID="25869"
+# RESULTS_LEVEL="state"
 # # TEST=' --test'
 # TEST=''
 # MANUAL_WINNER=""  # Use this to override an AP race call (or lack thereof)
 
 download_datetime=$(date '+%Y%m%d%H%M%S');
 
-LATEST_FILE=json/results-latest.json
+LATEST_FILE=json/results-mn-county-latest.json
 
-TMPFILE=$(mktemp "/tmp/results-$download_datetime.json.XXXXXXX")
+TMPFILE=$(mktemp "/tmp/results-mn-county-latest-$download_datetime.json.XXXXXXX")
 
 printf "\n\n"
 
@@ -58,6 +41,7 @@ $ELEX_INSTALLATION_PREFIX/elex results $ELECTION_DATE --results-level $RESULTS_L
     | select(
       (.statename == \"$STATE_NAME\")
       and (.level == \"state\" or .level == \"county\")
+      and (.officename == \"U.S. Senate\" or .officename == \"President\")
       and (.officename | contains(\"Court\") | not )
     ) | {
       officename: .officename,
@@ -114,7 +98,7 @@ if [ $FIRST_LEVEL == '"state"' ]; then
      --content-encoding gzip
 
      # Push timestamped to s3
-     gzip -vc $TMPFILE | aws s3 cp - "s3://$ELEX_S3_URL/json/versions/results-$download_datetime.json" \
+     gzip -vc $TMPFILE | aws s3 cp - "s3://$ELEX_S3_URL/json/versions/results-mn-county-latest-$download_datetime.json" \
      --profile $AWS_PROFILE_NAME \
      --acl public-read \
      --content-type=application/json \
@@ -137,7 +121,7 @@ if [ $FIRST_LEVEL == '"state"' ]; then
    # Get first entry of uploaded json
    # FIRST_ENTRY=$(curl -s --compressed $ELEX_S3_URL/$LATEST_FILE | jq '[.[]][0]')
    # Override: Get an interesting race
-   FIRST_ENTRY=$(curl -s --compressed $ELEX_S3_URL/$LATEST_FILE | jq '[.[] | select(.last == "Omar")][0]')
+   FIRST_ENTRY=$(curl -s --compressed $ELEX_S3_URL/$LATEST_FILE | jq '[.[] | select(.last == "Trump")][0]')
    if [ "$(echo $FIRST_ENTRY | jq '.level')" == '"state"' ]; then
      echo "$FIRST_ENTRY"
    else
