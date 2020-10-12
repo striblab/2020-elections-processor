@@ -1,34 +1,29 @@
 #!/bin/bash
 set -o allexport; source .env; set +o allexport
 
+LATEST_FILE=csv/mn_2020_nov_sos__txt__president_precinct.csv
+
 download_datetime=$(date '+%Y%m%d%H%M%S');
 update_datetime=$(date '+%Y-%m-%dT%H:%M:%S');  # For use in JSON
 
-# LATEST_FILE=json/results-sos-precinct-latest.json
-# TMPFILE=$(mktemp "/tmp/results-sos-precinct-$download_datetime.json.XXXXXXX")
-LATEST_FILE=csv/mn_2020_primary_aug_sos__allracesbyprecinct-latest.csv
-TMPFILE=$(mktemp "/tmp/mn_2020_primary_aug_sos__allracesbyprecinct-$download_datetime.csv.XXXXXXX")
-# TMPFILE_FILTERED=$(mktemp "/tmp/mn_2020_primary_aug_sos__filtered__allracesbyprecinct-$download_datetime.csv.XXXXXXX")
+TMPFILE=$(mktemp "/tmp/mn_2020_nov_sos__txt__president_precinct-$download_datetime.csv.XXXXXXX")
 
 # Make json/csv directories if they don't exist
-# [ -d json ] || mkdir json
 [ -d csv ] || mkdir csv
 
-echo "Downloading precinct results ..." &&
+echo "Downloading presidential precinct results ..." &&
 echo "state;county_id;precinct_id;office_id;office_name;district;\
-cand_order;cand_name;suffix;incumbent;party;precincts_reporting;\
+cand_id;cand_name;suffix;incumbent;party;precincts_reporting;\
 precincts_voting;votes;votes_pct;votes_office" | \
-  cat - <(curl -s $ALLOW_INSECURE --ssl --user media:results ftp://ftp.sos.state.mn.us/20200811/allracesbyprecinct.txt | textutil -cat txt -stdin -stdout -encoding utf-8 | sed -e 's/DuprÈ/Dupré/' | sed 's/\"/@@/g') > sos/mn_2020_primary_aug_sos__allracesbyprecinct.csv  # Replacing quotes with @@ temporarily, undone after json conversion completed in next step
+  cat - <(curl -s $ALLOW_INSECURE --ssl --user media:results ftp://ftp.sos.state.mn.us/20201103/USPresPct.txt | textutil -cat txt -stdin -stdout -encoding utf-8) > sos/mn_2020_nov_sos__txt__filtered__president_precinct.csv
+# cat - <(curl https://electionresultsfiles.sos.state.mn.us/20201103/USPresPct.txt | textutil -cat txt -stdin -stdout -encoding utf-8) > $TMPFILE
 
-echo "Downloading city and school district races, append to precincts file ..." &&
-curl -s $ALLOW_INSECURE --ssl --user media:results ftp://ftp.sos.state.mn.us/20200811/localPrct.txt | textutil -cat txt -stdin -stdout -encoding utf-8  | sed 's/\"/@@/g' >> sos/mn_2020_primary_aug_sos__allracesbyprecinct.csv
-
-csv2json -s ";" sos/mn_2020_primary_aug_sos__allracesbyprecinct.csv | \
+csv2json -s ";" sos/mn_2020_nov_sos__txt__filtered__president_precinct.csv | \
   sed 's/@@/\\"/g' | \
   ndjson-cat | \
-  ndjson-split > sos/mn_2020_primary_aug_sos__allracesbyprecinct.ndjson
+  ndjson-split > sos/mn_2020_nov_sos__txt__filtered__president_precinct.ndjson
 
-cat sos/mn_2020_primary_aug_sos__allracesbyprecinct.ndjson | \
+cat sos/mn_2020_nov_sos__txt__filtered__president_precinct.ndjson | \
   ndjson-map "{'officename': (d.office_name == 'U.S. Senator' ? 'U.S. Senate' : d.office_name.indexOf('U.S. Representative') != -1 ? 'U.S. House' : d.office_name.indexOf('State Representative') != -1 ? 'State House' : d.office_name.indexOf('State Senator') != -1 ? 'State Senate' : d.office_name.indexOf('QUESTION') != -1 ? 'Question' : 'Local'), 'seatname': d.office_name, 'office_id': d.office_id, 'precinct_id': d.precinct_id, 'full_name': d.cand_name, 'party': d.party, 'votecount': d.votes, 'votepct': d.votes_pct, 'winner': false, 'level': 'precinct', 'fipscode': null, 'county_id_sos': d.county_id, 'lastupdated': '$update_datetime'}" | \
   ndjson-filter 'd.party == "DFL" || d.party == "R"' | \
   ndjson-reduce 'p.push(d), p' '[]' |
@@ -72,14 +67,14 @@ if [ $FIRST_LEVEL == '"precinct"' ]; then
     --content-encoding gzip
 
     # Push timestamped to s3
-    gzip -vc $LATEST_FILE | aws s3 cp - "s3://$ELEX_S3_URL/csv/versions/mn_2020_primary_aug_sos__allracesbyprecinct-$download_datetime.csv.gz" \
+    gzip -vc $LATEST_FILE | aws s3 cp - "s3://$ELEX_S3_URL/csv/versions/mn_2020_nov_sos__txt__filtered__president_precinct-$download_datetime.csv.gz" \
     --profile $AWS_PROFILE_NAME \
     --acl public-read \
     --content-type=type=text/csv \
     --content-encoding gzip
 
     # Check response headers ... Might need to add pause for big files
-    RESPONSE_CODE=$(curl --compressed -s -o /dev/null -w "%{http_code}" $ELEX_S3_URL/$LATEST_FILE)
+    RESPONSE_CODE=$(curl --compressed -s -o /dev/null -w "%{http_code}" $ELEX_S3_URL/$LATEST_FILE.gz)
     if [ $RESPONSE_CODE == '200' ]; then
       echo "Successfully test-retrieved 'latest' file from S3."
     else
@@ -87,7 +82,7 @@ if [ $FIRST_LEVEL == '"precinct"' ]; then
     fi
 
     # Get first entry of uploaded json
-    FIRST_ENTRY=$(curl -s --compressed $ELEX_S3_URL/$LATEST_FILE | csv2json | jq '[.[]][0]')
+    FIRST_ENTRY=$(curl -s --compressed $ELEX_S3_URL/$LATEST_FILE.gz | head | csv2json | jq '[.[]][0]')
     if [ "$(echo $FIRST_ENTRY | jq '.level')" == '"precinct"' ]; then
       echo "$FIRST_ENTRY"
     else

@@ -29,13 +29,15 @@ TMPFILE=$(mktemp "/tmp/results-mn-county-latest-$download_datetime.json.XXXXXXX"
 
 printf "\n\n"
 
+printf "Starting AP county update ...\n\n"
+
 # Make json directory if it doesn't exist
 [ -d json ] || mkdir json
 
 # Get latest results, send to date-stamped file
 # echo $ELEX_INSTALLATION_PREFIX/elex results $ELECTION_DATE --results-level ru$TEST --raceids $RACE_ID -o json
 # elex results 08-11-2020 --results-level state --test -o json
-$ELEX_INSTALLATION_PREFIX/elex results $ELECTION_DATE --results-level $RESULTS_LEVEL$TEST -o json \
+$ELEX_INSTALLATION_PREFIX/elex results $ELECTION_DATE --raceids 25151,0 --results-level $RESULTS_LEVEL$TEST -o json \
 | jq -c "[
     .[]
     | select(
