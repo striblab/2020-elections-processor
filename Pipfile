@@ -9,6 +9,7 @@ verify_ssl = true
 elex = "*"
 awscli = "*"
 requests = "*"
+pandas = "*"
 
 [requires]
 python_version = "3.7"

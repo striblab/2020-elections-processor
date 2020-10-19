@@ -30,13 +30,15 @@ printf "Starting AP statewide update ...\n\n"
 # echo $ELEX_INSTALLATION_PREFIX/elex results $ELECTION_DATE --results-level ru$TEST --raceids $RACE_ID -o json
 # elex results 08-11-2020 --results-level state --test -o json
 # echo $ELEX_INSTALLATION_PREFIX/elex results $ELECTION_DATE $TEST -o json
-$ELEX_INSTALLATION_PREFIX/elex results $ELECTION_DATE $TEST -o json \
+
+
+$ELEX_INSTALLATION_PREFIX/elex results $ELECTION_DATE $TEST --results-level state -o json \
 | jq -c "[
     .[]
     | select(
-      (.level == \"state\")
-      and (.officename | contains(\"U.S. House\") | not )
-      and (.officename | contains(\"U.S. Senate\") | not )
+      (.officename | contains(\"U.S. House\") | not )
+      and (.officename != \"U.S. Senate\" )
+      and (.officename != \"President\" )
     ) | {
       officename: .officename,
       statepostal: .statepostal,

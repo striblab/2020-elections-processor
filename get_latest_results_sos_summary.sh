@@ -9,7 +9,7 @@ update_datetime=$(date '+%Y-%m-%dT%H:%M:%S');  # For use in JSON
 TMPFILE=$(mktemp "/tmp/results-sos-statewide-$download_datetime.json.XXXXXXX")
 
 # Summary data
-echo "Starting summery file ..." &&
+echo "Starting SOS local summary file ..." &&
 echo "state;county_id;precinct_id;office_id;office_name;district;\
 cand_order;cand_name;suffix;incumbent;party;precincts_reporting;\
 precincts_voting;votes;votes_pct;votes_office;officetype" > sos/mn_2020_nov_sos__statewide.csv
@@ -25,6 +25,12 @@ precincts_voting;votes;votes_pct;votes_office;officetype" > sos/mn_2020_nov_sos_
 #
 # echo "Downloading MN House results, append to summary file ..." &&
 # curl -s $ALLOW_INSECURE --ssl --user media:results ftp://ftp.sos.state.mn.us/20201103/LegislativeByDistrict.txt | sed -e 's/$/;MN State House/' >> sos/mn_2020_nov_sos__statewide.csv
+
+echo "Downloading supreme/appeals court results, append to summary file ..." &&
+curl -s --ftp-ssl --user media:results ftp://ftp.sos.state.mn.us/20201103/judicial.txt | textutil -cat txt -stdin -stdout -encoding utf-8 | sed -e 's/$/;Supreme and Appeals Court/' >> sos/mn_2020_nov_sos__statewide.csv
+
+echo "Downloading district court results, append to summary file ..." &&
+curl -s --ftp-ssl --user media:results ftp://ftp.sos.state.mn.us/20201103/judicialdst.txt | textutil -cat txt -stdin -stdout -encoding utf-8 | sed -e 's/$/;District Court/' >> sos/mn_2020_nov_sos__statewide.csv
 
 echo "Downloading county results, append to summary file ..." &&
 curl -s --ftp-ssl --user media:results ftp://ftp.sos.state.mn.us/20201103/cntyRaceQuestions.txt | textutil -cat txt -stdin -stdout -encoding utf-8 | sed -e 's/$/;County/' >> sos/mn_2020_nov_sos__statewide.csv

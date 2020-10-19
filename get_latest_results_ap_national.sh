@@ -115,7 +115,7 @@ if [ $FIRST_LEVEL == '"national"' ]; then
    # Get first entry of uploaded json
    # FIRST_ENTRY=$(curl -s --compressed $ELEX_S3_URL/$LATEST_FILE | jq '[.[]][0]')
    # Override: Get an interesting race
-   FIRST_ENTRY=$(curl -s --compressed $ELEX_S3_URL/$LATEST_FILE | jq '[.[]][0]')
+   FIRST_ENTRY=$(curl -s --compressed $ELEX_S3_URL/$LATEST_FILE | jq '[.[] | select(.last == "Trump")][0]')
 
    if [ "$(echo $FIRST_ENTRY | jq '.level')" == '"national"' ]; then
      echo "$FIRST_ENTRY"
