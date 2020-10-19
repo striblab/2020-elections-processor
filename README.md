@@ -44,6 +44,9 @@ pipenv run ./run_live_results.sh
 ### Local requirements (Besides what's in the Pipfile)
 Pipenv
 jc
+d3-geo-projection
+ndjson
+mapshaper
 
 ## Running in production
 So far, getting pipenv to work with crontab seems like a tricky thing. And the only Python thing in this whole script is elex. So for now, I have installed elex globally with pip, then source the .env variables kinda manually at the top of the .sh file.
