@@ -39,7 +39,7 @@ echo "Downloading municipal results, append to summary file ..." &&
 curl -s --ftp-ssl --user media:results ftp://ftp.sos.state.mn.us/20201103/local.txt | textutil -cat txt -stdin -stdout -encoding utf-8 | sed -e 's/$/;Local/' >> sos/mn_2020_nov_sos__statewide.csv
 
 echo "Downloading school board results, append to summary file ..." &&
-curl -s --ftp-ssl --user media:results ftp://ftp.sos.state.mn.us/20201103/sdrace.txt | textutil -cat txt -stdin -stdout -encoding utf-8 | sed -e 's/$/;School/' >> sos/mn_2020_nov_sos__statewide.csv
+curl -s --ftp-ssl --user media:results ftp://ftp.sos.state.mn.us/20201103/SDRaceQuestions.txt | textutil -cat txt -stdin -stdout -encoding utf-8 | sed -e 's/$/;School/' >> sos/mn_2020_nov_sos__statewide.csv
 
 echo "Replacing quotes temporarily..."
 sed -i $SED_SUFFIX 's/\"/@@/g' sos/mn_2020_nov_sos__statewide.csv
