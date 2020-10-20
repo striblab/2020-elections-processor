@@ -7,7 +7,7 @@ update_datetime=$(date '+%Y-%m-%dT%H:%M:%S');  # For use in JSON
 TMPFILE=$(mktemp "/tmp/results-sos-statewide-latest-$download_datetime.json.XXXXXXX")
 LATEST_FILE=sos/results-sos-statewide-latest.csv
 
-CSV_HEADER_ROW="state;county_id_sos;precinct_id;office_id;officename;district;\
+CSV_HEADER_ROW="state;county_id_sos;precinct_id;office_id;seatname;district;\
 cand_order;full_name;suffix;incumbent;party;precinctsreporting;\
 precinctstotal;votecount;votepct;votes_office"
 

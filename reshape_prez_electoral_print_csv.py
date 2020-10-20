@@ -6,11 +6,12 @@ state_lookup_df = pd.read_json('json/state-electoral-votes-and-history.json', or
 state_lookup_df.rename(columns={'abbreviation': 'statepostal', 'name': 'state'}, inplace=True)
 
 def format_pct(raw_pct):
-    pct_whole = round(100 * raw_pct, 1)
-    if int(pct_whole) == 0:
-        return '0%'
-    elif int(pct_whole) == 100:
-        return '100%'
+    # pct_whole = round(100 * raw_pct, 1)
+    # if int(pct_whole) == 0:
+    #     return '0%'
+    # elif int(pct_whole) == 100:
+    #     return '100%'
+    pct_whole = round(100 * raw_pct)
     return '{}%'.format(pct_whole)
 
 def format_electoral(raw_electoral):

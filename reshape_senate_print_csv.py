@@ -3,11 +3,12 @@ import sys
 import pandas as pd
 
 def format_pct(raw_pct):
-    pct_whole = round(100 * raw_pct, 1)
-    if int(pct_whole) == 0:
-        return '0%'
-    elif int(pct_whole) == 100:
-        return '100%'
+    # pct_whole = round(100 * raw_pct, 1)
+    # if int(pct_whole) == 0:
+    #     return '0%'
+    # elif int(pct_whole) == 100:
+    #     return '100%'
+    pct_whole = round(100 * raw_pct)
     return '{}%'.format(pct_whole)
 
 COUNTY_IN_FILE = os.path.join('json', 'results-mn-county-latest.json')
