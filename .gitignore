@@ -129,6 +129,7 @@ dmypy.json
 .pyre/
 
 
-json/
+json/results-*
+json/uncontested-*
 .DS_Store
 sos/
