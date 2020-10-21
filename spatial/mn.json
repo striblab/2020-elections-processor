@@ -1,0 +1,3195 @@
+{
+  "type": "Topology",
+  "bbox": [-97.23920994185768, 43.49935837596137, -89.49163875115984, 49.38435670743772],
+  "transform": {
+    "scale": [0.007755326517215055, 0.005890889220697043],
+    "translate": [-97.23920994185768, 43.49935837596137]
+  },
+  "objects": {
+    "counties": {
+      "type": "GeometryCollection",
+      "geometries": [{
+        "type": "MultiPolygon",
+        "arcs": [
+          [
+            [0, 1, 2, 3]
+          ]
+        ],
+        "properties": {
+          "GEOID": "27077",
+          "NAME": "Lake of the Woods",
+          "STFP": "27",
+          "COFP": "077",
+          "COID": "39",
+          "CONO": 39,
+          "METRO": 0,
+          "AREA": 1783.94,
+          "POP90": 4076,
+          "POP99": 4621,
+          "POP00": null,
+          "Region": null
+        }
+      }, {
+        "type": "MultiPolygon",
+        "arcs": [
+          [
+            [4, 5, 6]
+          ]
+        ],
+        "properties": {
+          "GEOID": "27069",
+          "NAME": "Kittson",
+          "STFP": "27",
+          "COFP": "069",
+          "COID": "35",
+          "CONO": 35,
+          "METRO": 0,
+          "AREA": 1094.946,
+          "POP90": 5767,
+          "POP99": 5175,
+          "POP00": null,
+          "Region": "Farm belt"
+        }
+      }, {
+        "type": "MultiPolygon",
+        "arcs": [
+          [
+            [7, -4, 8, 9, -5]
+          ]
+        ],
+        "properties": {
+          "GEOID": "27135",
+          "NAME": "Roseau",
+          "STFP": "27",
+          "COFP": "135",
+          "COID": "68",
+          "CONO": 68,
+          "METRO": 0,
+          "AREA": 1670.851,
+          "POP90": 15026,
+          "POP99": 16085,
+          "POP00": null,
+          "Region": null
+        }
+      }, {
+        "type": "MultiPolygon",
+        "arcs": [
+          [
+            [10, 11, 12, 13, -2]
+          ]
+        ],
+        "properties": {
+          "GEOID": "27071",
+          "NAME": "Koochiching",
+          "STFP": "27",
+          "COFP": "071",
+          "COID": "36",
+          "CONO": 36,
+          "METRO": 0,
+          "AREA": 3140.86,
+          "POP90": 16299,
+          "POP99": 14895,
+          "POP00": null,
+          "Region": null
+        }
+      }, {
+        "type": "MultiPolygon",
+        "arcs": [
+          [
+            [14, 15, 16, 17, 18, 19, -12]
+          ]
+        ],
+        "properties": {
+          "GEOID": "27137",
+          "NAME": "St. Louis",
+          "STFP": "27",
+          "COFP": "137",
+          "COID": "69",
+          "CONO": 69,
+          "METRO": 0,
+          "AREA": 6750.493,
+          "POP90": 198213,
+          "POP99": 193433,
+          "POP00": null,
+          "Region": null
+        }
+      }, {
+        "type": "MultiPolygon",
+        "arcs": [
+          [
+            [-10, 20, 21, 22, 23, -6]
+          ]
+        ],
+        "properties": {
+          "GEOID": "27089",
+          "NAME": "Marshall",
+          "STFP": "27",
+          "COFP": "089",
+          "COID": "45",
+          "CONO": 45,
+          "METRO": 0,
+          "AREA": 1819.042,
+          "POP90": 10993,
+          "POP99": 10094,
+          "POP00": null,
+          "Region": "Farm belt"
+        }
+      }, {
+        "type": "MultiPolygon",
+        "arcs": [
+          [
+            [-3, -14, 24, 25, 26, 27, 28, -21, -9]
+          ]
+        ],
+        "properties": {
+          "GEOID": "27007",
+          "NAME": "Beltrami",
+          "STFP": "27",
+          "COFP": "007",
+          "COID": "04",
+          "CONO": 4,
+          "METRO": 0,
+          "AREA": 3056.381,
+          "POP90": 34384,
+          "POP99": 39210,
+          "POP00": null,
+          "Region": null
+        }
+      }, {
+        "type": "MultiPolygon",
+        "arcs": [
+          [
+            [29, 30]
+          ]
+        ],
+        "properties": {
+          "GEOID": "27031",
+          "NAME": "Cook",
+          "STFP": "27",
+          "COFP": "031",
+          "COID": "16",
+          "CONO": 16,
+          "METRO": 0,
+          "AREA": 1636.361,
+          "POP90": 3868,
+          "POP99": 4772,
+          "POP00": null,
+          "Region": null
+        }
+      }, {
+        "type": "MultiPolygon",
+        "arcs": [
+          [
+            [-23, 31, 32, 33, 34, 35, 36, 37]
+          ]
+        ],
+        "properties": {
+          "GEOID": "27119",
+          "NAME": "Polk",
+          "STFP": "27",
+          "COFP": "119",
+          "COID": "60",
+          "CONO": 60,
+          "METRO": 0,
+          "AREA": 1981.54,
+          "POP90": 32498,
+          "POP99": 30787,
+          "POP00": null,
+          "Region": "Farm belt"
+        }
+      }, {
+        "type": "MultiPolygon",
+        "arcs": [
+          [
+            [-22, -29, 38, -34, 39, -32]
+          ]
+        ],
+        "properties": {
+          "GEOID": "27113",
+          "NAME": "Pennington",
+          "STFP": "27",
+          "COFP": "113",
+          "COID": "57",
+          "CONO": 57,
+          "METRO": 0,
+          "AREA": 608.078,
+          "POP90": 13306,
+          "POP99": 13557,
+          "POP00": null,
+          "Region": "Farm belt"
+        }
+      }, {
+        "type": "MultiPolygon",
+        "arcs": [
+          [
+            [40, -31, 41, -16]
+          ]
+        ],
+        "properties": {
+          "GEOID": "27075",
+          "NAME": "Lake",
+          "STFP": "27",
+          "COFP": "075",
+          "COID": "38",
+          "CONO": 38,
+          "METRO": 0,
+          "AREA": 2307.448,
+          "POP90": 10415,
+          "POP99": 10765,
+          "POP00": null,
+          "Region": null
+        }
+      }, {
+        "type": "MultiPolygon",
+        "arcs": [
+          [
+            [-39, -28, 42, 43, 44, -35]
+          ]
+        ],
+        "properties": {
+          "GEOID": "27029",
+          "NAME": "Clearwater",
+          "STFP": "27",
+          "COFP": "029",
+          "COID": "15",
+          "CONO": 15,
+          "METRO": 0,
+          "AREA": 1038.306,
+          "POP90": 8309,
+          "POP99": 8146,
+          "POP00": null,
+          "Region": null
+        }
+      }, {
+        "type": "MultiPolygon",
+        "arcs": [
+          [
+            [-40, -33]
+          ]
+        ],
+        "properties": {
+          "GEOID": "27125",
+          "NAME": "Red Lake",
+          "STFP": "27",
+          "COFP": "125",
+          "COID": "63",
+          "CONO": 63,
+          "METRO": 0,
+          "AREA": 429.854,
+          "POP90": 4525,
+          "POP99": 4202,
+          "POP00": null,
+          "Region": "Farm belt"
+        }
+      }, {
+        "type": "MultiPolygon",
+        "arcs": [
+          [
+            [-20, 45, 46, -25, -13]
+          ]
+        ],
+        "properties": {
+          "GEOID": "27061",
+          "NAME": "Itasca",
+          "STFP": "27",
+          "COFP": "061",
+          "COID": "31",
+          "CONO": 31,
+          "METRO": 0,
+          "AREA": 2955.493,
+          "POP90": 40863,
+          "POP99": 44154,
+          "POP00": null,
+          "Region": null
+        }
+      }, {
+        "type": "MultiPolygon",
+        "arcs": [
+          [
+            [47, 48, 49, 50, -37]
+          ]
+        ],
+        "properties": {
+          "GEOID": "27107",
+          "NAME": "Norman",
+          "STFP": "27",
+          "COFP": "107",
+          "COID": "54",
+          "CONO": 54,
+          "METRO": 0,
+          "AREA": 876.449,
+          "POP90": 7975,
+          "POP99": 7517,
+          "POP00": null,
+          "Region": "Farm belt"
+        }
+      }, {
+        "type": "MultiPolygon",
+        "arcs": [
+          [
+            [-36, -45, 51, -48]
+          ]
+        ],
+        "properties": {
+          "GEOID": "27087",
+          "NAME": "Mahnomen",
+          "STFP": "27",
+          "COFP": "087",
+          "COID": "44",
+          "CONO": 44,
+          "METRO": 0,
+          "AREA": 582.62,
+          "POP90": 5044,
+          "POP99": 5091,
+          "POP00": null,
+          "Region": null
+        }
+      }, {
+        "type": "MultiPolygon",
+        "arcs": [
+          [
+            [-47, 52, 53, 54, 55, 56, 57, -26]
+          ]
+        ],
+        "properties": {
+          "GEOID": "27021",
+          "NAME": "Cass",
+          "STFP": "27",
+          "COFP": "021",
+          "COID": "11",
+          "CONO": 11,
+          "METRO": 0,
+          "AREA": 2415.821,
+          "POP90": 21791,
+          "POP99": 27042,
+          "POP00": null,
+          "Region": null
+        }
+      }, {
+        "type": "MultiPolygon",
+        "arcs": [
+          [
+            [-27, -58, 58, 59, -43]
+          ]
+        ],
+        "properties": {
+          "GEOID": "27057",
+          "NAME": "Hubbard",
+          "STFP": "27",
+          "COFP": "057",
+          "COID": "29",
+          "CONO": 29,
+          "METRO": 0,
+          "AREA": 1013.549,
+          "POP90": 14939,
+          "POP99": 17031,
+          "POP00": null,
+          "Region": null
+        }
+      }, {
+        "type": "MultiPolygon",
+        "arcs": [
+          [
+            [60, 61, 62, 63, -50]
+          ]
+        ],
+        "properties": {
+          "GEOID": "27027",
+          "NAME": "Clay",
+          "STFP": "27",
+          "COFP": "027",
+          "COID": "14",
+          "CONO": 14,
+          "METRO": 0,
+          "AREA": 1057.652,
+          "POP90": 50422,
+          "POP99": 51717,
+          "POP00": null,
+          "Region": "Farm belt"
+        }
+      }, {
+        "type": "MultiPolygon",
+        "arcs": [
+          [
+            [-49, -52, -44, -60, 64, 65, -61]
+          ]
+        ],
+        "properties": {
+          "GEOID": "27005",
+          "NAME": "Becker",
+          "STFP": "27",
+          "COFP": "005",
+          "COID": "03",
+          "CONO": 3,
+          "METRO": 0,
+          "AREA": 1444.1,
+          "POP90": 27881,
+          "POP99": 29757,
+          "POP00": null,
+          "Region": null
+        }
+      }, {
+        "type": "MultiPolygon",
+        "arcs": [
+          [
+            [-19, 66, 67, 68, 69, 70, -53, -46]
+          ]
+        ],
+        "properties": {
+          "GEOID": "27001",
+          "NAME": "Aitkin",
+          "STFP": "27",
+          "COFP": "001",
+          "COID": "01",
+          "CONO": 1,
+          "METRO": 0,
+          "AREA": 2002.413,
+          "POP90": 12425,
+          "POP99": 14293,
+          "POP00": null,
+          "Region": null
+        }
+      }, {
+        "type": "MultiPolygon",
+        "arcs": [
+          [
+            [-57, 71, 72, -65, -59]
+          ]
+        ],
+        "properties": {
+          "GEOID": "27159",
+          "NAME": "Wadena",
+          "STFP": "27",
+          "COFP": "159",
+          "COID": "80",
+          "CONO": 80,
+          "METRO": 0,
+          "AREA": 542.992,
+          "POP90": 13154,
+          "POP99": 13238,
+          "POP00": null,
+          "Region": null
+        }
+      }, {
+        "type": "MultiPolygon",
+        "arcs": [
+          [
+            [-71, 73, 74, -54]
+          ]
+        ],
+        "properties": {
+          "GEOID": "27035",
+          "NAME": "Crow Wing",
+          "STFP": "27",
+          "COFP": "035",
+          "COID": "18",
+          "CONO": 18,
+          "METRO": 0,
+          "AREA": 1169.111,
+          "POP90": 44249,
+          "POP99": 52608,
+          "POP00": null,
+          "Region": null
+        }
+      }, {
+        "type": "MultiPolygon",
+        "arcs": [
+          [
+            [75, 76, -67, -18]
+          ]
+        ],
+        "properties": {
+          "GEOID": "27017",
+          "NAME": "Carlton",
+          "STFP": "27",
+          "COFP": "017",
+          "COID": "09",
+          "CONO": 9,
+          "METRO": 0,
+          "AREA": 875.224,
+          "POP90": 29259,
+          "POP99": 31492,
+          "POP00": null,
+          "Region": null
+        }
+      }, {
+        "type": "MultiPolygon",
+        "arcs": [
+          [
+            [-73, 77, 78, 79, 80, -62, -66]
+          ]
+        ],
+        "properties": {
+          "GEOID": "27111",
+          "NAME": "Otter Tail",
+          "STFP": "27",
+          "COFP": "111",
+          "COID": "56",
+          "CONO": 56,
+          "METRO": 0,
+          "AREA": 2224.487,
+          "POP90": 50714,
+          "POP99": 55583,
+          "POP00": null,
+          "Region": null
+        }
+      }, {
+        "type": "MultiPolygon",
+        "arcs": [
+          [
+            [-81, 81, 82, 83, -63]
+          ]
+        ],
+        "properties": {
+          "GEOID": "27167",
+          "NAME": "Wilkin",
+          "STFP": "27",
+          "COFP": "167",
+          "COID": "84",
+          "CONO": 84,
+          "METRO": 0,
+          "AREA": 740.984,
+          "POP90": 7516,
+          "POP99": 7287,
+          "POP00": null,
+          "Region": "Farm belt"
+        }
+      }, {
+        "type": "MultiPolygon",
+        "arcs": [
+          [
+            [-77, 84, 85, 86, -68]
+          ]
+        ],
+        "properties": {
+          "GEOID": "27115",
+          "NAME": "Pine",
+          "STFP": "27",
+          "COFP": "115",
+          "COID": "58",
+          "CONO": 58,
+          "METRO": 0,
+          "AREA": 1432.919,
+          "POP90": 21264,
+          "POP99": 24616,
+          "POP00": null,
+          "Region": null
+        }
+      }, {
+        "type": "MultiPolygon",
+        "arcs": [
+          [
+            [-56, 87, 88, 89, -78, -72]
+          ]
+        ],
+        "properties": {
+          "GEOID": "27153",
+          "NAME": "Todd",
+          "STFP": "27",
+          "COFP": "153",
+          "COID": "77",
+          "CONO": 77,
+          "METRO": 0,
+          "AREA": 987.172,
+          "POP90": 23363,
+          "POP99": 24240,
+          "POP00": null,
+          "Region": null
+        }
+      }, {
+        "type": "MultiPolygon",
+        "arcs": [
+          [
+            [-75, 90, 91, 92, -88, -55]
+          ]
+        ],
+        "properties": {
+          "GEOID": "27097",
+          "NAME": "Morrison",
+          "STFP": "27",
+          "COFP": "097",
+          "COID": "49",
+          "CONO": 49,
+          "METRO": 0,
+          "AREA": 1156.65,
+          "POP90": 29604,
+          "POP99": 30522,
+          "POP00": null,
+          "Region": null
+        }
+      }, {
+        "type": "MultiPolygon",
+        "arcs": [
+          [
+            [-70, 93, 94, 95, 96, -91, -74]
+          ]
+        ],
+        "properties": {
+          "GEOID": "27095",
+          "NAME": "Mille Lacs",
+          "STFP": "27",
+          "COFP": "095",
+          "COID": "48",
+          "CONO": 48,
+          "METRO": 0,
+          "AREA": 661.656,
+          "POP90": 18670,
+          "POP99": 21350,
+          "POP00": null,
+          "Region": null
+        }
+      }, {
+        "type": "MultiPolygon",
+        "arcs": [
+          [
+            [-69, -87, 97, -94]
+          ]
+        ],
+        "properties": {
+          "GEOID": "27065",
+          "NAME": "Kanabec",
+          "STFP": "27",
+          "COFP": "065",
+          "COID": "33",
+          "CONO": 33,
+          "METRO": 0,
+          "AREA": 537.593,
+          "POP90": 12802,
+          "POP99": 14427,
+          "POP00": null,
+          "Region": null
+        }
+      }, {
+        "type": "MultiPolygon",
+        "arcs": [
+          [
+            [98, 99, 100, -82, -80]
+          ]
+        ],
+        "properties": {
+          "GEOID": "27051",
+          "NAME": "Grant",
+          "STFP": "27",
+          "COFP": "051",
+          "COID": "26",
+          "CONO": 26,
+          "METRO": 0,
+          "AREA": 574.763,
+          "POP90": 6246,
+          "POP99": 6077,
+          "POP00": null,
+          "Region": "Farm belt"
+        }
+      }, {
+        "type": "MultiPolygon",
+        "arcs": [
+          [
+            [-90, 101, 102, -99, -79]
+          ]
+        ],
+        "properties": {
+          "GEOID": "27041",
+          "NAME": "Douglas",
+          "STFP": "27",
+          "COFP": "041",
+          "COID": "21",
+          "CONO": 21,
+          "METRO": 0,
+          "AREA": 711.158,
+          "POP90": 28674,
+          "POP99": 31274,
+          "POP00": null,
+          "Region": null
+        }
+      }, {
+        "type": "MultiPolygon",
+        "arcs": [
+          [
+            [-83, -101, 103, 104, 105]
+          ]
+        ],
+        "properties": {
+          "GEOID": "27155",
+          "NAME": "Traverse",
+          "STFP": "27",
+          "COFP": "155",
+          "COID": "78",
+          "CONO": 78,
+          "METRO": 0,
+          "AREA": 581.915,
+          "POP90": 4463,
+          "POP99": 4168,
+          "POP00": null,
+          "Region": "Farm belt"
+        }
+      }, {
+        "type": "MultiPolygon",
+        "arcs": [
+          [
+            [-97, 106, 107, -92]
+          ]
+        ],
+        "properties": {
+          "GEOID": "27009",
+          "NAME": "Benton",
+          "STFP": "27",
+          "COFP": "009",
+          "COID": "05",
+          "CONO": 5,
+          "METRO": 0,
+          "AREA": 401.909,
+          "POP90": 30185,
+          "POP99": 34832,
+          "POP00": null,
+          "Region": "Farm belt"
+        }
+      }, {
+        "type": "MultiPolygon",
+        "arcs": [
+          [
+            [-100, 108, 109, 110, -104]
+          ]
+        ],
+        "properties": {
+          "GEOID": "27149",
+          "NAME": "Stevens",
+          "STFP": "27",
+          "COFP": "149",
+          "COID": "75",
+          "CONO": 75,
+          "METRO": 0,
+          "AREA": 583.976,
+          "POP90": 10634,
+          "POP99": 9973,
+          "POP00": null,
+          "Region": "Farm belt"
+        }
+      }, {
+        "type": "MultiPolygon",
+        "arcs": [
+          [
+            [-89, -93, -108, 111, 112, 113, 114, 115, -102]
+          ]
+        ],
+        "properties": {
+          "GEOID": "27145",
+          "NAME": "Stearns",
+          "STFP": "27",
+          "COFP": "145",
+          "COID": "73",
+          "CONO": 73,
+          "METRO": 0,
+          "AREA": 1390.439,
+          "POP90": 118791,
+          "POP99": 130081,
+          "POP00": null,
+          "Region": "Farm belt"
+        }
+      }, {
+        "type": "MultiPolygon",
+        "arcs": [
+          [
+            [-116, 116, 117, -109, -103]
+          ]
+        ],
+        "properties": {
+          "GEOID": "27121",
+          "NAME": "Pope",
+          "STFP": "27",
+          "COFP": "121",
+          "COID": "61",
+          "CONO": 61,
+          "METRO": 0,
+          "AREA": 718.656,
+          "POP90": 10745,
+          "POP99": 10886,
+          "POP00": null,
+          "Region": "Farm belt"
+        }
+      }, {
+        "type": "MultiPolygon",
+        "arcs": [
+          [
+            [118, 119, 120, -95, -98]
+          ]
+        ],
+        "properties": {
+          "GEOID": "27059",
+          "NAME": "Isanti",
+          "STFP": "27",
+          "COFP": "059",
+          "COID": "30",
+          "CONO": 30,
+          "METRO": 11,
+          "AREA": 463.621,
+          "POP90": 25921,
+          "POP99": 30887,
+          "POP00": null,
+          "Region": null
+        }
+      }, {
+        "type": "MultiPolygon",
+        "arcs": [
+          [
+            [-86, 121, 122, 123, -119]
+          ]
+        ],
+        "properties": {
+          "GEOID": "27025",
+          "NAME": "Chisago",
+          "STFP": "27",
+          "COFP": "025",
+          "COID": "13",
+          "CONO": 13,
+          "METRO": 11,
+          "AREA": 448.905,
+          "POP90": 30521,
+          "POP99": 42302,
+          "POP00": null,
+          "Region": null
+        }
+      }, {
+        "type": "MultiPolygon",
+        "arcs": [
+          [
+            [-111, 124, 125, 126, -105]
+          ]
+        ],
+        "properties": {
+          "GEOID": "27011",
+          "NAME": "Big Stone",
+          "STFP": "27",
+          "COFP": "011",
+          "COID": "06",
+          "CONO": 6,
+          "METRO": 0,
+          "AREA": 530.398,
+          "POP90": 6285,
+          "POP99": 5571,
+          "POP00": null,
+          "Region": "Farm belt"
+        }
+      }, {
+        "type": "MultiPolygon",
+        "arcs": [
+          [
+            [-107, -96, -121, 127, 128, 129, -112]
+          ]
+        ],
+        "properties": {
+          "GEOID": "27141",
+          "NAME": "Sherburne",
+          "STFP": "27",
+          "COFP": "141",
+          "COID": "71",
+          "CONO": 71,
+          "METRO": 9,
+          "AREA": 441.163,
+          "POP90": 41945,
+          "POP99": 63356,
+          "POP00": null,
+          "Region": null
+        }
+      }, {
+        "type": "MultiPolygon",
+        "arcs": [
+          [
+            [-110, -118, 130, 131, 132, -125]
+          ]
+        ],
+        "properties": {
+          "GEOID": "27151",
+          "NAME": "Swift",
+          "STFP": "27",
+          "COFP": "151",
+          "COID": "76",
+          "CONO": 76,
+          "METRO": 0,
+          "AREA": 741.915,
+          "POP90": 10724,
+          "POP99": 11344,
+          "POP00": null,
+          "Region": "Farm belt"
+        }
+      }, {
+        "type": "MultiPolygon",
+        "arcs": [
+          [
+            [-117, -115, 133, 134, 135, -131]
+          ]
+        ],
+        "properties": {
+          "GEOID": "27067",
+          "NAME": "Kandiyohi",
+          "STFP": "27",
+          "COFP": "067",
+          "COID": "34",
+          "CONO": 34,
+          "METRO": 0,
+          "AREA": 857.4,
+          "POP90": 38761,
+          "POP99": 40826,
+          "POP00": null,
+          "Region": "Farm belt"
+        }
+      }, {
+        "type": "MultiPolygon",
+        "arcs": [
+          [
+            [-130, 136, 137, 138, 139, -113]
+          ]
+        ],
+        "properties": {
+          "GEOID": "27171",
+          "NAME": "Wright",
+          "STFP": "27",
+          "COFP": "171",
+          "COID": "86",
+          "CONO": 86,
+          "METRO": 9,
+          "AREA": 717.455,
+          "POP90": 68710,
+          "POP99": 87864,
+          "POP00": null,
+          "Region": null
+        }
+      }, {
+        "type": "MultiPolygon",
+        "arcs": [
+          [
+            [-120, -124, 140, 141, 142, -128]
+          ]
+        ],
+        "properties": {
+          "GEOID": "27003",
+          "NAME": "Anoka",
+          "STFP": "27",
+          "COFP": "003",
+          "COID": "02",
+          "CONO": 2,
+          "METRO": 7,
+          "AREA": 441.843,
+          "POP90": 243641,
+          "POP99": 298948,
+          "POP00": null,
+          "Region": null
+        }
+      }, {
+        "type": "MultiPolygon",
+        "arcs": [
+          [
+            [-140, 143, 144, -134, -114]
+          ]
+        ],
+        "properties": {
+          "GEOID": "27093",
+          "NAME": "Meeker",
+          "STFP": "27",
+          "COFP": "093",
+          "COID": "47",
+          "CONO": 47,
+          "METRO": 0,
+          "AREA": 648.287,
+          "POP90": 20846,
+          "POP99": 21763,
+          "POP00": null,
+          "Region": "Farm belt"
+        }
+      }, {
+        "type": "MultiPolygon",
+        "arcs": [
+          [
+            [-133, 145, 146, 147, -126]
+          ]
+        ],
+        "properties": {
+          "GEOID": "27073",
+          "NAME": "Lac qui Parle",
+          "STFP": "27",
+          "COFP": "073",
+          "COID": "37",
+          "CONO": 37,
+          "METRO": 0,
+          "AREA": 784.372,
+          "POP90": 8924,
+          "POP99": 7813,
+          "POP00": null,
+          "Region": "Farm belt"
+        }
+      }, {
+        "type": "MultiPolygon",
+        "arcs": [
+          [
+            [148, 149, 150, -141, -123]
+          ]
+        ],
+        "properties": {
+          "GEOID": "27163",
+          "NAME": "Washington",
+          "STFP": "27",
+          "COFP": "163",
+          "COID": "82",
+          "CONO": 82,
+          "METRO": 7,
+          "AREA": 432.342,
+          "POP90": 145896,
+          "POP99": 202606,
+          "POP00": null,
+          "Region": null
+        }
+      }, {
+        "type": "MultiPolygon",
+        "arcs": [
+          [
+            [-143, 151, 152, 153, 154, -137, -129]
+          ]
+        ],
+        "properties": {
+          "GEOID": "27053",
+          "NAME": "Hennepin",
+          "STFP": "27",
+          "COFP": "053",
+          "COID": "27",
+          "CONO": 27,
+          "METRO": 7,
+          "AREA": 612.022,
+          "POP90": 1032431,
+          "POP99": 1064419,
+          "POP00": null,
+          "Region": null
+        }
+      }, {
+        "type": "MultiPolygon",
+        "arcs": [
+          [
+            [-132, -136, 155, 156, -146]
+          ]
+        ],
+        "properties": {
+          "GEOID": "27023",
+          "NAME": "Chippewa",
+          "STFP": "27",
+          "COFP": "023",
+          "COID": "12",
+          "CONO": 12,
+          "METRO": 0,
+          "AREA": 598.788,
+          "POP90": 13228,
+          "POP99": 13028,
+          "POP00": null,
+          "Region": "Farm belt"
+        }
+      }, {
+        "type": "MultiPolygon",
+        "arcs": [
+          [
+            [-151, 157, -152, -142]
+          ]
+        ],
+        "properties": {
+          "GEOID": "27123",
+          "NAME": "Ramsey",
+          "STFP": "27",
+          "COFP": "123",
+          "COID": "62",
+          "CONO": 62,
+          "METRO": 7,
+          "AREA": 164.481,
+          "POP90": 485765,
+          "POP99": 486254,
+          "POP00": null,
+          "Region": null
+        }
+      }, {
+        "type": "MultiPolygon",
+        "arcs": [
+          [
+            [158, 159, 160, -144, -139]
+          ]
+        ],
+        "properties": {
+          "GEOID": "27085",
+          "NAME": "McLeod",
+          "STFP": "27",
+          "COFP": "085",
+          "COID": "43",
+          "CONO": 43,
+          "METRO": 0,
+          "AREA": 498.303,
+          "POP90": 32030,
+          "POP99": 34552,
+          "POP00": null,
+          "Region": "Farm belt"
+        }
+      }, {
+        "type": "MultiPolygon",
+        "arcs": [
+          [
+            [-138, -155, 161, 162, -159]
+          ]
+        ],
+        "properties": {
+          "GEOID": "27019",
+          "NAME": "Carver",
+          "STFP": "27",
+          "COFP": "019",
+          "COID": "10",
+          "CONO": 10,
+          "METRO": 7,
+          "AREA": 370.32,
+          "POP90": 47915,
+          "POP99": 67023,
+          "POP00": null,
+          "Region": null
+        }
+      }, {
+        "type": "MultiPolygon",
+        "arcs": [
+          [
+            [163, 164, 165, 166, 167, -147, -157]
+          ]
+        ],
+        "properties": {
+          "GEOID": "27173",
+          "NAME": "Yellow Medicine",
+          "STFP": "27",
+          "COFP": "173",
+          "COID": "87",
+          "CONO": 87,
+          "METRO": 0,
+          "AREA": 764.812,
+          "POP90": 11684,
+          "POP99": 11310,
+          "POP00": null,
+          "Region": "Farm belt"
+        }
+      }, {
+        "type": "MultiPolygon",
+        "arcs": [
+          [
+            [-150, 168, 169, 170, 171, -153, -158]
+          ]
+        ],
+        "properties": {
+          "GEOID": "27037",
+          "NAME": "Dakota",
+          "STFP": "27",
+          "COFP": "037",
+          "COID": "19",
+          "CONO": 19,
+          "METRO": 7,
+          "AREA": 594.227,
+          "POP90": 275227,
+          "POP99": 349131,
+          "POP00": null,
+          "Region": null
+        }
+      }, {
+        "type": "MultiPolygon",
+        "arcs": [
+          [
+            [-145, -161, 172, 173, 174, 175, -164, -156, -135]
+          ]
+        ],
+        "properties": {
+          "GEOID": "27129",
+          "NAME": "Renville",
+          "STFP": "27",
+          "COFP": "129",
+          "COID": "65",
+          "CONO": 65,
+          "METRO": 0,
+          "AREA": 987.093,
+          "POP90": 17673,
+          "POP99": 16808,
+          "POP00": null,
+          "Region": "Farm belt"
+        }
+      }, {
+        "type": "MultiPolygon",
+        "arcs": [
+          [
+            [-172, 176, 177, 178, 179, 180, -162, -154]
+          ]
+        ],
+        "properties": {
+          "GEOID": "27139",
+          "NAME": "Scott",
+          "STFP": "27",
+          "COFP": "139",
+          "COID": "70",
+          "CONO": 70,
+          "METRO": 7,
+          "AREA": 379.913,
+          "POP90": 57846,
+          "POP99": 82994,
+          "POP00": null,
+          "Region": null
+        }
+      }, {
+        "type": "MultiPolygon",
+        "arcs": [
+          [
+            [-181, 181, -179, 182, 183, -173, -160, -163]
+          ]
+        ],
+        "properties": {
+          "GEOID": "27143",
+          "NAME": "Sibley",
+          "STFP": "27",
+          "COFP": "143",
+          "COID": "72",
+          "CONO": 72,
+          "METRO": 0,
+          "AREA": 600.239,
+          "POP90": 14366,
+          "POP99": 14774,
+          "POP00": null,
+          "Region": "Farm belt"
+        }
+      }, {
+        "type": "MultiPolygon",
+        "arcs": [
+          [
+            [-176, 184, 185, 186, 187, -165]
+          ]
+        ],
+        "properties": {
+          "GEOID": "27127",
+          "NAME": "Redwood",
+          "STFP": "27",
+          "COFP": "127",
+          "COID": "64",
+          "CONO": 64,
+          "METRO": 0,
+          "AREA": 881.449,
+          "POP90": 17254,
+          "POP99": 16421,
+          "POP00": null,
+          "Region": "Farm belt"
+        }
+      }, {
+        "type": "MultiPolygon",
+        "arcs": [
+          [
+            [188, 189, 190, 191, 192, -170]
+          ]
+        ],
+        "properties": {
+          "GEOID": "27049",
+          "NAME": "Goodhue",
+          "STFP": "27",
+          "COFP": "049",
+          "COID": "25",
+          "CONO": 25,
+          "METRO": 0,
+          "AREA": 782.31,
+          "POP90": 40690,
+          "POP99": 43367,
+          "POP00": null,
+          "Region": "Farm belt"
+        }
+      }, {
+        "type": "MultiPolygon",
+        "arcs": [
+          [
+            [-167, 193, 194, 195]
+          ]
+        ],
+        "properties": {
+          "GEOID": "27081",
+          "NAME": "Lincoln",
+          "STFP": "27",
+          "COFP": "081",
+          "COID": "41",
+          "CONO": 41,
+          "METRO": 0,
+          "AREA": 546.67,
+          "POP90": 6890,
+          "POP99": 6424,
+          "POP00": null,
+          "Region": "Farm belt"
+        }
+      }, {
+        "type": "MultiPolygon",
+        "arcs": [
+          [
+            [-166, -188, 196, 197, -194]
+          ]
+        ],
+        "properties": {
+          "GEOID": "27083",
+          "NAME": "Lyon",
+          "STFP": "27",
+          "COFP": "083",
+          "COID": "42",
+          "CONO": 42,
+          "METRO": 0,
+          "AREA": 722.64,
+          "POP90": 24789,
+          "POP99": 24256,
+          "POP00": null,
+          "Region": "Farm belt"
+        }
+      }, {
+        "type": "MultiPolygon",
+        "arcs": [
+          [
+            [-178, 198, 199, 200, 201, -183]
+          ]
+        ],
+        "properties": {
+          "GEOID": "27079",
+          "NAME": "Le Sueur",
+          "STFP": "27",
+          "COFP": "079",
+          "COID": "40",
+          "CONO": 40,
+          "METRO": 0,
+          "AREA": 465.895,
+          "POP90": 23239,
+          "POP99": 25464,
+          "POP00": null,
+          "Region": "Farm belt"
+        }
+      }, {
+        "type": "MultiPolygon",
+        "arcs": [
+          [
+            [-177, -171, -193, 202, 203, 204, -199]
+          ]
+        ],
+        "properties": {
+          "GEOID": "27131",
+          "NAME": "Rice",
+          "STFP": "27",
+          "COFP": "131",
+          "COID": "66",
+          "CONO": 66,
+          "METRO": 0,
+          "AREA": 520.534,
+          "POP90": 49183,
+          "POP99": 54988,
+          "POP00": null,
+          "Region": "Farm belt"
+        }
+      }, {
+        "type": "MultiPolygon",
+        "arcs": [
+          [
+            [205, 206, 207, 208, -185, -175]
+          ]
+        ],
+        "properties": {
+          "GEOID": "27015",
+          "NAME": "Brown",
+          "STFP": "27",
+          "COFP": "015",
+          "COID": "08",
+          "CONO": 8,
+          "METRO": 0,
+          "AREA": 618.545,
+          "POP90": 26984,
+          "POP99": 26903,
+          "POP00": null,
+          "Region": "Farm belt"
+        }
+      }, {
+        "type": "MultiPolygon",
+        "arcs": [
+          [
+            [-174, -184, -202, 209, -206]
+          ]
+        ],
+        "properties": {
+          "GEOID": "27103",
+          "NAME": "Nicollet",
+          "STFP": "27",
+          "COFP": "103",
+          "COID": "52",
+          "CONO": 52,
+          "METRO": 0,
+          "AREA": 462.216,
+          "POP90": 28076,
+          "POP99": 29272,
+          "POP00": null,
+          "Region": "Farm belt"
+        }
+      }, {
+        "type": "MultiPolygon",
+        "arcs": [
+          [
+            [210, 211, 212, -190]
+          ]
+        ],
+        "properties": {
+          "GEOID": "27157",
+          "NAME": "Wabasha",
+          "STFP": "27",
+          "COFP": "157",
+          "COID": "79",
+          "CONO": 79,
+          "METRO": 0,
+          "AREA": 553.814,
+          "POP90": 19744,
+          "POP99": 21140,
+          "POP00": null,
+          "Region": "Farm belt"
+        }
+      }, {
+        "type": "MultiPolygon",
+        "arcs": [
+          [
+            [-210, -201, 213, 214, 215, 216, -207]
+          ]
+        ],
+        "properties": {
+          "GEOID": "27013",
+          "NAME": "Blue Earth",
+          "STFP": "27",
+          "COFP": "013",
+          "COID": "07",
+          "CONO": 7,
+          "METRO": 0,
+          "AREA": 767.07,
+          "POP90": 54044,
+          "POP99": 53874,
+          "POP00": null,
+          "Region": "Farm belt"
+        }
+      }, {
+        "type": "MultiPolygon",
+        "arcs": [
+          [
+            [-195, -198, 217, 218, 219]
+          ]
+        ],
+        "properties": {
+          "GEOID": "27117",
+          "NAME": "Pipestone",
+          "STFP": "27",
+          "COFP": "117",
+          "COID": "59",
+          "CONO": 59,
+          "METRO": 0,
+          "AREA": 469.167,
+          "POP90": 10491,
+          "POP99": 9993,
+          "POP00": null,
+          "Region": "Farm belt"
+        }
+      }, {
+        "type": "MultiPolygon",
+        "arcs": [
+          [
+            [-187, 220, 221, 222, -218, -197]
+          ]
+        ],
+        "properties": {
+          "GEOID": "27101",
+          "NAME": "Murray",
+          "STFP": "27",
+          "COFP": "101",
+          "COID": "51",
+          "CONO": 51,
+          "METRO": 0,
+          "AREA": 722.492,
+          "POP90": 9660,
+          "POP99": 9519,
+          "POP00": null,
+          "Region": "Farm belt"
+        }
+      }, {
+        "type": "MultiPolygon",
+        "arcs": [
+          [
+            [-186, -209, 223, 224, 225, -221]
+          ]
+        ],
+        "properties": {
+          "GEOID": "27033",
+          "NAME": "Cottonwood",
+          "STFP": "27",
+          "COFP": "033",
+          "COID": "17",
+          "CONO": 17,
+          "METRO": 0,
+          "AREA": 654.951,
+          "POP90": 12694,
+          "POP99": 11908,
+          "POP00": null,
+          "Region": "Farm belt"
+        }
+      }, {
+        "type": "MultiPolygon",
+        "arcs": [
+          [
+            [226, 227, 228, 229, -212]
+          ]
+        ],
+        "properties": {
+          "GEOID": "27169",
+          "NAME": "Winona",
+          "STFP": "27",
+          "COFP": "169",
+          "COID": "85",
+          "CONO": 85,
+          "METRO": 0,
+          "AREA": 651.26,
+          "POP90": 47828,
+          "POP99": 47785,
+          "POP00": null,
+          "Region": "Farm belt"
+        }
+      }, {
+        "type": "MultiPolygon",
+        "arcs": [
+          [
+            [-200, -205, 230, 231, 232, -214]
+          ]
+        ],
+        "properties": {
+          "GEOID": "27161",
+          "NAME": "Waseca",
+          "STFP": "27",
+          "COFP": "161",
+          "COID": "81",
+          "CONO": 81,
+          "METRO": 0,
+          "AREA": 438.356,
+          "POP90": 18079,
+          "POP99": 18560,
+          "POP00": null,
+          "Region": "Farm belt"
+        }
+      }, {
+        "type": "MultiPolygon",
+        "arcs": [
+          [
+            [233, 234, 235, -231, -204]
+          ]
+        ],
+        "properties": {
+          "GEOID": "27147",
+          "NAME": "Steele",
+          "STFP": "27",
+          "COFP": "147",
+          "COID": "74",
+          "CONO": 74,
+          "METRO": 0,
+          "AREA": 434.572,
+          "POP90": 30729,
+          "POP99": 32061,
+          "POP00": null,
+          "Region": "Farm belt"
+        }
+      }, {
+        "type": "MultiPolygon",
+        "arcs": [
+          [
+            [-192, 236, 237, -234, -203]
+          ]
+        ],
+        "properties": {
+          "GEOID": "27039",
+          "NAME": "Dodge",
+          "STFP": "27",
+          "COFP": "039",
+          "COID": "20",
+          "CONO": 20,
+          "METRO": 0,
+          "AREA": 445.619,
+          "POP90": 15731,
+          "POP99": 17396,
+          "POP00": null,
+          "Region": "Farm belt"
+        }
+      }, {
+        "type": "MultiPolygon",
+        "arcs": [
+          [
+            [-213, -230, 238, 239, -237, -191]
+          ]
+        ],
+        "properties": {
+          "GEOID": "27109",
+          "NAME": "Olmsted",
+          "STFP": "27",
+          "COFP": "109",
+          "COID": "55",
+          "CONO": 55,
+          "METRO": 0,
+          "AREA": 657.404,
+          "POP90": 106470,
+          "POP99": 119077,
+          "POP00": null,
+          "Region": "Farm belt"
+        }
+      }, {
+        "type": "MultiPolygon",
+        "arcs": [
+          [
+            [-208, -217, 240, 241, -224]
+          ]
+        ],
+        "properties": {
+          "GEOID": "27165",
+          "NAME": "Watonwan",
+          "STFP": "27",
+          "COFP": "165",
+          "COID": "83",
+          "CONO": 83,
+          "METRO": 0,
+          "AREA": 444.218,
+          "POP90": 11682,
+          "POP99": 11548,
+          "POP00": null,
+          "Region": "Farm belt"
+        }
+      }, {
+        "type": "MultiPolygon",
+        "arcs": [
+          [
+            [-219, -223, 242, 243]
+          ]
+        ],
+        "properties": {
+          "GEOID": "27133",
+          "NAME": "Rock",
+          "STFP": "27",
+          "COFP": "133",
+          "COID": "67",
+          "CONO": 67,
+          "METRO": 0,
+          "AREA": 481.197,
+          "POP90": 9806,
+          "POP99": 9619,
+          "POP00": null,
+          "Region": "Farm belt"
+        }
+      }, {
+        "type": "MultiPolygon",
+        "arcs": [
+          [
+            [-222, -226, 244, 245, -243]
+          ]
+        ],
+        "properties": {
+          "GEOID": "27105",
+          "NAME": "Nobles",
+          "STFP": "27",
+          "COFP": "105",
+          "COID": "53",
+          "CONO": 53,
+          "METRO": 0,
+          "AREA": 719.3,
+          "POP90": 20098,
+          "POP99": 19113,
+          "POP00": null,
+          "Region": "Farm belt"
+        }
+      }, {
+        "type": "MultiPolygon",
+        "arcs": [
+          [
+            [-242, 246, 247, -245, -225]
+          ]
+        ],
+        "properties": {
+          "GEOID": "27063",
+          "NAME": "Jackson",
+          "STFP": "27",
+          "COFP": "063",
+          "COID": "32",
+          "CONO": 32,
+          "METRO": 0,
+          "AREA": 724.159,
+          "POP90": 11677,
+          "POP99": 11378,
+          "POP00": null,
+          "Region": "Farm belt"
+        }
+      }, {
+        "type": "MultiPolygon",
+        "arcs": [
+          [
+            [-241, -216, 248, 249, -247]
+          ]
+        ],
+        "properties": {
+          "GEOID": "27091",
+          "NAME": "Martin",
+          "STFP": "27",
+          "COFP": "091",
+          "COID": "46",
+          "CONO": 46,
+          "METRO": 0,
+          "AREA": 736.854,
+          "POP90": 22914,
+          "POP99": 21792,
+          "POP00": null,
+          "Region": "Farm belt"
+        }
+      }, {
+        "type": "MultiPolygon",
+        "arcs": [
+          [
+            [-228, 250, 251]
+          ]
+        ],
+        "properties": {
+          "GEOID": "27055",
+          "NAME": "Houston",
+          "STFP": "27",
+          "COFP": "055",
+          "COID": "28",
+          "CONO": 28,
+          "METRO": 0,
+          "AREA": 574.357,
+          "POP90": 18497,
+          "POP99": 19489,
+          "POP00": null,
+          "Region": "Farm belt"
+        }
+      }, {
+        "type": "MultiPolygon",
+        "arcs": [
+          [
+            [-233, 252, 253, -249, -215]
+          ]
+        ],
+        "properties": {
+          "GEOID": "27043",
+          "NAME": "Faribault",
+          "STFP": "27",
+          "COFP": "043",
+          "COID": "22",
+          "CONO": 22,
+          "METRO": 0,
+          "AREA": 716.245,
+          "POP90": 16937,
+          "POP99": 16247,
+          "POP00": null,
+          "Region": "Farm belt"
+        }
+      }, {
+        "type": "MultiPolygon",
+        "arcs": [
+          [
+            [-252, 254, 255, -239, -229]
+          ]
+        ],
+        "properties": {
+          "GEOID": "27045",
+          "NAME": "Fillmore",
+          "STFP": "27",
+          "COFP": "045",
+          "COID": "23",
+          "CONO": 23,
+          "METRO": 0,
+          "AREA": 866.76,
+          "POP90": 20777,
+          "POP99": 20688,
+          "POP00": null,
+          "Region": "Farm belt"
+        }
+      }, {
+        "type": "MultiPolygon",
+        "arcs": [
+          [
+            [-232, -236, 256, 257, -253]
+          ]
+        ],
+        "properties": {
+          "GEOID": "27047",
+          "NAME": "Freeborn",
+          "STFP": "27",
+          "COFP": "047",
+          "COID": "24",
+          "CONO": 24,
+          "METRO": 0,
+          "AREA": 717.47,
+          "POP90": 33060,
+          "POP99": 31503,
+          "POP00": null,
+          "Region": "Farm belt"
+        }
+      }, {
+        "type": "MultiPolygon",
+        "arcs": [
+          [
+            [-240, -256, 258, -257, -235, -238]
+          ]
+        ],
+        "properties": {
+          "GEOID": "27099",
+          "NAME": "Mower",
+          "STFP": "27",
+          "COFP": "099",
+          "COID": "50",
+          "CONO": 50,
+          "METRO": 0,
+          "AREA": 706.241,
+          "POP90": 37385,
+          "POP99": 37152,
+          "POP00": null,
+          "Region": "Farm belt"
+        }
+      }]
+    }
+  },
+  "arcs": [
+    [
+      [247, 934],
+      [22, 0],
+      [0, 65],
+      [12, -5],
+      [13, 3],
+      [17, -13],
+      [7, -30],
+      [3, -3],
+      [0, -17],
+      [4, 0],
+      [5, -20],
+      [-1, -18],
+      [13, -10],
+      [20, -3]
+    ],
+    [
+      [362, 883],
+      [0, -57]
+    ],
+    [
+      [362, 826],
+      [-100, 0],
+      [-1, 30],
+      [-16, 0]
+    ],
+    [
+      [245, 856],
+      [0, 29],
+      [32, 0],
+      [0, 35],
+      [-19, -6],
+      [-11, 8],
+      [0, 12]
+    ],
+    [
+      [108, 934],
+      [0, -48],
+      [2, 0],
+      [0, -30]
+    ],
+    [
+      [110, 856],
+      [-100, 0]
+    ],
+    [
+      [10, 856],
+      [8, 20],
+      [-10, 36],
+      [-7, 13],
+      [0, 9],
+      [107, 0]
+    ],
+    [
+      [108, 934],
+      [139, 0]
+    ],
+    [
+      [245, 856],
+      [-34, -1]
+    ],
+    [
+      [211, 855],
+      [-101, 1]
+    ],
+    [
+      [362, 883],
+      [16, 2],
+      [8, -10],
+      [52, -4],
+      [6, -19],
+      [19, 0],
+      [23, 5],
+      [1, 7],
+      [15, 6],
+      [18, 3],
+      [15, -2]
+    ],
+    [
+      [535, 871],
+      [-1, -95],
+      [2, -30]
+    ],
+    [
+      [536, 746],
+      [-89, 1],
+      [0, -9],
+      [-83, 0]
+    ],
+    [
+      [364, 738],
+      [0, 29],
+      [-2, 59]
+    ],
+    [
+      [535, 871],
+      [18, 0],
+      [3, -4],
+      [26, -11],
+      [12, 0],
+      [-1, -7],
+      [-9, -6],
+      [7, -5],
+      [19, 2],
+      [7, -8],
+      [-2, -8],
+      [13, -22],
+      [13, 4],
+      [-5, 12],
+      [6, 6],
+      [7, -1],
+      [19, 2],
+      [8, -6],
+      [-1, -10],
+      [6, -5],
+      [8, 0],
+      [13, -6]
+    ],
+    [
+      [702, 798],
+      [-1, -79],
+      [2, -32],
+      [-1, -103]
+    ],
+    [
+      [702, 584],
+      [-37, -27],
+      [7, -9],
+      [-8, 4],
+      [-13, -6],
+      [-3, -11],
+      [-10, 2]
+    ],
+    [
+      [638, 537],
+      [-1, 17],
+      [-98, 1]
+    ],
+    [
+      [539, 555],
+      [0, 44]
+    ],
+    [
+      [539, 599],
+      [-1, 14],
+      [0, 48],
+      [1, 56],
+      [-3, 0],
+      [0, 29]
+    ],
+    [
+      [211, 855],
+      [1, -62]
+    ],
+    [
+      [212, 793],
+      [-52, 0],
+      [-65, 1]
+    ],
+    [
+      [95, 794],
+      [-83, -1]
+    ],
+    [
+      [12, 793],
+      [4, 26],
+      [-6, 12],
+      [4, 2],
+      [-4, 23]
+    ],
+    [
+      [364, 738],
+      [0, -68]
+    ],
+    [
+      [364, 670],
+      [0, -6],
+      [-33, 0]
+    ],
+    [
+      [331, 664],
+      [-66, 0]
+    ],
+    [
+      [265, 664],
+      [-1, 78],
+      [-11, 9],
+      [6, 16],
+      [-45, 0]
+    ],
+    [
+      [214, 767],
+      [-2, 26]
+    ],
+    [
+      [800, 796],
+      [19, 10],
+      [6, -1],
+      [1, -12],
+      [9, -12],
+      [24, 4],
+      [3, -5],
+      [54, 3],
+      [14, -5],
+      [4, -9],
+      [16, -7],
+      [7, 5],
+      [41, -3],
+      [-14, -3],
+      [-24, -16],
+      [-16, -4],
+      [-7, -6],
+      [-36, -10],
+      [-37, -11],
+      [-25, -13],
+      [-37, -28]
+    ],
+    [
+      [802, 673],
+      [0, 72],
+      [-2, 51]
+    ],
+    [
+      [95, 794],
+      [0, -26],
+      [3, -10]
+    ],
+    [
+      [98, 758],
+      [0, -20],
+      [16, 0],
+      [0, -15],
+      [67, 0],
+      [0, 15],
+      [16, 0],
+      [0, 15]
+    ],
+    [
+      [197, 753],
+      [17, 0]
+    ],
+    [
+      [214, 753],
+      [0, -44],
+      [3, 0],
+      [0, -30]
+    ],
+    [
+      [217, 679],
+      [-66, 0]
+    ],
+    [
+      [151, 679],
+      [-101, 0]
+    ],
+    [
+      [50, 679],
+      [0, 16],
+      [-10, 21],
+      [-17, 42],
+      [-1, 14],
+      [-10, 16],
+      [0, 5]
+    ],
+    [
+      [214, 767],
+      [0, -14]
+    ],
+    [
+      [197, 753],
+      [0, 5],
+      [-99, 0]
+    ],
+    [
+      [702, 798],
+      [10, 0],
+      [2, -10],
+      [8, -8],
+      [10, 2],
+      [-1, -11],
+      [10, 5],
+      [8, -4],
+      [23, 6],
+      [22, 17],
+      [6, 1]
+    ],
+    [
+      [802, 673],
+      [-14, -11],
+      [-14, -16],
+      [-29, -29],
+      [-14, -7],
+      [-9, -11],
+      [-8, -4],
+      [-12, -11]
+    ],
+    [
+      [265, 664],
+      [2, -15],
+      [0, -29]
+    ],
+    [
+      [267, 620],
+      [-49, 0]
+    ],
+    [
+      [218, 620],
+      [-1, 59]
+    ],
+    [
+      [539, 599],
+      [-92, 0]
+    ],
+    [
+      [447, 599],
+      [0, 31],
+      [-5, 4],
+      [5, 8],
+      [-12, 7],
+      [-6, -4],
+      [-15, 9],
+      [0, 10],
+      [-12, 12],
+      [-26, -11],
+      [-12, 5]
+    ],
+    [
+      [151, 679],
+      [0, -59]
+    ],
+    [
+      [151, 620],
+      [-16, 0]
+    ],
+    [
+      [135, 620],
+      [-84, 0]
+    ],
+    [
+      [51, 620],
+      [0, 19],
+      [2, 13],
+      [-6, 13],
+      [3, 14]
+    ],
+    [
+      [218, 620],
+      [-67, 0]
+    ],
+    [
+      [447, 599],
+      [0, -38]
+    ],
+    [
+      [447, 561],
+      [-73, 0],
+      [-1, -29],
+      [2, 0],
+      [0, -58],
+      [-1, -2]
+    ],
+    [
+      [374, 472],
+      [-11, 9],
+      [-14, -5],
+      [-16, 8]
+    ],
+    [
+      [333, 484],
+      [-10, 3]
+    ],
+    [
+      [323, 487],
+      [-6, 4],
+      [-1, 70]
+    ],
+    [
+      [316, 561],
+      [17, 0],
+      [-1, 88],
+      [-1, 15]
+    ],
+    [
+      [316, 561],
+      [-48, 0]
+    ],
+    [
+      [268, 561],
+      [-1, 59]
+    ],
+    [
+      [135, 620],
+      [0, -30],
+      [2, 0],
+      [0, -44]
+    ],
+    [
+      [137, 546],
+      [1, -14],
+      [-14, 0]
+    ],
+    [
+      [124, 532],
+      [-65, 0]
+    ],
+    [
+      [59, 532],
+      [0, 19],
+      [-3, 11],
+      [6, 21],
+      [-4, -1],
+      [-6, 14],
+      [3, 17],
+      [-4, 7]
+    ],
+    [
+      [268, 561],
+      [0, -15]
+    ],
+    [
+      [268, 546],
+      [-71, 0],
+      [-60, 0]
+    ],
+    [
+      [539, 555],
+      [1, -59]
+    ],
+    [
+      [540, 496],
+      [0, -45]
+    ],
+    [
+      [540, 451],
+      [-49, 0]
+    ],
+    [
+      [491, 451],
+      [0, 15],
+      [-47, 0]
+    ],
+    [
+      [444, 466],
+      [-2, 1],
+      [0, 57],
+      [4, 1],
+      [1, 36]
+    ],
+    [
+      [323, 487],
+      [-54, 0]
+    ],
+    [
+      [269, 487],
+      [0, 44],
+      [-1, 15]
+    ],
+    [
+      [444, 466],
+      [-2, -15]
+    ],
+    [
+      [442, 451],
+      [-73, 0],
+      [-2, 9],
+      [7, 12]
+    ],
+    [
+      [638, 537],
+      [0, -42]
+    ],
+    [
+      [638, 495],
+      [-98, 1]
+    ],
+    [
+      [269, 487],
+      [1, -44]
+    ],
+    [
+      [270, 443],
+      [-81, 0]
+    ],
+    [
+      [189, 443],
+      [-63, 0]
+    ],
+    [
+      [126, 443],
+      [0, 29],
+      [-2, 0],
+      [0, 60]
+    ],
+    [
+      [126, 443],
+      [0, -15]
+    ],
+    [
+      [126, 428],
+      [-41, 0]
+    ],
+    [
+      [85, 428],
+      [3, 14],
+      [-5, 24],
+      [-1, 15],
+      [-8, 7],
+      [-10, 19],
+      [-1, 17],
+      [-4, 8]
+    ],
+    [
+      [638, 495],
+      [0, -58],
+      [-8, -10],
+      [-11, 0],
+      [-4, -7],
+      [-22, -7],
+      [-9, -6],
+      [-7, -12],
+      [-3, -11],
+      [-7, -5]
+    ],
+    [
+      [567, 379],
+      [-39, 0]
+    ],
+    [
+      [528, 379],
+      [0, 42],
+      [12, 0],
+      [0, 30]
+    ],
+    [
+      [333, 484],
+      [1, -12],
+      [1, -86]
+    ],
+    [
+      [335, 386],
+      [-64, 0]
+    ],
+    [
+      [271, 386],
+      [-1, 57]
+    ],
+    [
+      [442, 451],
+      [0, -29],
+      [5, 0],
+      [1, -28]
+    ],
+    [
+      [448, 394],
+      [-76, 0],
+      [11, -8]
+    ],
+    [
+      [383, 386],
+      [-48, 0]
+    ],
+    [
+      [491, 451],
+      [0, -30],
+      [-11, 0],
+      [0, -42]
+    ],
+    [
+      [480, 379],
+      [1, -29]
+    ],
+    [
+      [481, 350],
+      [-32, 0]
+    ],
+    [
+      [449, 350],
+      [-1, 44]
+    ],
+    [
+      [528, 379],
+      [-48, 0]
+    ],
+    [
+      [189, 443],
+      [2, -59]
+    ],
+    [
+      [191, 384],
+      [-64, 0]
+    ],
+    [
+      [127, 384],
+      [0, 29],
+      [-1, 15]
+    ],
+    [
+      [271, 386],
+      [0, -2]
+    ],
+    [
+      [271, 384],
+      [-80, 0]
+    ],
+    [
+      [127, 384],
+      [0, -30]
+    ],
+    [
+      [127, 354],
+      [-75, 0]
+    ],
+    [
+      [52, 354],
+      [0, 11],
+      [21, 14],
+      [12, 15],
+      [2, 21],
+      [-2, 13]
+    ],
+    [
+      [449, 350],
+      [-51, 0]
+    ],
+    [
+      [398, 350],
+      [-7, 10],
+      [-1, 18],
+      [-7, 8]
+    ],
+    [
+      [191, 384],
+      [1, -59]
+    ],
+    [
+      [192, 325],
+      [-47, 0]
+    ],
+    [
+      [145, 325],
+      [-16, 0],
+      [-2, 29]
+    ],
+    [
+      [398, 350],
+      [1, -12],
+      [13, -12]
+    ],
+    [
+      [412, 326],
+      [-6, -12],
+      [-9, -8],
+      [-3, 3],
+      [-10, -6]
+    ],
+    [
+      [384, 303],
+      [-16, 0],
+      [0, 7],
+      [-49, 0]
+    ],
+    [
+      [319, 310],
+      [0, 15],
+      [-47, 0]
+    ],
+    [
+      [272, 325],
+      [-1, 59]
+    ],
+    [
+      [272, 325],
+      [-16, 0]
+    ],
+    [
+      [256, 325],
+      [-64, 0]
+    ],
+    [
+      [528, 379],
+      [0, -30],
+      [16, 0],
+      [0, -24]
+    ],
+    [
+      [544, 325],
+      [-63, 0]
+    ],
+    [
+      [481, 325],
+      [0, 25]
+    ],
+    [
+      [567, 379],
+      [-4, -2],
+      [-1, -25],
+      [14, -1],
+      [16, -21],
+      [0, -8],
+      [-13, -17]
+    ],
+    [
+      [579, 305],
+      [-35, 0]
+    ],
+    [
+      [544, 305],
+      [0, 20]
+    ],
+    [
+      [145, 325],
+      [0, -30],
+      [1, -10]
+    ],
+    [
+      [146, 285],
+      [-23, 12],
+      [-22, 3]
+    ],
+    [
+      [101, 300],
+      [-4, 15],
+      [-17, 9],
+      [-8, 0],
+      [-11, 19],
+      [-9, 11]
+    ],
+    [
+      [481, 325],
+      [0, -29]
+    ],
+    [
+      [481, 296],
+      [-2, 1]
+    ],
+    [
+      [479, 297],
+      [-7, 7],
+      [-23, 1],
+      [-37, 21]
+    ],
+    [
+      [256, 325],
+      [1, -44]
+    ],
+    [
+      [257, 281],
+      [-102, 0]
+    ],
+    [
+      [155, 281],
+      [-9, 4]
+    ],
+    [
+      [319, 310],
+      [1, -74]
+    ],
+    [
+      [320, 236],
+      [-63, 0]
+    ],
+    [
+      [257, 236],
+      [0, 45]
+    ],
+    [
+      [479, 297],
+      [-15, -7],
+      [-16, -24],
+      [0, -15]
+    ],
+    [
+      [448, 251],
+      [-32, 0]
+    ],
+    [
+      [416, 251],
+      [-31, 0]
+    ],
+    [
+      [385, 251],
+      [-1, 52]
+    ],
+    [
+      [544, 305],
+      [0, -29]
+    ],
+    [
+      [544, 276],
+      [-27, 0],
+      [0, -15]
+    ],
+    [
+      [517, 261],
+      [-7, 0],
+      [1, 11],
+      [-5, 7],
+      [-14, 12],
+      [-11, 5]
+    ],
+    [
+      [385, 251],
+      [-32, 0],
+      [0, -15]
+    ],
+    [
+      [353, 236],
+      [-33, 0]
+    ],
+    [
+      [155, 281],
+      [7, -10],
+      [20, -19],
+      [3, -6],
+      [9, -2]
+    ],
+    [
+      [194, 244],
+      [0, -8],
+      [-15, 0],
+      [0, -14],
+      [-77, 0]
+    ],
+    [
+      [102, 222],
+      [-1, 78]
+    ],
+    [
+      [579, 305],
+      [-2, -19],
+      [3, -13],
+      [-6, -5],
+      [5, -24],
+      [-2, -16],
+      [-5, -17]
+    ],
+    [
+      [572, 211],
+      [-10, 6],
+      [-16, -1],
+      [-2, 20]
+    ],
+    [
+      [544, 236],
+      [5, 0],
+      [0, 40],
+      [-5, 0]
+    ],
+    [
+      [517, 261],
+      [3, 0],
+      [1, -21],
+      [3, -4]
+    ],
+    [
+      [524, 236],
+      [-6, -10],
+      [-14, -7]
+    ],
+    [
+      [504, 219],
+      [-24, 3]
+    ],
+    [
+      [480, 222],
+      [-1, 14],
+      [-31, 0],
+      [0, 15]
+    ],
+    [
+      [257, 236],
+      [-31, 0],
+      [0, -23]
+    ],
+    [
+      [226, 213],
+      [-2, 6],
+      [-30, 25]
+    ],
+    [
+      [544, 236],
+      [-4, 5],
+      [-10, 0],
+      [-6, -5]
+    ],
+    [
+      [416, 251],
+      [0, -44]
+    ],
+    [
+      [416, 207],
+      [-31, 0],
+      [0, -15],
+      [-32, 0],
+      [0, 15]
+    ],
+    [
+      [353, 207],
+      [0, 29]
+    ],
+    [
+      [480, 222],
+      [-8, -2],
+      [-7, -10],
+      [2, -5],
+      [-19, -11]
+    ],
+    [
+      [448, 194],
+      [0, 5],
+      [-16, 0],
+      [0, 8],
+      [-16, 0]
+    ],
+    [
+      [226, 213],
+      [16, -9]
+    ],
+    [
+      [242, 204],
+      [0, -27],
+      [-30, 0]
+    ],
+    [
+      [212, 177],
+      [-1, 15],
+      [-63, 0]
+    ],
+    [
+      [148, 192],
+      [-46, 0]
+    ],
+    [
+      [102, 192],
+      [0, 30]
+    ],
+    [
+      [572, 211],
+      [9, -5]
+    ],
+    [
+      [581, 206],
+      [0, -14],
+      [-8, 0],
+      [0, -15],
+      [-16, 0],
+      [-4, -6],
+      [-11, 2],
+      [0, -8]
+    ],
+    [
+      [542, 165],
+      [-32, 0],
+      [0, 12]
+    ],
+    [
+      [510, 177],
+      [1, 15],
+      [-5, 0],
+      [-2, 27]
+    ],
+    [
+      [353, 207],
+      [-17, 0],
+      [1, -45]
+    ],
+    [
+      [337, 162],
+      [-20, 1]
+    ],
+    [
+      [317, 163],
+      [-11, 7]
+    ],
+    [
+      [306, 170],
+      [-19, 7],
+      [-22, 14],
+      [-8, 7],
+      [-15, 6]
+    ],
+    [
+      [510, 177],
+      [-31, 0]
+    ],
+    [
+      [479, 177],
+      [-50, 0]
+    ],
+    [
+      [429, 177],
+      [3, 9],
+      [16, 6]
+    ],
+    [
+      [448, 192],
+      [0, 1]
+    ],
+    [
+      [448, 193],
+      [0, 1]
+    ],
+    [
+      [448, 193],
+      [0, -1]
+    ],
+    [
+      [429, 177],
+      [3, -8],
+      [-5, -6]
+    ],
+    [
+      [427, 163],
+      [-90, -1]
+    ],
+    [
+      [306, 170],
+      [0, -37],
+      [-31, 0],
+      [0, -15]
+    ],
+    [
+      [275, 118],
+      [-46, 0]
+    ],
+    [
+      [229, 118],
+      [-17, 0]
+    ],
+    [
+      [212, 118],
+      [0, 59]
+    ],
+    [
+      [581, 206],
+      [21, -19],
+      [4, -6],
+      [25, -1],
+      [13, -18]
+    ],
+    [
+      [644, 162],
+      [-24, 0],
+      [0, -15],
+      [-15, 1],
+      [0, -30]
+    ],
+    [
+      [605, 118],
+      [-17, 0]
+    ],
+    [
+      [588, 118],
+      [-47, 0]
+    ],
+    [
+      [541, 118],
+      [1, 47]
+    ],
+    [
+      [148, 192],
+      [1, -15],
+      [1, -59]
+    ],
+    [
+      [150, 118],
+      [-49, 0]
+    ],
+    [
+      [101, 118],
+      [1, 74]
+    ],
+    [
+      [212, 118],
+      [-60, 0]
+    ],
+    [
+      [152, 118],
+      [-2, 0]
+    ],
+    [
+      [479, 177],
+      [0, -59]
+    ],
+    [
+      [479, 118],
+      [-31, 0]
+    ],
+    [
+      [448, 118],
+      [0, 8],
+      [-32, 0]
+    ],
+    [
+      [416, 126],
+      [-1, 3],
+      [11, 14],
+      [-3, 4],
+      [4, 16]
+    ],
+    [
+      [541, 118],
+      [0, 0]
+    ],
+    [
+      [541, 118],
+      [-47, 0]
+    ],
+    [
+      [494, 118],
+      [-15, 0]
+    ],
+    [
+      [317, 163],
+      [10, -8],
+      [27, -10],
+      [10, -14],
+      [6, -1]
+    ],
+    [
+      [370, 130],
+      [0, -27]
+    ],
+    [
+      [370, 103],
+      [-63, 0]
+    ],
+    [
+      [307, 103],
+      [-31, 0],
+      [-1, 15]
+    ],
+    [
+      [416, 126],
+      [1, -12],
+      [-10, -2],
+      [-37, 18]
+    ],
+    [
+      [644, 162],
+      [25, -9],
+      [16, -11],
+      [1, -8],
+      [8, -16]
+    ],
+    [
+      [694, 118],
+      [-29, 0],
+      [0, -15]
+    ],
+    [
+      [665, 103],
+      [-31, 0],
+      [0, 15],
+      [-29, 0]
+    ],
+    [
+      [448, 118],
+      [0, -59]
+    ],
+    [
+      [448, 59],
+      [-62, 0]
+    ],
+    [
+      [386, 59],
+      [-16, 0]
+    ],
+    [
+      [370, 59],
+      [0, 44]
+    ],
+    [
+      [152, 118],
+      [-1, -59]
+    ],
+    [
+      [151, 59],
+      [-50, 0]
+    ],
+    [
+      [101, 59],
+      [0, 59]
+    ],
+    [
+      [229, 118],
+      [0, -59]
+    ],
+    [
+      [229, 59],
+      [-76, 0]
+    ],
+    [
+      [153, 59],
+      [-2, 0]
+    ],
+    [
+      [307, 103],
+      [0, -44]
+    ],
+    [
+      [307, 59],
+      [-77, 0]
+    ],
+    [
+      [230, 59],
+      [-1, 0]
+    ],
+    [
+      [694, 118],
+      [19, -13],
+      [16, -15],
+      [19, -5],
+      [20, -26]
+    ],
+    [
+      [768, 59],
+      [-58, 0]
+    ],
+    [
+      [710, 59],
+      [-45, 0]
+    ],
+    [
+      [665, 59],
+      [0, 44]
+    ],
+    [
+      [494, 118],
+      [0, -59]
+    ],
+    [
+      [494, 59],
+      [-31, 0]
+    ],
+    [
+      [463, 59],
+      [-15, 0]
+    ],
+    [
+      [541, 118],
+      [0, -59]
+    ],
+    [
+      [541, 59],
+      [-1, 0]
+    ],
+    [
+      [540, 59],
+      [-46, 0]
+    ],
+    [
+      [588, 118],
+      [0, -59],
+      [-1, 0]
+    ],
+    [
+      [587, 59],
+      [-46, 0]
+    ],
+    [
+      [665, 59],
+      [-47, 0],
+      [0, -2]
+    ],
+    [
+      [618, 57],
+      [-31, 0],
+      [0, 2]
+    ],
+    [
+      [370, 59],
+      [-62, 0]
+    ],
+    [
+      [308, 59],
+      [-1, 0]
+    ],
+    [
+      [153, 59],
+      [0, -59]
+    ],
+    [
+      [153, 0],
+      [-52, 0],
+      [0, 59]
+    ],
+    [
+      [230, 59],
+      [0, -59]
+    ],
+    [
+      [230, 0],
+      [-77, 0]
+    ],
+    [
+      [308, 59],
+      [0, -59]
+    ],
+    [
+      [308, 0],
+      [-78, 0]
+    ],
+    [
+      [386, 59],
+      [0, -59]
+    ],
+    [
+      [386, 0],
+      [-78, 0]
+    ],
+    [
+      [768, 59],
+      [5, -12],
+      [-3, -11],
+      [0, -16],
+      [4, -5],
+      [2, -15],
+      [-66, 0]
+    ],
+    [
+      [710, 0],
+      [0, 59]
+    ],
+    [
+      [463, 59],
+      [0, -59]
+    ],
+    [
+      [463, 0],
+      [-77, 0]
+    ],
+    [
+      [710, 0],
+      [-92, 0]
+    ],
+    [
+      [618, 0],
+      [0, 57]
+    ],
+    [
+      [540, 59],
+      [0, -59]
+    ],
+    [
+      [540, 0],
+      [-77, 0]
+    ],
+    [
+      [618, 0],
+      [-78, 0]
+    ]
+  ]
+}
