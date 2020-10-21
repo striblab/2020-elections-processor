@@ -14,28 +14,28 @@ precinctstotal;votecount;votepct;votes_office"
 
 echo "Downloading supreme/appeals court results, append to summary file ..." &&
 echo $CSV_HEADER_ROW | \
-cat - <(curl -s --ftp-ssl --user media:results ftp://ftp.sos.state.mn.us/20201103/judicial.txt | textutil -cat txt -stdin -stdout -encoding utf-8) | sed 's/\"/@@/g' | csv2json -s ";" | sed 's/@@/\\"/g' | jq -c ".[]" | \
+cat - <(curl -s $ALLOW_INSECURE --ftp-ssl --user media:results ftp://ftp.sos.state.mn.us/20201103/judicial.txt | textutil -cat txt -stdin -stdout -encoding utf-8) | sed 's/\"/@@/g' | csv2json -s ";" | sed 's/@@/\\"/g' | jq -c ".[]" | \
   ndjson-map 'd.location_name = "", d' | \
   ndjson-map 'd.officename = "Supreme and Appeals Court", d' > sos/mn_2020_nov_sos__statewide.ndjson
 
 
 echo "Downloading district court results, append to summary file ..." &&
 echo $CSV_HEADER_ROW | \
-cat - <(curl -s --ftp-ssl --user media:results ftp://ftp.sos.state.mn.us/20201103/judicialdst.txt | textutil -cat txt -stdin -stdout -encoding utf-8) | sed 's/\"/@@/g' | csv2json -s ";" | sed 's/@@/\\"/g' | jq -c ".[]" | \
+cat - <(curl -s $ALLOW_INSECURE --ftp-ssl --user media:results ftp://ftp.sos.state.mn.us/20201103/judicialdst.txt | textutil -cat txt -stdin -stdout -encoding utf-8) | sed 's/\"/@@/g' | csv2json -s ";" | sed 's/@@/\\"/g' | jq -c ".[]" | \
   ndjson-map 'd.location_name = "", d' | \
   ndjson-map 'd.officename = "District Court", d' >> sos/mn_2020_nov_sos__statewide.ndjson
 
 
 echo "Downloading county results, append to summary file ..." &&
 echo $CSV_HEADER_ROW | \
-cat - <(curl -s --ftp-ssl --user media:results ftp://ftp.sos.state.mn.us/20201103/cntyRaceQuestions.txt | textutil -cat txt -stdin -stdout -encoding utf-8) | sed 's/\"/@@/g' | csv2json -s ";" | sed 's/@@/\\"/g' | jq -c ".[]" | \
+cat - <(curl -s $ALLOW_INSECURE --ftp-ssl --user media:results ftp://ftp.sos.state.mn.us/20201103/cntyRaceQuestions.txt | textutil -cat txt -stdin -stdout -encoding utf-8) | sed 's/\"/@@/g' | csv2json -s ";" | sed 's/@@/\\"/g' | jq -c ".[]" | \
   ndjson-map 'd.location_name = "", d' | \
   ndjson-map 'd.officename = "County", d' >> sos/mn_2020_nov_sos__statewide.ndjson
 
 
 echo "Downloading municipal results, merging with city lookup file, append to summary file ..."
 echo $CSV_HEADER_ROW | \
-cat - <(curl -s --ftp-ssl --user media:results ftp://ftp.sos.state.mn.us/20201103/local.txt | textutil -cat txt -stdin -stdout -encoding utf-8) | sed 's/\"/@@/g' | csv2json -s ";" | sed 's/@@/\\"/g' | jq -c ".[]" | \
+cat - <(curl -s $ALLOW_INSECURE --ftp-ssl --user media:results ftp://ftp.sos.state.mn.us/20201103/local.txt | textutil -cat txt -stdin -stdout -encoding utf-8) | sed 's/\"/@@/g' | csv2json -s ";" | sed 's/@@/\\"/g' | jq -c ".[]" | \
   ndjson-join --left 'd.district' 'd.fips_code' - <(cat supporting_tables/sos_city_lookup.ndjson) | \
   ndjson-map 'Object.assign(d[0], d[1])' | \
   ndjson-map 'd.officename = "Local", d' | \
@@ -44,7 +44,7 @@ cat - <(curl -s --ftp-ssl --user media:results ftp://ftp.sos.state.mn.us/2020110
 
 echo "Downloading school board results, merging with school district lookup, append to summary file ..." &&
 echo $CSV_HEADER_ROW | \
-cat - <(curl -s --ftp-ssl --user media:results ftp://ftp.sos.state.mn.us/20201103/SDRaceQuestions.txt | textutil -cat txt -stdin -stdout -encoding utf-8) | sed 's/\"/@@/g' | csv2json -s ";" | sed 's/@@/\\"/g' | jq -c ".[]" | \
+cat - <(curl -s $ALLOW_INSECURE --ftp-ssl --user media:results ftp://ftp.sos.state.mn.us/20201103/SDRaceQuestions.txt | textutil -cat txt -stdin -stdout -encoding utf-8) | sed 's/\"/@@/g' | csv2json -s ";" | sed 's/@@/\\"/g' | jq -c ".[]" | \
   ndjson-join --left 'd.district' 'd.school_dist_num' - <(cat supporting_tables/sos_school_lookup.ndjson) | \
   ndjson-map 'Object.assign(d[0], d[1])' | \
   ndjson-map 'd.officename = "School", d' | \
