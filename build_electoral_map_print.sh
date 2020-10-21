@@ -28,10 +28,13 @@ topo2geo states=- < spatial/states-electoral-final-topo.json | \
 # echo "Colorizing SVG with leader/winner dilineated..."
 mapshaper spatial/states-electoral-final-geo.json \
   -quiet \
-  -colorizer name=calcFill colors='#115E9B,#115E9B85,#AE191C,#AE191C85,#F0F0F0,#E7E7E7' nodata='#EAEAEA' categories='Biden_winner,Biden_leader,Trump_winner,Trump_leader,no-votes,even' \
+  -colorizer name=calcFill colors='#115E9B,#CFCFCF,#AE191C,#CFCFCF,#F0F0F0,#E7E7E7' nodata='#EAEAEA' categories='Biden_winner,Biden_leader,Trump_winner,Trump_leader,no-votes,even' \
   -style fill='calcFill(winner_or_leading)' \
   -o id-field=name format=svg -
   # spatial/mn_2020_general_prez_electoral.svg
+
+  #CFCFCF
+  # -colorizer name=calcFill colors='#115E9B,#115E9B85,#AE191C,#AE191C85,#F0F0F0,#E7E7E7' nodata='#EAEAEA' categories='Biden_winner,Biden_leader,Trump_winner,Trump_leader,no-votes,even' \
 
 # echo "Colorizing SVG with only leader..."
 # mapshaper spatial/states-electoral-final-geo.json \
