@@ -37,6 +37,16 @@ aws s3 cp print/$PREZ_ELECTORAL_MAP "s3://$S3_PRINT_BUCKET/$version_datetime/$PR
 
 
 
+PREZ_MN_MAP=results-mn-prez-county-print_$version_datetime.svg
+./build_mn_prez_map_print.sh > print/$PREZ_MN_MAP
+
+aws s3 cp print/$PREZ_MN_MAP "s3://$S3_PRINT_BUCKET/$version_datetime/$PREZ_MN_MAP" \
+--profile $PRINT_AWS_PROFILE_NAME \
+--acl public-read \
+--content-type=image/svg+xml
+
+
+
 PREZ_BY_COUNTY_FILE=results-mn-prez-county-print_$version_datetime.csv
 python reshape_prez_print_csv.py > print/$PREZ_BY_COUNTY_FILE
 
