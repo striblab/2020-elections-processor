@@ -58,12 +58,12 @@ senate_idle = pd.DataFrame([
     {'party': 'Ind', 'idle_seats': 2}
 ])
 
-senate_winners = all_df[
+senate_races = all_df[
     (all_df['officename'] == 'U.S. Senate')
     & (all_df['level'] == 'state')
-    & (all_df['winner'] == True)
+    # & (all_df['winner'] == True)
 ]
-senate_counts = senate_winners[[
+senate_counts = senate_races[senate_races['winner'] == True][[
     'party', 'lastupdated'
 ]].groupby('party').agg('count').reset_index().rename(columns={'lastupdated': 'winners'})
 
@@ -76,51 +76,60 @@ senate_merged.fillna(0, inplace=True)
 senate_merged['total'] = senate_merged.winners + senate_merged.idle_seats
 
 print('\n\nU.S. SENATE')
-print('Last updated by AP: {}\n'.format(process_date(senate_winners['lastupdated'].iloc[0])))
+print('Last updated by AP: {}\n'.format(process_date(senate_races['lastupdated'].max())))
 for rownum, party in senate_merged.iterrows():
     print('{}: {}'.format(party['party'], int(party['total'])))
 
 
 ### US House ###
-house_winners = all_df[
+house_races = all_df[
     (all_df['officename'] == 'U.S. House')
     & (all_df['level'] == 'state')
-    & (all_df['winner'] == True)
+    # & (all_df['winner'] == True)
 ]
-house_counts = house_winners[['party', 'lastupdated']].groupby('party').agg('count').reset_index()
+house_counts = house_races[house_races['winner'] == True][['party', 'lastupdated']].groupby('party').agg('count').reset_index()
 
 print('\n\nU.S. HOUSE')
-print('Last updated by AP: {}\n'.format(process_date(house_winners['lastupdated'].iloc[0])))
+print('Last updated by AP: {}\n'.format(process_date(house_races['lastupdated'].max())))
 
-for rownum, party in house_counts.iterrows():
-    print('{}: {}'.format(party['party'], party['lastupdated']))
+if house_counts.shape[0] == 0:
+    print('No winners called yet')
+else:
+    for rownum, party in house_counts.iterrows():
+        print('{}: {}'.format(party['party'], party['lastupdated']))
 
 
 mn_df = pd.read_json(STATE_IN_FILE)
 
 ### MN Senate ###
-mnsen_winners = mn_df[
+mnsen_races = mn_df[
     (mn_df['officename'] == 'State Senate')
-    & (mn_df['winner'] == True)
+    # & (mn_df['winner'] == True)
 ]
-mnsen_counts = mnsen_winners[['party', 'lastupdated']].groupby('party').agg('count').reset_index()
+mnsen_counts = mnsen_races[mnsen_races['winner'] == True][['party', 'lastupdated']].groupby('party').agg('count').reset_index()
 
 print('\n\nMinnesota State Senate')
-print('Last updated by AP: {}\n'.format(process_date(mnsen_winners['lastupdated'].iloc[0])))
+print('Last updated by AP: {}\n'.format(process_date(mnsen_races['lastupdated'].max())))
 
-for rownum, party in mnsen_counts.iterrows():
-    print('{}: {}'.format(party['party'], party['lastupdated']))
+if mnsen_counts.shape[0] == 0:
+    print('No winners called yet')
+else:
+    for rownum, party in mnsen_counts.iterrows():
+        print('{}: {}'.format(party['party'], party['lastupdated']))
 
 
 ### MN House ###
-mnhouse_winners = mn_df[
+mnhouse_races = mn_df[
     (mn_df['officename'] == 'State House')
-    & (mn_df['winner'] == True)
+    # & (mn_df['winner'] == True)
 ]
-mnhouse_counts = mnhouse_winners[['party', 'lastupdated']].groupby('party').agg('count').reset_index()
+mnhouse_counts = mnhouse_races[mnhouse_races['winner'] == True][['party', 'lastupdated']].groupby('party').agg('count').reset_index()
 
 print('\n\nMinnesota State House')
-print('Last updated by AP: {}\n'.format(process_date(mnhouse_winners['lastupdated'].iloc[0])))
+print('Last updated by AP: {}\n'.format(process_date(mnhouse_races['lastupdated'].max())))
 
-for rownum, party in mnhouse_counts.iterrows():
-    print('{}: {}'.format(party['party'], party['lastupdated']))
+if mnhouse_counts.shape[0] == 0:
+    print('No winners called yet')
+else:
+    for rownum, party in mnhouse_counts.iterrows():
+        print('{}: {}'.format(party['party'], party['lastupdated']))
