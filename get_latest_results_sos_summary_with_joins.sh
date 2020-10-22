@@ -12,45 +12,106 @@ cand_order;full_name;suffix;incumbent;party;precinctsreporting;\
 precinctstotal;votecount;votepct;votes_office"
 
 
-echo "Downloading supreme/appeals court results, append to summary file ..." &&
-echo $CSV_HEADER_ROW | \
-cat - <(curl -s $ALLOW_INSECURE --ftp-ssl --user media:results ftp://ftp.sos.state.mn.us/20201103/judicial.txt | iconv -f iso8859-1 -t utf-8) | sed 's/\"/@@/g' | csv2json -s ";" | sed 's/@@/\\"/g' | jq -c ".[]" | \
-  ndjson-map 'd.location_name = "", d' | \
-  ndjson-map 'd.officename = "Supreme and Appeals Court", d' > sos/mn_2020_nov_sos__statewide.ndjson
+echo "Downloading supreme/appeals court results, append to summary file ..."
+CURL_RESPONSE=$(curl -s $ALLOW_INSECURE --ftp-ssl --user media:results ftp://ftp.sos.state.mn.us/20201103/judicial.txt)
+
+if [ "${#CURL_RESPONSE}" -gt "100" ]; then
+  echo "Got long response, proceeding..."
+  echo -e "$CSV_HEADER_ROW\n$CURL_RESPONSE" | \
+  iconv -f iso8859-1 -t utf-8 | sed 's/\"/@@/g' | csv2json -s ";" | sed 's/@@/\\"/g' | jq -c ".[]" | \
+    ndjson-map 'd.location_name = "", d' | \
+    ndjson-map 'd.officename = "Supreme and Appeals Court", d' > sos/mn_2020_nov_sos__statewide.ndjson
+else
+  echo "WARNING: very short file..."
+fi
+
+# echo "Downloading supreme/appeals court results, append to summary file ..." &&
+# echo $CSV_HEADER_ROW | \
+# cat - <(curl -s $ALLOW_INSECURE --ftp-ssl --user media:results ftp://ftp.sos.state.mn.us/20201103/judicial.txt | iconv -f iso8859-1 -t utf-8) | sed 's/\"/@@/g' | csv2json -s ";" | sed 's/@@/\\"/g' | jq -c ".[]" | \
+#   ndjson-map 'd.location_name = "", d' | \
+#   ndjson-map 'd.officename = "Supreme and Appeals Court", d' > sos/mn_2020_nov_sos__statewide.ndjson
+
+#
+# echo "Downloading district court results, append to summary file ..." &&
+# echo $CSV_HEADER_ROW | \
+# cat - <(curl -s $ALLOW_INSECURE --ftp-ssl --user media:results ftp://ftp.sos.state.mn.us/20201103/judicialdst.txt | iconv -f iso8859-1 -t utf-8) | sed 's/\"/@@/g' | csv2json -s ";" | sed 's/@@/\\"/g' | jq -c ".[]" | \
+#   ndjson-map 'd.location_name = "", d' | \
+#   ndjson-map 'd.officename = "District Court", d' >> sos/mn_2020_nov_sos__statewide.ndjson
 
 
-echo "Downloading district court results, append to summary file ..." &&
-echo $CSV_HEADER_ROW | \
-cat - <(curl -s $ALLOW_INSECURE --ftp-ssl --user media:results ftp://ftp.sos.state.mn.us/20201103/judicialdst.txt | iconv -f iso8859-1 -t utf-8) | sed 's/\"/@@/g' | csv2json -s ";" | sed 's/@@/\\"/g' | jq -c ".[]" | \
-  ndjson-map 'd.location_name = "", d' | \
-  ndjson-map 'd.officename = "District Court", d' >> sos/mn_2020_nov_sos__statewide.ndjson
+echo "Downloading district court results, append to summary file ..."
+CURL_RESPONSE=$(curl -s $ALLOW_INSECURE --ftp-ssl --user media:results ftp://ftp.sos.state.mn.us/20201103/judicialdst.txt)
+
+if [ "${#CURL_RESPONSE}" -gt "100" ]; then
+  echo "Got long response, proceeding..."
+  echo -e "$CSV_HEADER_ROW\n$CURL_RESPONSE" | \
+  iconv -f iso8859-1 -t utf-8 | sed 's/\"/@@/g' | csv2json -s ";" | sed 's/@@/\\"/g' | jq -c ".[]" | \
+    ndjson-map 'd.location_name = "", d' | \
+    ndjson-map 'd.officename = "District Court", d' >> sos/mn_2020_nov_sos__statewide.ndjson
+else
+  echo "WARNING: very short file..."
+fi
 
 
-echo "Downloading county results, append to summary file ..." &&
-echo $CSV_HEADER_ROW | \
-cat - <(curl -s $ALLOW_INSECURE --ftp-ssl --user media:results ftp://ftp.sos.state.mn.us/20201103/cntyRaceQuestions.txt | iconv -f iso8859-1 -t utf-8) | sed 's/\"/@@/g' | csv2json -s ";" | sed 's/@@/\\"/g' | jq -c ".[]" | \
-  ndjson-map 'd.location_name = "", d' | \
-  ndjson-map 'd.officename = "County", d' >> sos/mn_2020_nov_sos__statewide.ndjson
+
+echo "Downloading county results, append to summary file ..."
+CURL_RESPONSE=$(curl -s $ALLOW_INSECURE --ftp-ssl --user media:results ftp://ftp.sos.state.mn.us/20201103/cntyRaceQuestions.txt)
+
+if [ "${#CURL_RESPONSE}" -gt "100" ]; then
+  echo "Got long response, proceeding..."
+  echo -e "$CSV_HEADER_ROW\n$CURL_RESPONSE" | \
+  iconv -f iso8859-1 -t utf-8 | sed 's/\"/@@/g' | csv2json -s ";" | sed 's/@@/\\"/g' | jq -c ".[]" | \
+    ndjson-map 'd.location_name = "", d' | \
+    ndjson-map 'd.officename = "County", d' >> sos/mn_2020_nov_sos__statewide.ndjson
+else
+  echo "WARNING: very short file..."
+fi
+
 
 
 echo "Downloading municipal results, merging with city lookup file, append to summary file ..."
-echo $CSV_HEADER_ROW | \
-cat - <(curl -s $ALLOW_INSECURE --ftp-ssl --user media:results ftp://ftp.sos.state.mn.us/20201103/local.txt | iconv -f iso8859-1 -t utf-8) | sed 's/\"/@@/g' | csv2json -s ";" | sed 's/@@/\\"/g' | jq -c ".[]" | \
-  ndjson-join --left 'd.district' 'd.fips_code' - <(cat supporting_tables/sos_city_lookup.ndjson) | \
-  ndjson-map 'Object.assign(d[0], d[1])' | \
-  ndjson-map 'd.officename = "Local", d' | \
-  ndjson-filter 'delete d.county_name, true' | ndjson-filter 'delete d.fips_code, true' >> sos/mn_2020_nov_sos__statewide.ndjson
+CURL_RESPONSE=$(curl -s $ALLOW_INSECURE --ftp-ssl --user media:results ftp://ftp.sos.state.mn.us/20201103/local.txt)
+
+if [ "${#CURL_RESPONSE}" -gt "100" ]; then
+  echo "Got long response, proceeding..."
+  echo -e "$CSV_HEADER_ROW\n$CURL_RESPONSE" | \
+  iconv -f iso8859-1 -t utf-8 | sed 's/\"/@@/g' | csv2json -s ";" | sed 's/@@/\\"/g' | jq -c ".[]" | \
+    ndjson-join --left 'd.district' 'd.fips_code' - <(cat supporting_tables/sos_city_lookup.ndjson) | \
+    ndjson-map 'Object.assign(d[0], d[1])' | \
+    ndjson-map 'd.officename = "Local", d' | \
+    ndjson-filter 'delete d.county_name, true' | ndjson-filter 'delete d.fips_code, true' >> sos/mn_2020_nov_sos__statewide.ndjson
+else
+  echo "WARNING: very short file..."
+fi
 
 
-echo "Downloading school board results, merging with school district lookup, append to summary file ..." &&
-echo $CSV_HEADER_ROW | \
-cat - <(curl -s $ALLOW_INSECURE --ftp-ssl --user media:results ftp://ftp.sos.state.mn.us/20201103/SDRaceQuestions.txt | iconv -f iso8859-1 -t utf-8) | sed 's/\"/@@/g' | csv2json -s ";" | sed 's/@@/\\"/g' | jq -c ".[]" | \
-  ndjson-join --left 'd.district' 'd.school_dist_num' - <(cat supporting_tables/sos_school_lookup.ndjson) | \
-  ndjson-map 'Object.assign(d[0], d[1])' | \
-  ndjson-map 'd.officename = "School", d' | \
-  ndjson-filter 'delete d.county_name, true' | ndjson-filter 'delete d.school_dist_num, true' >> sos/mn_2020_nov_sos__statewide.ndjson
+
+echo "Downloading school board results, merging with school district lookup, append to summary file"
+CURL_RESPONSE=$(curl -s $ALLOW_INSECURE --ftp-ssl --user media:results ftp://ftp.sos.state.mn.us/20201103/SDRaceQuestions.txt)
+
+if [ "${#CURL_RESPONSE}" -gt "100" ]; then
+  echo "Got long response, proceeding..."
+  echo -e "$CSV_HEADER_ROW\n$CURL_RESPONSE" | \
+  iconv -f iso8859-1 -t utf-8 | sed 's/\"/@@/g' | csv2json -s ";" | sed 's/@@/\\"/g' | jq -c ".[]" | \
+    ndjson-join --left 'd.district' 'd.school_dist_num' - <(cat supporting_tables/sos_school_lookup.ndjson) | \
+    ndjson-map 'Object.assign(d[0], d[1])' | \
+    ndjson-map 'd.officename = "School", d' | \
+    ndjson-filter 'delete d.county_name, true' | ndjson-filter 'delete d.school_dist_num, true' >> sos/mn_2020_nov_sos__statewide.ndjson
+else
+  echo "WARNING: very short file..."
+fi
 
 
+
+# echo "Downloading school board results, merging with school district lookup, append to summary file ..." &&
+# echo $CSV_HEADER_ROW | \
+# cat - <(curl -s $ALLOW_INSECURE --ftp-ssl --user media:results ftp://ftp.sos.state.mn.us/20201103/SDRaceQuestions.txt | iconv -f iso8859-1 -t utf-8) | sed 's/\"/@@/g' | csv2json -s ";" | sed 's/@@/\\"/g' | jq -c ".[]" | \
+#   ndjson-join --left 'd.district' 'd.school_dist_num' - <(cat supporting_tables/sos_school_lookup.ndjson) | \
+#   ndjson-map 'Object.assign(d[0], d[1])' | \
+#   ndjson-map 'd.officename = "School", d' | \
+#   ndjson-filter 'delete d.county_name, true' | ndjson-filter 'delete d.school_dist_num, true' >> sos/mn_2020_nov_sos__statewide.ndjson
+#
+#
 echo "Filtering and adding Strib fields..."
 cat sos/mn_2020_nov_sos__statewide.ndjson | \
   ndjson-filter 'd.full_name != "WRITE-IN"' | \
