@@ -21,7 +21,7 @@ do
 
     # Update local results every 3 loops
     echo SOS loop count: $LOOP_COUNT
-    if [[ "$LOOP_COUNT" -gt 2 ]]; then
+    if [[ "$LOOP_COUNT" -gt 4 ]]; then
       ("./get_latest_results_sos_summary_with_joins.sh") | tee -a $LOGFILE
       ((LOOP_COUNT=1))
     else
