@@ -3,7 +3,7 @@ NOW=$(date '+%Y%m%d%H%M%S')
 LOGFILE="liveresults_ap.log"
 
 DO_SOS_SWITCH=true
-LOOP_COUNT=3
+LOOP_COUNT=5
 
 while true
 do
@@ -19,7 +19,7 @@ do
 
     sleep 7
 
-    # Update local results every 3 loops
+    # Update local results every 5 loops
     echo SOS loop count: $LOOP_COUNT
     if [[ "$LOOP_COUNT" -gt 4 ]]; then
       ("./get_latest_results_sos_summary_with_joins.sh") | tee -a $LOGFILE
