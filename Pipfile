@@ -6,10 +6,11 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
-elex = "*"
+elex-versions = {editable = true,git = "https://github.com/mikejcorey/elex.git",ref = "versions"}
 awscli = "*"
 requests = "*"
 pandas = "*"
+boto3 = "*"
 
 [requires]
 python_version = "3.7"

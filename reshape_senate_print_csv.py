@@ -1,6 +1,13 @@
 import os
 import sys
+import requests
 import pandas as pd
+
+def get_json_from_s3(uri):
+    r = requests.get(uri)
+    if r.ok:
+        return r.content
+    return False
 
 def format_pct(raw_pct):
     # pct_whole = round(100 * raw_pct, 1)
@@ -11,9 +18,9 @@ def format_pct(raw_pct):
     pct_whole = round(100 * raw_pct)
     return '{}%'.format(pct_whole)
 
-COUNTY_IN_FILE = os.path.join('json', 'results-mn-county-latest.json')
+COUNTY_IN_FILE = os.path.join('https://', os.environ.get('ELEX_S3_URL'), 'json', 'results-mn-county-latest.json')
 
-county_df = pd.read_json(COUNTY_IN_FILE, dtype={'fipscode': object})
+county_df = pd.read_json(get_json_from_s3(COUNTY_IN_FILE), dtype={'fipscode': object}, orient='records')
 mn_county_senate = county_df[
     (county_df['officename'] == 'U.S. Senate')
     & (~county_df['fipscode'].isna())

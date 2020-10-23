@@ -2,7 +2,8 @@
 set -o allexport; source .env; set +o allexport
 
 # Getting vote totals and joining to state names
-cat json/results-national-ap-latest.json | \
+# cat json/results-national-ap-latest.json | \
+cat <(curl -s $ELEX_S3_URL/json/results-national-ap-latest.json) | \
   jq -c ".[]" | \
   ndjson-filter 'd.level === "state" && d.officename === "President" && ["Biden", "Trump"].indexOf(d.last) != -1' | \
   ndjson-reduce '(p[d.statepostal] = p[d.statepostal] || []).push({name: d.last, votecount: d.votecount, votepct: d.votepct, bool_winner: d.winner}), p' '{}' | \

@@ -1,6 +1,13 @@
 import os
 import sys
+import requests
 import pandas as pd
+
+def get_json_from_s3(uri):
+    r = requests.get(uri)
+    if r.ok:
+        return r.content
+    return False
 
 state_lookup_df = pd.read_json('json/state-electoral-votes-and-history.json', orient='records')
 state_lookup_df.rename(columns={'abbreviation': 'statepostal', 'name': 'state'}, inplace=True)
@@ -19,9 +26,9 @@ def format_electoral(raw_electoral):
         return '-'
     return raw_electoral
 
-ELECTORAL_IN_FILE = os.path.join('json', 'results-national-ap-latest.json')
+ELECTORAL_IN_FILE = os.path.join('https://', os.environ.get('ELEX_S3_URL'), 'json', 'results-national-ap-latest.json')
 
-all_df = pd.read_json(ELECTORAL_IN_FILE)
+all_df = pd.read_json(get_json_from_s3(ELECTORAL_IN_FILE), orient='records')
 electoral_df = all_df[
     (all_df['officename'] == 'President')
     & (all_df['level'] == 'state')

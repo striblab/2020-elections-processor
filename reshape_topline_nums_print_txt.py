@@ -2,6 +2,7 @@ import os
 import sys
 import pytz
 import datetime
+import requests
 # from dateutil import tz
 import pandas as pd
 
@@ -12,6 +13,12 @@ local_timezone = pytz.timezone("US/Central")
 # state_lookup_df = pd.read_json('json/state-electoral-votes-and-history.json', orient='records')
 # state_lookup_df.rename(columns={'abbreviation': 'statepostal', 'name': 'state'}, inplace=True)
 #
+def get_json_from_s3(uri):
+    r = requests.get(uri)
+    if r.ok:
+        return r.content
+    return False
+
 def format_pct(raw_pct):
     pct_whole = round(100 * raw_pct, 1)
     if int(pct_whole) == 0:
@@ -31,10 +38,10 @@ def process_date(raw_date):
 #         return '-'
 #     return raw_electoral
 
-NATIONAL_IN_FILE = os.path.join('json', 'results-national-ap-latest.json')
-STATE_IN_FILE = os.path.join('json', 'results-statewide-ap-latest.json')
+NATIONAL_IN_FILE = os.path.join('https://', os.environ.get('ELEX_S3_URL'), 'json', 'results-national-ap-latest.json')
+STATE_IN_FILE = os.path.join('https://', os.environ.get('ELEX_S3_URL'), 'json', 'results-statewide-ap-latest.json')
 
-all_df = pd.read_json(NATIONAL_IN_FILE)
+all_df = pd.read_json(get_json_from_s3(NATIONAL_IN_FILE), orient='records')
 
 electoral_df = all_df[
     (all_df['officename'] == 'President')
@@ -101,7 +108,7 @@ else:
         print('{}: {}'.format(party['party'], party['lastupdated']))
 
 
-mn_df = pd.read_json(STATE_IN_FILE)
+mn_df = pd.read_json(get_json_from_s3(STATE_IN_FILE), orient='records')
 
 ### MN Senate ###
 mnsen_races = mn_df[
