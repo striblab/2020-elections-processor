@@ -5,6 +5,8 @@ import datetime
 # from dateutil import tz
 import pandas as pd
 
+print(os.environ.get('ELEX_S3_URL'))
+
 local_timezone = pytz.timezone("US/Central")
 
 # state_lookup_df = pd.read_json('json/state-electoral-votes-and-history.json', orient='records')
