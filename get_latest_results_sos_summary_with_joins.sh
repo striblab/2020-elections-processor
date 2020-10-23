@@ -24,6 +24,7 @@ if [ "${#CURL_RESPONSE}" -gt "100" ]; then
     ndjson-map 'd.officename = "Supreme and Appeals Court", d' > sos/mn_2020_nov_sos__statewide.ndjson
 else
   echo "WARNING: very short file..."
+  BOOL_ERROR=true
 fi
 
 
@@ -39,6 +40,7 @@ if [ "${#CURL_RESPONSE}" -gt "100" ]; then
     ndjson-map 'd.officename = "District Court", d' >> sos/mn_2020_nov_sos__statewide.ndjson
 else
   echo "WARNING: very short file..."
+  BOOL_ERROR=true
 fi
 
 
@@ -54,6 +56,7 @@ if [ "${#CURL_RESPONSE}" -gt "100" ]; then
     ndjson-map 'd.officename = "County", d' >> sos/mn_2020_nov_sos__statewide.ndjson
 else
   echo "WARNING: very short file..."
+  BOOL_ERROR=true
 fi
 
 
@@ -71,6 +74,7 @@ if [ "${#CURL_RESPONSE}" -gt "100" ]; then
     ndjson-filter 'delete d.county_name, true' | ndjson-filter 'delete d.fips_code, true' >> sos/mn_2020_nov_sos__statewide.ndjson
 else
   echo "WARNING: very short file..."
+  BOOL_ERROR=true
 fi
 
 
@@ -88,11 +92,11 @@ if [ "${#CURL_RESPONSE}" -gt "100" ]; then
     ndjson-filter 'delete d.county_name, true' | ndjson-filter 'delete d.school_dist_num, true' >> sos/mn_2020_nov_sos__statewide.ndjson
 else
   echo "WARNING: very short file..."
+  BOOL_ERROR=true
 fi
 
 if [ "$BOOL_ERROR" = true ] ; then
     echo 'Problem with one or more race types, not building final version...'
-
 else
   echo "Filtering and adding Strib fields..."
   cat sos/mn_2020_nov_sos__statewide.ndjson | \
