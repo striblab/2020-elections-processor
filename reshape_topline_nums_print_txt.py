@@ -6,13 +6,9 @@ import requests
 # from dateutil import tz
 import pandas as pd
 
-print(os.environ.get('ELEX_S3_URL'))
-
 local_timezone = pytz.timezone("US/Central")
 
-# state_lookup_df = pd.read_json('json/state-electoral-votes-and-history.json', orient='records')
-# state_lookup_df.rename(columns={'abbreviation': 'statepostal', 'name': 'state'}, inplace=True)
-#
+
 def get_json_from_s3(uri):
     r = requests.get(uri)
     if r.ok:
