@@ -4,6 +4,8 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
+jupyter = "*"
+pandas = "*"
 
 [packages]
 elex-versions = {editable = true,git = "https://github.com/mikejcorey/elex.git",ref = "versions"}
