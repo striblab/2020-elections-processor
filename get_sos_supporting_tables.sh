@@ -35,7 +35,8 @@ if [ "${#CURL_RESPONSE}" -gt "100" ]; then
   echo -e "county_id_sos;office_id;mcd_fips;school_dist_num;question_num;question_title;question_body\n$CURL_RESPONSE" | \
   iconv -f iso8859-1 -t utf-8 | sed 's/\"/@@/g' | csv2json -s ";" | sed 's/@@/\\"/g' | jq -c ".[]" | \
     ndjson-map 'd.lookup = (d.county_id_sos + d.office_id + d.school_dist_num), d' | \
-    ndjson-reduce 'p[d.lookup] = d, p' '{}' > supporting_tables/sos_questions_lookup.json
+    ndjson-reduce 'p.push(d), p' '[]' > supporting_tables/sos_questions_lookup.json
+    # ndjson-reduce 'p[d.lookup] = d, p' '{}' > supporting_tables/sos_questions_lookup.json
 else
   echo "WARNING: very short file..."
 fi
