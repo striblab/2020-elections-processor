@@ -39,6 +39,11 @@ lookup = {
         'formatter': 'courts',
         'sos_source_file': 'https://electionresultsfiles.sos.state.mn.us/20201103/judicialdst.txt'
     },
+    'Metro counties': {
+        'outfile_name': 'ELEX_METCO',
+        'formatter': 'county',
+        'sos_source_file': 'https://electionresultsfiles.sos.state.mn.us/20201103/cntyRaceQuestions.txt'
+    },
 }
 
 # x - ELEX_USSEN: U.S. Senate race for Minn. (Smith v. Lewis)
@@ -51,10 +56,18 @@ lookup = {
 # x - ELEX_MNJUD: Judicial races (courts)
 # ELEX_METSCHB: Metro area school board races
 # ELEX_METSCHQ: Metro area school questions
-
+COUNTY_LOOKUP = {
+    '02': 'Anoka',
+    '10': 'Carver',
+    '19': 'Dakota',
+    '27': 'Hennepin',
+    '62': 'Ramsey',
+    '70': 'Scott',
+    '82': 'Washington',
+}
 
 def process_sos_csv(header_row, url, race_format):
-    df = pd.read_csv(url, delimiter=";", names=header_row, encoding='latin-1').sort_values(['office_id', 'district', 'votecount'], ascending=[True, True, False]).fillna(0)
+    df = pd.read_csv(url, delimiter=";", names=header_row, encoding='latin-1', dtype={'county_id_sos': 'object'}).sort_values(['office_id', 'district', 'votecount'], ascending=[True, True, False]).fillna(0)
     df['race_format'] = race_format
     return df
 
@@ -86,8 +99,12 @@ def district_formatter(row):
         row['seat_name_subhed'] = ''
         row['seat_num_numeric'] = ''
 
-    elif row['race_format'] == 'courts':
+    elif row['race_format'] == 'county':
+        row['office_name'] = row['location_name'].upper() + ' COUNTY'
+        row['seat_name_subhed'] = row['seatname']
+        row['seat_num_numeric'] = ''
 
+    elif row['race_format'] == 'courts':
         seat = re.search(r'([A-z ]+) - ([A-z \d]+) (\d+)', row['seatname'])
         seat_name = seat.group(1)
         office_name = seat.group(2)
@@ -108,14 +125,20 @@ def party_formatter(party):
     return ' - ' + party
 
 
-# for officetype in ['U.S. Senate', 'U.S. House', 'State Senate', 'State House']:
-for officetype in ['U.S. Senate', 'U.S. House', 'State Senate', 'State House', 'Statewide courts']:
+# for officetype in ['U.S. Senate', 'U.S. House', 'State Senate', 'State House', 'Statewide courts']:
+for officetype in ['Metro counties']:
 
     output = ''
 
     if officetype == 'Statewide courts':
         df = process_sos_csv(SOS_HEADER_ROW, lookup['Statewide courts']['sos_source_file'], 'courts')
         df = df.append(process_sos_csv(SOS_HEADER_ROW, lookup['District courts']['sos_source_file'], 'courts'))
+    elif lookup[officetype]['formatter'] == 'county':
+        df = process_sos_csv(SOS_HEADER_ROW, lookup[officetype]['sos_source_file'], lookup[officetype]['formatter'])
+        df = df[df['county_id_sos'].isin(COUNTY_LOOKUP.keys())]
+        df['location_name'] = df['county_id_sos'].apply(lambda x: COUNTY_LOOKUP[x])
+        df = df.sort_values(['location_name', 'office_id', 'district', 'votecount'], ascending=[True, True, True, False])
+        print(df)
     else:
         df = process_sos_csv(SOS_HEADER_ROW, lookup[officetype]['sos_source_file'], lookup[officetype]['formatter'])
 
