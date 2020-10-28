@@ -6,6 +6,8 @@ import datetime
 
 SOS_HEADER_ROW = ["state", "county_id_sos", "precinct_id", "office_id", "seatname", "district", "cand_order", "full_name", "suffix", "incumbent", "party", "precinctsreporting", "precinctstotal", "votecount", "votepct", "votes_office"]
 
+SOS_CITY_LOOKUP_HEADER_ROW = ["county_id_sos", "county_name", "fips_code", "location_name"]
+
 # https://electionresultsfiles.sos.state.mn.us/20201103/ussenate.txt
 
 lookup = {
@@ -44,18 +46,24 @@ lookup = {
         'formatter': 'county',
         'sos_source_file': 'https://electionresultsfiles.sos.state.mn.us/20201103/cntyRaceQuestions.txt'
     },
+    'Metro cities': {
+        'outfile_name': 'ELEX_METCITY',
+        'formatter': 'city',
+        'sos_source_file': 'https://electionresultsfiles.sos.state.mn.us/20201103/local.txt'
+    },
 }
 
 # x - ELEX_USSEN: U.S. Senate race for Minn. (Smith v. Lewis)
 # x - ELEX_USHSE: U.S House races for the eight Minn. Seats
 # x - ELEX_MNSEN: Minn. Senate races
 # x - ELEX_MNHSE: Minn. House races
-# ELES_METCO: Metro area county races
+# x - ELES_METCO: Metro area county races
 # ELEX_METCITY: Metro area city races
 # ELEX_METQUES: Metro area city ballot questions
 # x - ELEX_MNJUD: Judicial races (courts)
 # ELEX_METSCHB: Metro area school board races
 # ELEX_METSCHQ: Metro area school questions
+
 COUNTY_LOOKUP = {
     '02': 'Anoka',
     '10': 'Carver',
@@ -67,7 +75,8 @@ COUNTY_LOOKUP = {
 }
 
 def process_sos_csv(header_row, url, race_format):
-    df = pd.read_csv(url, delimiter=";", names=header_row, encoding='latin-1', dtype={'county_id_sos': 'object'}).sort_values(['office_id', 'district', 'votecount'], ascending=[True, True, False]).fillna(0)
+    df = pd.read_csv(url, delimiter=";", names=header_row, encoding='latin-1', dtype={'county_id_sos': 'object', 'office_id': 'object'}).sort_values(['office_id', 'district', 'votecount'], ascending=[True, True, False]).fillna(0)
+    df['office_id_strib'] = df['county_id_sos'].astype(str) + df['office_id'].astype(str) + df['district'].astype(str)
     df['race_format'] = race_format
     return df
 
@@ -89,6 +98,7 @@ def district_formatter(row):
         row['office_name'] = row['seatname']
         row['seat_name_subhed'] = ''
         row['seat_num_numeric'] = ''
+        row['num_seats'] = ''
 
     elif row['race_format'] == 'legis':
         seat = re.search(r'(.*) District (.*)', row['seatname'])
@@ -98,11 +108,25 @@ def district_formatter(row):
         row['office_name'] = 'District {}'.format(seat_num)
         row['seat_name_subhed'] = ''
         row['seat_num_numeric'] = ''
+        row['num_seats'] = ''
 
     elif row['race_format'] == 'county':
         row['office_name'] = row['location_name'].upper() + ' COUNTY'
-        row['seat_name_subhed'] = row['seatname']
+        row['seat_name_subhed'] = row['seatname'].upper()
         row['seat_num_numeric'] = ''
+        row['num_seats'] = ''
+
+    elif row['race_format'] == 'city':
+        seat = re.search(r'([A-z. \d]+) \(([A-z. \d]+)\)(?: \(Elect (\d+)\))?', row['seatname'])
+        # location_name = seat.group(2)
+        seat_name = seat.group(1)
+        row['office_name'] = row['location_name'].upper().replace ('CITY OF ', '')
+        row['seat_name_subhed'] = seat_name.upper()
+        row['seat_num_numeric'] = ''
+        if seat.group(3):
+            row['num_seats'] = 'Open seats: {}'.format(seat.group(3))
+        else:
+            row['num_seats'] = ''
 
     elif row['race_format'] == 'courts':
         seat = re.search(r'([A-z ]+) - ([A-z \d]+) (\d+)', row['seatname'])
@@ -112,6 +136,7 @@ def district_formatter(row):
         row['office_name'] = office_name.upper()
         row['seat_name_subhed'] = '{} - SEAT {}'.format(seat_name.upper(), seat_num)
         row['seat_num_numeric'] = seat_num
+        row['num_seats'] = ''
     return row
 
 
@@ -125,8 +150,8 @@ def party_formatter(party):
     return ' - ' + party
 
 
-# for officetype in ['U.S. Senate', 'U.S. House', 'State Senate', 'State House', 'Statewide courts']:
-for officetype in ['Metro counties']:
+# for officetype in ['U.S. Senate', 'U.S. House', 'State Senate', 'State House', 'Statewide courts', 'Metro counties']:
+for officetype in ['Metro cities']:
 
     output = ''
 
@@ -138,26 +163,41 @@ for officetype in ['Metro counties']:
         df = df[df['county_id_sos'].isin(COUNTY_LOOKUP.keys())]
         df['location_name'] = df['county_id_sos'].apply(lambda x: COUNTY_LOOKUP[x])
         df = df.sort_values(['location_name', 'office_id', 'district', 'votecount'], ascending=[True, True, True, False])
+
+    elif lookup[officetype]['formatter'] == 'city':
+        df = process_sos_csv(SOS_HEADER_ROW, lookup[officetype]['sos_source_file'], lookup[officetype]['formatter'])
+        city_lookup = pd.read_csv(
+            'https://electionresultsfiles.sos.state.mn.us/20201103/mcdtbl.txt',
+            delimiter=";", names=SOS_CITY_LOOKUP_HEADER_ROW, encoding='latin-1', dtype={'county_id_sos': 'object'}
+        )
+        df = df.drop(columns=['county_id_sos']).merge(
+            city_lookup,
+            how="left",
+            left_on="district",
+            right_on="fips_code"
+        )
         print(df)
+        df = df[df['county_id_sos'].isin(COUNTY_LOOKUP.keys())].drop_duplicates()
+        df = df.sort_values(['location_name', 'office_id', 'district', 'votecount'], ascending=[True, True, True, False])
     else:
         df = process_sos_csv(SOS_HEADER_ROW, lookup[officetype]['sos_source_file'], lookup[officetype]['formatter'])
 
     df = df.apply(lambda x: district_formatter(x), axis=1)
+    print(df)
     print(df[['office_name', 'seatname', 'district', 'seat_name_subhed', 'seat_num_numeric']])
-    print(df.columns)
 
     races = {}
 
     for m in df.to_dict('records'):
-        if m['seatname']:
-            seat_name = m['seatname']
-        else:
-            seat_name = m['officetype']
+        # if m['seatname']:
+        #     seat_name = m['seatname']
+        # else:
+        #     seat_name = m['officetype']
 
-        if seat_name not in races:
-            races[seat_name] = {'cands': []}
+        if m['office_id_strib'] not in races:
+            races[m['office_id_strib']] = {'cands': []}
 
-        races[seat_name]['cands'].append(m)
+        races[m['office_id_strib']]['cands'].append(m)
 
     # print(races)
     prev_office_name = ''
@@ -179,12 +219,17 @@ for officetype in ['Metro counties']:
             # office_name, seat_name = district_formatter(officetype, race['cands'][0]['seatname'])
             office_name = race['cands'][0]['office_name']
             seat_name_subhed = race['cands'][0]['seat_name_subhed']
+            num_seats = race['cands'][0]['num_seats']
+
             if office_name != prev_office_name:
                 output += '@Elex_Head1:{}\n'.format(office_name)
                 prev_office_name = office_name
 
             if seat_name_subhed:
                 output += '@Elex_Head2:{}\n'.format(seat_name_subhed)
+
+            if num_seats != '':
+                output += '@Elex_Precinct:{}\n'.format(num_seats)
 
             output += '@Elex_Precinct:{0} of {1} precincts ({2}%)\n'.format(f'{precinctsreporting:,}', f'{precinctstotal:,}', precinctsreportingpct)
 

@@ -18,12 +18,12 @@ Requirements:
  - Elex, installed from a fork at the moment that is in the Pipfile due to version constraints
  - curl (installed with Homebrew or apt)
  - jq (installed with Homebrew or apt)
- - ndjson-client (installed globally)
+ - ndjson-cli (installed globally)
  - csv2json (installed globally)
  - json2csv (installed globally)
  - topo2geo (installed globally)
  - mapshaper (installed globally)
- - geoproject (installed globally)
+ - d3-geo-projection (installed globally)
 
  An .env file with the following settings:
  ```
@@ -75,7 +75,7 @@ pyenv install 3.7
 brew install curl jq
 (cd to project directory)
 Pipenv install
-npm install -g ndjson-client csv2json json2csv topo2geo mapshaper geoproject
+npm install -g ndjson-cli csv2json json2csv topojson-client mapshaper d3-geo-projection
 ```
 
 
