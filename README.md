@@ -25,6 +25,50 @@ Requirements:
  - mapshaper (installed globally)
  - geoproject (installed globally)
 
+ An .env file with the following settings:
+ ```
+ # Use for national races
+ AP_API_KEY=blah
+ export API_API_KEY
+
+ # Use for state
+ AP_API_KEY_STATE_LEVEL=blah
+ export AP_API_KEY_STATE_LEVEL
+
+ ELEX_S3_URL=static.startribune.com/elections/projects/2020-election-results/nov
+ # ELEX_S3_URL=static.startribune.com/staging/news/projects/all/2020-election-results/nov
+ export ELEX_S3_URL
+
+ # This is really annoying but currently needed so it can be changed in production
+ ELEX_INSTALLATION_PREFIX='/Users/Coreymj/.local/share/virtualenvs/2020-elections-processor-4MCptR18/bin'
+ export ELEX_INSTALLATION_PREFIX
+
+ AWS_PROFILE_NAME='default'
+ export AWS_PROFILE_NAME
+
+ PRINT_AWS_PROFILE_NAME='striblab'
+ export PRINT_AWS_PROFILE_NAME
+
+ S3_PRINT_BUCKET=elections-print
+ export S3_PRINT_BUCKET
+
+ PYTHON_LOCATION='/Users/Coreymj/.local/share/virtualenvs/2020-elections-processor-4MCptR18/bin'
+ export PYTHON_LOCATION
+
+ PROJECT_ROOT='/Users/Coreymj/Documents/Election2020/2020-elections-processor'
+ export PROJECT_ROOT
+
+ # For some reason on EC2 box having trouble with ssl certs. Not great, but not sure we have an easy fix
+ ALLOW_INSECURE=-k
+ # ALLOW_INSECURE=''
+ export ALLOW_INSECURE
+
+ # sed on Mac in place needs a backup parameter
+ SED_SUFFIX=.bak
+ export SED_SUFFIX
+
+ ```
+
 Sample installation on Mac:
 ```
 pyenv install 3.7
@@ -32,50 +76,6 @@ brew install curl jq
 (cd to project directory)
 Pipenv install
 npm install -g ndjson-client csv2json json2csv topo2geo mapshaper geoproject
-```
-
-An .env file with the following settings:
-```
-# Use for national races
-AP_API_KEY=blah
-export API_API_KEY
-
-# Use for state
-AP_API_KEY_STATE_LEVEL=blah
-export AP_API_KEY_STATE_LEVEL
-
-ELEX_S3_URL=static.startribune.com/elections/projects/2020-election-results/nov
-# ELEX_S3_URL=static.startribune.com/staging/news/projects/all/2020-election-results/nov
-export ELEX_S3_URL
-
-# This is really annoying but currently needed so it can be changed in production
-ELEX_INSTALLATION_PREFIX='/Users/Coreymj/.local/share/virtualenvs/2020-elections-processor-4MCptR18/bin'
-export ELEX_INSTALLATION_PREFIX
-
-AWS_PROFILE_NAME='default'
-export AWS_PROFILE_NAME
-
-PRINT_AWS_PROFILE_NAME='striblab'
-export PRINT_AWS_PROFILE_NAME
-
-S3_PRINT_BUCKET=elections-print
-export S3_PRINT_BUCKET
-
-PYTHON_LOCATION='/Users/Coreymj/.local/share/virtualenvs/2020-elections-processor-4MCptR18/bin'
-export PYTHON_LOCATION
-
-PROJECT_ROOT='/Users/Coreymj/Documents/Election2020/2020-elections-processor'
-export PROJECT_ROOT
-
-# For some reason on EC2 box having trouble with ssl certs. Not great, but not sure we have an easy fix
-ALLOW_INSECURE=-k
-# ALLOW_INSECURE=''
-export ALLOW_INSECURE
-
-# sed on Mac in place needs a backup parameter
-SED_SUFFIX=.bak
-export SED_SUFFIX
-
 ```
 
 
