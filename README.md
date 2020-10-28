@@ -81,6 +81,9 @@ npm install -g ndjson-cli csv2json json2csv topojson-client mapshaper d3-geo-pro
 
 The important scripts:
 
+### get_sos_supporting_tables.sh
+Needs to be run once before running the rest to get local versions of lookup tables for SOS municipalities, school districts and question texts.
+
 ### ./run_live_results_ap.sh
 
 This runs 4 scripts to pull national, state and county results from AP, plus statewide results from SOS, with delays between each. This is the only script you should really need to run, but it in turn runs these scripts:
@@ -96,9 +99,6 @@ Presidential and U.S. Senate races by MN county
 
 #### get_latest_results_sos_summary_with_joins.sh
 Grabs FTP text file results from SOS. Runs every 5 cycles to conform to SOS 500 requests per hour limit.
-
-#### get_sos_supporting_tables.sh
-Needs to be run once to get local versions of lookup tables for municipalities, school districts and question texts.
 
 ## Live print exporter
 These scripts are also part of this repository. Their requirements are included in those listed above. The main script is:
