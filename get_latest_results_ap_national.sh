@@ -43,7 +43,6 @@ $ELEX_INSTALLATION_PREFIX/elex results $ELECTION_DATE $TEST -o json \
       last: .last,
       party: .party,
       uncontested: .uncontested,
-      incumbent: .incumbent,
       votecount: .votecount,
       votepct: .votepct,
       electvotes: .electwon,
@@ -54,8 +53,6 @@ $ELEX_INSTALLATION_PREFIX/elex results $ELECTION_DATE $TEST -o json \
       precinctsreportingpct: .precinctsreportingpct,
       seatname: .seatname,
       fipscode: .fipscode,
-      reportingunitid: .reportingunitid,
-      reportingunitname: .reportingunitname,
       lastupdated: .lastupdated
     }
 ]
