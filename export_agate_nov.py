@@ -55,18 +55,12 @@ lookup = {
         'formatter': 'schools',
         'sos_source_file': 'https://electionresultsfiles.sos.state.mn.us/20201103/SDRaceQuestions.txt'
     },
+    'Metro schools questions': {
+        'outfile_name': 'ELEX_METSCHQ',
+        'formatter': 'school_question',
+        'sos_source_file': 'https://electionresultsfiles.sos.state.mn.us/20201103/SDRaceQuestions.txt'
+    },
 }
-
-# x - ELEX_USSEN: U.S. Senate race for Minn. (Smith v. Lewis)
-# x - ELEX_USHSE: U.S House races for the eight Minn. Seats
-# x - ELEX_MNSEN: Minn. Senate races
-# x - ELEX_MNHSE: Minn. House races
-# x - ELES_METCO: Metro area county races
-# x - ELEX_METCITY: Metro area city races
-# x - ELEX_MNJUD: Judicial races (courts)
-# x - ELEX_METQUES: Metro area city ballot questions
-# x - ELEX_METSCHB: Metro area school board races
-# ELEX_METSCHQ: Metro area school questions
 
 SOS_HEADER_ROW = ["state", "county_id_sos", "precinct_id", "office_id", "seatname", "district", "cand_order", "full_name", "suffix", "incumbent", "party", "precinctsreporting", "precinctstotal", "votecount", "votepct", "votes_office"]
 
@@ -91,9 +85,32 @@ city_lookup = pd.read_csv(
     delimiter=";", names=SOS_CITY_LOOKUP_HEADER_ROW, encoding='latin-1', dtype='object'
 )
 
+def check_school_dist_race(row):
+    ''' Used on results, which have SSD or ISD in the seatname '''
+    if '(SSD #1)' in row['seatname']:
+        row['school_dist_lookup'] = 'MINNEAPOLIS'
+    else:
+        row['school_dist_lookup'] = row['district']
+    return row
+
+def check_school_dist_metadata(row):
+    ''' Used on the school district supporting table, which DOES NOT have SSD or ISD '''
+    if row['location_name'] == 'MINNEAPOLIS':
+        row['school_dist_lookup'] = 'MINNEAPOLIS'
+    else:
+        row['school_dist_lookup'] = row['school_dist_num']
+    return row
+
 school_lookup = pd.read_csv(
     'https://electionresultsfiles.sos.state.mn.us/20201103/SchoolDistTbl.txt',
     delimiter=";", names=SOS_SCHOOLS_LOOKUP_HEADER_ROW, encoding='latin-1', dtype='object'
+)
+school_lookup = school_lookup.apply(lambda x: check_school_dist_metadata(x), axis=1)
+# school_lookup['school_dist_lookup'] = school_lookup['county_id_sos'].astype(str) + school_lookup['school_dist_num'].astype(str)
+
+ques_lookup = pd.read_csv(
+    'https://electionresultsfiles.sos.state.mn.us/20201103/BallotQuestions.txt',
+    delimiter=";", names=SOS_QUES_LOOKUP_HEADER_ROW, encoding='latin-1', dtype='object'
 )
 
 def process_sos_csv(header_row, url, race_format):
@@ -101,19 +118,6 @@ def process_sos_csv(header_row, url, race_format):
     df['office_id_strib'] = df['county_id_sos'].astype(str) + df['office_id'].astype(str) + df['district'].astype(str)
     df['race_format'] = race_format
     return df
-
-
-def district_finder(input_str):
-    '''Extract district name from our processed SOS json'''
-    district = re.search(r'(District) (\d+)([A-z]*)', input_str)
-    if district:
-        # print(district.group(0))
-        numeric = int(district.group(2))
-        # print(numeric)
-        modifier = district.group(3)
-        # print(modifier)
-        return district.group(0), numeric, modifier
-    return input_str, None, None
 
 def district_formatter(row):
     if row['race_format'] == 'statewide':
@@ -185,7 +189,7 @@ def district_formatter(row):
         row['num_seats'] = ''
         row['question_strib'] = ''
 
-    elif row['race_format'] == 'question':
+    elif row['race_format'] in ['question', 'school_question']:
         office_name = row['location_name'].upper()
         row['office_name'] = row['location_name'].upper()
         row['seat_name_subhed'] = ''
@@ -206,8 +210,8 @@ def party_formatter(party):
     return ' - ' + party
 
 
-# for officetype in ['U.S. Senate', 'U.S. House', 'State Senate', 'State House', 'Statewide courts', 'Metro counties', 'Metro cities', 'Metro city questions']:
-for officetype in ['Metro schools']:
+# for officetype in ['U.S. Senate', 'U.S. House', 'State Senate', 'State House', 'Statewide courts', 'Metro counties', 'Metro cities', 'Metro schools', 'Metro city questions', 'Metro schools questions']:
+for officetype in ['U.S. Senate', 'U.S. House', 'State Senate', 'State House', 'Statewide courts', 'Metro counties', 'Metro cities', 'Metro schools', 'Metro city questions', 'Metro schools questions']:
 
     output = ''
 
@@ -238,17 +242,43 @@ for officetype in ['Metro schools']:
     elif lookup[officetype]['formatter'] == 'schools':
         df = process_sos_csv(SOS_HEADER_ROW, lookup[officetype]['sos_source_file'], lookup[officetype]['formatter'])
         df = df[~df['seatname'].str.contains('QUESTION')] # Remove questions (Do separately)
+        df = df.apply(lambda x: check_school_dist_race(x), axis=1)
+        # df['school_dist_lookup'] = df['county_id_sos'].astype(str) + df['district'].astype(str)
 
         df = df.drop(columns=['county_id_sos']).merge(
             school_lookup,
             how="left",
-            left_on="district",
-            right_on="school_dist_num"
+            on="school_dist_lookup"
         )
 
         df = df[df['county_id_sos'].isin(COUNTY_LOOKUP.keys())].drop(columns=['county_id_sos', 'county_name']).drop_duplicates()
         # df['location_name'] = df['location_name'].str.replace('City of ', '')  # remove "city of" before sorting
         df = df.sort_values(['location_name', 'office_id', 'district', 'votecount'], ascending=[True, True, True, False])
+
+    elif lookup[officetype]['formatter'] == 'school_question':
+        df = process_sos_csv(SOS_HEADER_ROW, lookup[officetype]['sos_source_file'], lookup[officetype]['formatter'])
+        df = df[df['seatname'].str.contains('QUESTION')] # Remove questions (Do separately)
+        df['ques_lookup'] = df['district'].astype(str) + df['office_id'].astype(str)
+
+        # First, join to question text, which also includes info needed to look up the school district
+        ques_lookup['ques_lookup'] = ques_lookup['school_dist_num'].astype(str) + ques_lookup['office_id'].astype(str)
+        df = df.drop(columns=['county_id_sos', 'office_id']).merge(
+            ques_lookup,
+            how="left",
+            on="ques_lookup"
+        )
+
+        # Now you can look up the school district, since you have the county code
+        # df['school_dist_lookup'] = df['county_id_sos'].astype(str) + df['district'].astype(str)
+        df = df.apply(lambda x: check_school_dist_race(x), axis=1)
+        df = df.drop(columns='county_id_sos').merge(
+            school_lookup,
+            how="left",
+            on="school_dist_lookup"
+        )
+
+        df = df[df['county_id_sos'].isin(COUNTY_LOOKUP.keys())].drop(columns=['county_id_sos', 'county_name']).drop_duplicates()
+        df = df.sort_values(['location_name', 'office_id', 'district', 'full_name'], ascending=[True, True, True, False])  # Put yes first (seatname) rather than leader
 
     elif lookup[officetype]['formatter'] == 'question':
         df = process_sos_csv(SOS_HEADER_ROW, lookup[officetype]['sos_source_file'], lookup[officetype]['formatter'])
@@ -260,17 +290,12 @@ for officetype in ['Metro schools']:
             left_on="district",
             right_on="fips_code"
         )
-        df['lookup'] = df['fips_code'].astype(str) + df['office_id'].astype(str)
+        df['lookup'] = df['county_id_sos'].astype(str) + df['fips_code'].astype(str) + df['office_id'].astype(str)
 
         df = df[df['county_id_sos'].isin(COUNTY_LOOKUP.keys())].drop(columns=['county_id_sos', 'county_name']).drop_duplicates()
         df['location_name'] = df['location_name'].str.replace('City of ', '')  # remove "city of" before sorting
 
-        ques_lookup = pd.read_csv(
-            'https://electionresultsfiles.sos.state.mn.us/20201103/BallotQuestions.txt',
-            delimiter=";", names=SOS_QUES_LOOKUP_HEADER_ROW, encoding='latin-1', dtype={'county_id_sos': 'object', 'office_id': 'object', 'fips_code': 'object'}
-        )
-
-        ques_lookup['lookup'] = ques_lookup['fips_code'].astype(str) + ques_lookup['office_id'].astype(str)
+        ques_lookup['lookup'] = ques_lookup['county_id_sos'].astype(str) + ques_lookup['fips_code'].astype(str) + ques_lookup['office_id'].astype(str)
         df = df.drop(columns=['office_id']).merge(
             ques_lookup,
             how="left",
@@ -283,16 +308,12 @@ for officetype in ['Metro schools']:
         df = process_sos_csv(SOS_HEADER_ROW, lookup[officetype]['sos_source_file'], lookup[officetype]['formatter'])
 
     df = df.apply(lambda x: district_formatter(x), axis=1)
-    print(df)
+    # print(df)
     # print(df[['office_name', 'seatname', 'district', 'seat_name_subhed', 'seat_num_numeric']])
 
     races = {}
 
     for m in df.to_dict('records'):
-        # if m['seatname']:
-        #     seat_name = m['seatname']
-        # else:
-        #     seat_name = m['officetype']
 
         if m['office_id_strib'] not in races:
             races[m['office_id_strib']] = {'cands': []}
