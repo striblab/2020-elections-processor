@@ -196,7 +196,7 @@ def district_formatter(row):
         row['seat_num_numeric'] = ''
         row['num_seats'] = ''
         question_num = re.search(r'QUESTION (\d+)', row['question_num'])
-        row['question_strib'] = 'Question {}: {}'.format(question_num.group(1), row['question_body'].replace('^', ';'))
+        row['question_strib'] = 'Question {}: {}'.format(question_num.group(1), row['question_body'].replace('^', ';').replace('&bull;', '•'))
     return row
 
 
