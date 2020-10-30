@@ -30,7 +30,7 @@ printf "Starting AP statewide update ...\n\n"
 # echo $ELEX_INSTALLATION_PREFIX/elex results $ELECTION_DATE --results-level ru$TEST --raceids $RACE_ID -o json
 # elex results 08-11-2020 --results-level state --test -o json
 # echo $ELEX_INSTALLATION_PREFIX/elex results $ELECTION_DATE $TEST -o json
-# elex results 2020-11-03 --results-level state --test -o json 
+# elex results 2020-11-03 --results-level state --test -o json
 
 $ELEX_INSTALLATION_PREFIX/elex results $ELECTION_DATE $TEST --results-level state -o json \
 | jq -c "[
@@ -62,6 +62,7 @@ $ELEX_INSTALLATION_PREFIX/elex results $ELECTION_DATE $TEST --results-level stat
       lastupdated: .lastupdated
     }
 ]
+| [.[] | .lastupdated = \"2020-10-30 12:00:00\"] | [.[] | .votecount = 0] | [.[] | .votepct = 0] | [.[] | .electvotes = 0] | [.[] | .winner = false] | [.[] | .precinctsreporting = 0 | .precinctsreportingpct = 0]
 | [.[]]" > $TMPFILE
 
     # | select(.uncontested == false)
@@ -71,7 +72,7 @@ $ELEX_INSTALLATION_PREFIX/elex results $ELECTION_DATE $TEST --results-level stat
 # | . |= map(if .last == \"$MANUAL_WINNER\" then (.manual_winner=true) else . end)
 
 # Use this to zero out before live results come in
-#| [.[] | .lastupdated = \"2020-02-27 12:00:00\"] | [.[] | .votecount = 0] | [.[] | .votepct = 0] | [.[] | .winner = false] | [.[] | .precinctsreporting = 0 | .precinctsreportingpct = 0]
+#| [.[] | .lastupdated = \"2020-10-30 12:00:00\"] | [.[] | .votecount = 0] | [.[] | .votepct = 0] | [.[] | .electvotes = 0] | [.[] | .winner = false] | [.[] | .precinctsreporting = 0 | .precinctsreportingpct = 0]
 
 # Use this to hardcode something else for testing
 # | [.[] | .lastupdated = \"1988-01-01 00:00:00\"] | [.[] | .votecount = 7500] | [.[] | .precinctsreporting = 66 | .precinctsreportingpct = 0.66]

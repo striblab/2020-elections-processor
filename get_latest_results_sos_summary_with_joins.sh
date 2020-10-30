@@ -98,27 +98,32 @@ fi
 if [ "$BOOL_ERROR" = true ] ; then
     echo 'Problem with one or more race types, not building final version...'
 else
-  echo "Filtering and adding Strib fields..."
+  echo "Filtering and adding Strib fields (WARNING: TEMPORARILY SET TO ZEROS)..."
   cat sos/mn_2020_nov_sos__statewide.ndjson | \
     ndjson-filter 'd.full_name != "WRITE-IN"' | \
     ndjson-map 'd.precinctsreportingpct = (d.precinctsreporting / d.precinctstotal).toFixed(2), d' | \
     ndjson-map "d.lastupdated = '$update_datetime', d" | \
+    ndjson-map "d.votecount = 0, d" | \
+    ndjson-map "d.votepct = 0, d" | \
+    ndjson-map "d.votes_office = 0, d" | \
+    ndjson-map "d.precinctsreporting = 0, d" | \
+    ndjson-map "d.precinctsreportingpct = 0, d" | \
     ndjson-filter 'delete d.state, true' | ndjson-filter 'delete d.precinct_id, true' | ndjson-filter 'delete d.cand_order, true' | \
-    json2csv -d ";" > $TMPFILE
+    json2csv > $TMPFILE
 
   # Make sos directory if it doesn't exist
   [ -d sos ] || mkdir sos
 
   bool_update=false
   # Test that this is a seemingly valid file
-  FIRST_OFFICE="$(head -n 2 $TMPFILE | csv2json -s ";" | jq '.[0].officename')"
+  FIRST_OFFICE="$(head -n 2 $TMPFILE | csv2json | jq '.[0].officename')"
   if [ "$FIRST_OFFICE" == '"Supreme and Appeals Court"' ]; then
     echo "Seems to be CSV in expected format. Checking for changes from last version."
 
     if test -f $LATEST_FILE; then
         echo "Checking for differences with last file..."
-        new_comparison="$(csv2json -s ";" $TMPFILE | jq -c ".[]" | ndjson-map '{"vc": d.votecount, "pr": d.precinctsreporting}')"
-        existing_comparison="$(csv2json -s ";" $LATEST_FILE | jq -c ".[]" | ndjson-map '{"vc": d.votecount, "pr": d.precinctsreporting}')"
+        new_comparison="$(csv2json $TMPFILE | jq -c ".[]" | ndjson-map '{"vc": d.votecount, "pr": d.precinctsreporting}')"
+        existing_comparison="$(csv2json $LATEST_FILE | jq -c ".[]" | ndjson-map '{"vc": d.votecount, "pr": d.precinctsreporting}')"
 
         if  [[ "$new_comparison" == "$existing_comparison" ]]; then
            echo "File unchanged. No upload will be attempted."
@@ -161,7 +166,7 @@ else
       fi
 
       # Get first entry of uploaded json
-      FIRST_ENTRY=$(curl -s --compressed $ELEX_S3_URL/$LATEST_FILE.gz | head -n 2 $TMPFILE | csv2json -s ";" | jq '.[0]')
+      FIRST_ENTRY=$(curl -s --compressed $ELEX_S3_URL/$LATEST_FILE.gz | head -n 2 $TMPFILE | csv2json | jq '.[0]')
       if [ "$(echo $FIRST_ENTRY | jq '.officename')" == '"Supreme and Appeals Court"' ]; then
         echo "$FIRST_ENTRY"
       else

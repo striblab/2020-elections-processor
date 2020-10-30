@@ -67,6 +67,7 @@ $ELEX_INSTALLATION_PREFIX/elex results $ELECTION_DATE --raceids 25151,0 --result
       lastupdated: .lastupdated
     }
 ]
+| [.[] | .lastupdated = \"2020-10-30 12:00:00\"] | [.[] | .votecount = 0] | [.[] | .votepct = 0] | [.[] | .winner = false] | [.[] | .precinctsreporting = 0 | .precinctsreportingpct = 0]
 | [.[]]" > $TMPFILE
 
     # | select(.uncontested == false)
@@ -76,7 +77,7 @@ $ELEX_INSTALLATION_PREFIX/elex results $ELECTION_DATE --raceids 25151,0 --result
 # | . |= map(if .last == \"$MANUAL_WINNER\" then (.manual_winner=true) else . end)
 
 # Use this to zero out before live results come in
-#| [.[] | .lastupdated = \"2020-02-27 12:00:00\"] | [.[] | .votecount = 0] | [.[] | .votepct = 0] | [.[] | .winner = false] | [.[] | .precinctsreporting = 0 | .precinctsreportingpct = 0]
+#| [.[] | .lastupdated = \"2020-10-30 12:00:00\"] | [.[] | .votecount = 0] | [.[] | .votepct = 0] | [.[] | .winner = false] | [.[] | .precinctsreporting = 0 | .precinctsreportingpct = 0]
 
 # Use this to hardcode something else for testing
 # | [.[] | .lastupdated = \"1988-01-01 00:00:00\"] | [.[] | .votecount = 7500] | [.[] | .precinctsreporting = 66 | .precinctsreportingpct = 0.66]

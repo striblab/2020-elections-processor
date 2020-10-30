@@ -1,0 +1,87 @@
+{"county_name": "Aitkin", "fips": "001", "county_id_sos": "01"}
+{"county_name": "Anoka", "fips": "003", "county_id_sos": "02"}
+{"county_name": "Becker", "fips": "005", "county_id_sos": "03"}
+{"county_name": "Beltrami", "fips": "007", "county_id_sos": "04"}
+{"county_name": "Benton", "fips": "009", "county_id_sos": "05"}
+{"county_name": "Big Stone", "fips": "011", "county_id_sos": "06"}
+{"county_name": "Blue Earth", "fips": "013", "county_id_sos": "07"}
+{"county_name": "Brown", "fips": "015", "county_id_sos": "08"}
+{"county_name": "Carlton", "fips": "017", "county_id_sos": "09"}
+{"county_name": "Carver", "fips": "019", "county_id_sos": "10"}
+{"county_name": "Cass", "fips": "021", "county_id_sos": "11"}
+{"county_name": "Chippewa", "fips": "023", "county_id_sos": "12"}
+{"county_name": "Chisago", "fips": "025", "county_id_sos": "13"}
+{"county_name": "Clay", "fips": "027", "county_id_sos": "14"}
+{"county_name": "Clearwater", "fips": "029", "county_id_sos": "15"}
+{"county_name": "Cook", "fips": "031", "county_id_sos": "16"}
+{"county_name": "Cottonwood", "fips": "033", "county_id_sos": "17"}
+{"county_name": "Crow Wing", "fips": "035", "county_id_sos": "18"}
+{"county_name": "Dakota", "fips": "037", "county_id_sos": "19"}
+{"county_name": "Dodge", "fips": "039", "county_id_sos": "20"}
+{"county_name": "Douglas", "fips": "041", "county_id_sos": "21"}
+{"county_name": "Faribault", "fips": "043", "county_id_sos": "22"}
+{"county_name": "Fillmore", "fips": "045", "county_id_sos": "23"}
+{"county_name": "Freeborn", "fips": "047", "county_id_sos": "24"}
+{"county_name": "Goodhue", "fips": "049", "county_id_sos": "25"}
+{"county_name": "Grant", "fips": "051", "county_id_sos": "26"}
+{"county_name": "Hennepin", "fips": "053", "county_id_sos": "27"}
+{"county_name": "Houston", "fips": "055", "county_id_sos": "28"}
+{"county_name": "Hubbard", "fips": "057", "county_id_sos": "29"}
+{"county_name": "Isanti", "fips": "059", "county_id_sos": "30"}
+{"county_name": "Itasca", "fips": "061", "county_id_sos": "31"}
+{"county_name": "Jackson", "fips": "063", "county_id_sos": "32"}
+{"county_name": "Kanabec", "fips": "065", "county_id_sos": "33"}
+{"county_name": "Kandiyohi", "fips": "067", "county_id_sos": "34"}
+{"county_name": "Kittson", "fips": "069", "county_id_sos": "35"}
+{"county_name": "Koochiching", "fips": "071", "county_id_sos": "36"}
+{"county_name": "Lac qui Parle", "fips": "073", "county_id_sos": "37"}
+{"county_name": "Lake", "fips": "075", "county_id_sos": "38"}
+{"county_name": "Lake of the Woods", "fips": "077", "county_id_sos": "39"}
+{"county_name": "Le Sueur", "fips": "079", "county_id_sos": "40"}
+{"county_name": "Lincoln", "fips": "081", "county_id_sos": "41"}
+{"county_name": "Lyon", "fips": "083", "county_id_sos": "42"}
+{"county_name": "Mahnomen", "fips": "087", "county_id_sos": "43"}
+{"county_name": "Marshall", "fips": "089", "county_id_sos": "44"}
+{"county_name": "Martin", "fips": "091", "county_id_sos": "45"}
+{"county_name": "McLeod", "fips": "085", "county_id_sos": "46"}
+{"county_name": "Meeker", "fips": "093", "county_id_sos": "47"}
+{"county_name": "Mille Lacs", "fips": "095", "county_id_sos": "48"}
+{"county_name": "Morrison", "fips": "097", "county_id_sos": "49"}
+{"county_name": "Mower", "fips": "099", "county_id_sos": "50"}
+{"county_name": "Murray", "fips": "101", "county_id_sos": "51"}
+{"county_name": "Nicollet", "fips": "103", "county_id_sos": "52"}
+{"county_name": "Nobles", "fips": "105", "county_id_sos": "53"}
+{"county_name": "Norman", "fips": "107", "county_id_sos": "54"}
+{"county_name": "Olmsted", "fips": "109", "county_id_sos": "55"}
+{"county_name": "Otter Tail", "fips": "111", "county_id_sos": "56"}
+{"county_name": "Pennington", "fips": "113", "county_id_sos": "57"}
+{"county_name": "Pine", "fips": "115", "county_id_sos": "58"}
+{"county_name": "Pipestone", "fips": "117", "county_id_sos": "59"}
+{"county_name": "Polk", "fips": "119", "county_id_sos": "60"}
+{"county_name": "Pope", "fips": "121", "county_id_sos": "61"}
+{"county_name": "Ramsey", "fips": "123", "county_id_sos": "62"}
+{"county_name": "Red Lake", "fips": "125", "county_id_sos": "63"}
+{"county_name": "Redwood", "fips": "127", "county_id_sos": "64"}
+{"county_name": "Renville", "fips": "129", "county_id_sos": "65"}
+{"county_name": "Rice", "fips": "131", "county_id_sos": "66"}
+{"county_name": "Rock", "fips": "133", "county_id_sos": "67"}
+{"county_name": "Roseau", "fips": "135", "county_id_sos": "68"}
+{"county_name": "Scott", "fips": "139", "county_id_sos": "69"}
+{"county_name": "Sherburne", "fips": "141", "county_id_sos": "70"}
+{"county_name": "Sibley", "fips": "143", "county_id_sos": "71"}
+{"county_name": "St. Louis", "fips": "137", "county_id_sos": "72"}
+{"county_name": "Stearns", "fips": "145", "county_id_sos": "73"}
+{"county_name": "Steele", "fips": "147", "county_id_sos": "74"}
+{"county_name": "Stevens", "fips": "149", "county_id_sos": "75"}
+{"county_name": "Swift", "fips": "151", "county_id_sos": "76"}
+{"county_name": "Todd", "fips": "153", "county_id_sos": "77"}
+{"county_name": "Traverse", "fips": "155", "county_id_sos": "78"}
+{"county_name": "Wabasha", "fips": "157", "county_id_sos": "79"}
+{"county_name": "Wadena", "fips": "159", "county_id_sos": "80"}
+{"county_name": "Waseca", "fips": "161", "county_id_sos": "81"}
+{"county_name": "Washington", "fips": "163", "county_id_sos": "82"}
+{"county_name": "Watonwan", "fips": "165", "county_id_sos": "83"}
+{"county_name": "Wilkin", "fips": "167", "county_id_sos": "84"}
+{"county_name": "Winona", "fips": "169", "county_id_sos": "85"}
+{"county_name": "Wright", "fips": "171", "county_id_sos": "86"}
+{"county_name": "Yellow Medicine", "fips": "173", "county_id_sos": "87"}

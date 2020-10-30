@@ -40,3 +40,16 @@ if [ "${#CURL_RESPONSE}" -gt "100" ]; then
 else
   echo "WARNING: very short file..."
 fi
+
+# Precincts
+CURL_RESPONSE=$(curl -s $ALLOW_INSECURE --ftp-ssl --user media:results ftp://ftp.sos.state.mn.us/20201103/PrctTbl.txt)
+
+if [ "${#CURL_RESPONSE}" -gt "100" ]; then
+  echo "Got long response, proceeding..."
+  echo -e "county_id_sos;precinct_id;precinct_name;cong_dist;leg_dist;cty_com_dist;jud_dist;soil_dist;mcd_fips;school_dist_num\n$CURL_RESPONSE" | \
+  iconv -f iso8859-1 -t utf-8 | sed 's/\"/@@/g' | csv2json -s ";" | sed 's/@@/\\"/g' | jq -c ".[]" | \
+    ndjson-map 'd.lookup = (d.county_id_sos + d.precinct_id), d' > supporting_tables/sos_precincts_lookup.ndjson
+    # ndjson-reduce 'p[d.lookup] = d, p' '{}' > supporting_tables/sos_questions_lookup.json
+else
+  echo "WARNING: very short file..."
+fi
