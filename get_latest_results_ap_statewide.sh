@@ -9,8 +9,8 @@ AP_API_KEY=$AP_API_KEY_STATE_LEVEL
 # For November 2020 statewide testing
 ELECTION_DATE="2020-11-03"
 STATE_NAME="*"
-TEST=' --test'
-# TEST=''
+# TEST=' --test'
+TEST=''
 MANUAL_WINNER=""  # Use this to override an AP race call (or lack thereof)
 
 download_datetime=$(date '+%Y%m%d%H%M%S');
@@ -62,7 +62,6 @@ $ELEX_INSTALLATION_PREFIX/elex results $ELECTION_DATE $TEST --results-level stat
       lastupdated: .lastupdated
     }
 ]
-| [.[] | .lastupdated = \"2020-10-30 12:00:00\"] | [.[] | .votecount = 0] | [.[] | .votepct = 0] | [.[] | .electvotes = 0] | [.[] | .winner = false] | [.[] | .precinctsreporting = 0 | .precinctsreportingpct = 0]
 | [.[]]" > $TMPFILE
 
     # | select(.uncontested == false)

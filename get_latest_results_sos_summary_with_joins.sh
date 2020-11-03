@@ -27,7 +27,7 @@ else
   BOOL_ERROR=true
 fi
 
-
+sleep .5
 
 echo "Downloading district court results, append to summary file ..."
 CURL_RESPONSE=$(curl -s $ALLOW_INSECURE --ftp-ssl --user media:results ftp://ftp.sos.state.mn.us/20201103/judicialdst.txt)
@@ -43,7 +43,7 @@ else
   BOOL_ERROR=true
 fi
 
-
+sleep .5
 
 echo "Downloading county results, append to summary file ..."
 CURL_RESPONSE=$(curl -s $ALLOW_INSECURE --ftp-ssl --user media:results ftp://ftp.sos.state.mn.us/20201103/cntyRaceQuestions.txt)
@@ -59,7 +59,7 @@ else
   BOOL_ERROR=true
 fi
 
-
+sleep .5
 
 echo "Downloading municipal results, merging with city lookup file, append to summary file ..."
 CURL_RESPONSE=$(curl -s $ALLOW_INSECURE --ftp-ssl --user media:results ftp://ftp.sos.state.mn.us/20201103/local.txt)
@@ -77,7 +77,7 @@ else
   BOOL_ERROR=true
 fi
 
-
+sleep .5
 
 echo "Downloading school board results, merging with school district lookup, append to summary file"
 CURL_RESPONSE=$(curl -s $ALLOW_INSECURE --ftp-ssl --user media:results ftp://ftp.sos.state.mn.us/20201103/SDRaceQuestions.txt)
@@ -98,18 +98,19 @@ fi
 if [ "$BOOL_ERROR" = true ] ; then
     echo 'Problem with one or more race types, not building final version...'
 else
-  echo "Filtering and adding Strib fields (WARNING: TEMPORARILY SET TO ZEROS)..."
+  echo "Filtering and adding Strib fields ..."
   cat sos/mn_2020_nov_sos__statewide.ndjson | \
     ndjson-filter 'd.full_name != "WRITE-IN"' | \
     ndjson-map 'd.precinctsreportingpct = (d.precinctsreporting / d.precinctstotal).toFixed(2), d' | \
     ndjson-map "d.lastupdated = '$update_datetime', d" | \
-    ndjson-map "d.votecount = 0, d" | \
-    ndjson-map "d.votepct = 0, d" | \
-    ndjson-map "d.votes_office = 0, d" | \
-    ndjson-map "d.precinctsreporting = 0, d" | \
-    ndjson-map "d.precinctsreportingpct = 0, d" | \
     ndjson-filter 'delete d.state, true' | ndjson-filter 'delete d.precinct_id, true' | ndjson-filter 'delete d.cand_order, true' | \
     json2csv > $TMPFILE
+
+    # ndjson-map "d.votecount = 0, d" | \
+    # ndjson-map "d.votepct = 0, d" | \
+    # ndjson-map "d.votes_office = 0, d" | \
+    # ndjson-map "d.precinctsreporting = 0, d" | \
+    # ndjson-map "d.precinctsreportingpct = 0, d" | \
 
   # Make sos directory if it doesn't exist
   [ -d sos ] || mkdir sos

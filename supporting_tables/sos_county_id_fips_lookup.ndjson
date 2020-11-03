@@ -40,10 +40,10 @@
 {"county_name": "Le Sueur", "fips": "079", "county_id_sos": "40"}
 {"county_name": "Lincoln", "fips": "081", "county_id_sos": "41"}
 {"county_name": "Lyon", "fips": "083", "county_id_sos": "42"}
-{"county_name": "Mahnomen", "fips": "087", "county_id_sos": "43"}
-{"county_name": "Marshall", "fips": "089", "county_id_sos": "44"}
-{"county_name": "Martin", "fips": "091", "county_id_sos": "45"}
-{"county_name": "McLeod", "fips": "085", "county_id_sos": "46"}
+{"county_name": "McLeod", "fips": "085", "county_id_sos": "43"}
+{"county_name": "Mahnomen", "fips": "087", "county_id_sos": "44"}
+{"county_name": "Marshall", "fips": "089", "county_id_sos": "45"}
+{"county_name": "Martin", "fips": "091", "county_id_sos": "46"}
 {"county_name": "Meeker", "fips": "093", "county_id_sos": "47"}
 {"county_name": "Mille Lacs", "fips": "095", "county_id_sos": "48"}
 {"county_name": "Morrison", "fips": "097", "county_id_sos": "49"}
@@ -66,10 +66,10 @@
 {"county_name": "Rice", "fips": "131", "county_id_sos": "66"}
 {"county_name": "Rock", "fips": "133", "county_id_sos": "67"}
 {"county_name": "Roseau", "fips": "135", "county_id_sos": "68"}
-{"county_name": "Scott", "fips": "139", "county_id_sos": "69"}
-{"county_name": "Sherburne", "fips": "141", "county_id_sos": "70"}
-{"county_name": "Sibley", "fips": "143", "county_id_sos": "71"}
-{"county_name": "St. Louis", "fips": "137", "county_id_sos": "72"}
+{"county_name": "St. Louis", "fips": "137", "county_id_sos": "69"}
+{"county_name": "Scott", "fips": "139", "county_id_sos": "70"}
+{"county_name": "Sherburne", "fips": "141", "county_id_sos": "71"}
+{"county_name": "Sibley", "fips": "143", "county_id_sos": "72"}
 {"county_name": "Stearns", "fips": "145", "county_id_sos": "73"}
 {"county_name": "Steele", "fips": "147", "county_id_sos": "74"}
 {"county_name": "Stevens", "fips": "149", "county_id_sos": "75"}

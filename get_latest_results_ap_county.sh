@@ -8,8 +8,8 @@ ELECTION_DATE="2020-11-03"
 STATE_NAME="Minnesota"
 # RACE_ID="25869"
 RESULTS_LEVEL="ru"
-TEST=' --test'
-# TEST=''
+# TEST=' --test'
+TEST=''
 MANUAL_WINNER=""  # Use this to override an AP race call (or lack thereof)
 
 # For Minnesota August primary
@@ -67,7 +67,6 @@ $ELEX_INSTALLATION_PREFIX/elex results $ELECTION_DATE --raceids 25151,0 --result
       lastupdated: .lastupdated
     }
 ]
-| [.[] | .lastupdated = \"2020-10-30 12:00:00\"] | [.[] | .votecount = 0] | [.[] | .votepct = 0] | [.[] | .winner = false] | [.[] | .precinctsreporting = 0 | .precinctsreportingpct = 0]
 | [.[]]" > $TMPFILE
 
     # | select(.uncontested == false)
