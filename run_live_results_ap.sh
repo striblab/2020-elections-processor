@@ -23,10 +23,16 @@ do
     echo SOS loop count: $LOOP_COUNT
     if [[ "$LOOP_COUNT" -gt 4 ]]; then
       ("./get_latest_results_sos_summary_with_joins.sh") | tee -a $LOGFILE
+
+      sleep 1
+
+      ("./get_latest_precinct_results_prez_flat.sh") | tee -a $LOGFILE
       ((LOOP_COUNT=1))
     else
       echo Skipping update
       ((LOOP_COUNT++))
     fi
+
+
 
 done
