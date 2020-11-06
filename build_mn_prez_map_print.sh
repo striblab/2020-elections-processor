@@ -2,7 +2,6 @@
 set -o allexport; source .env; set +o allexport
 
 # Getting vote totals and joining to state names
-# cat json/results-mn-county-latest.json | \
 cat <(curl -s $ELEX_S3_URL/json/results-mn-county-latest.json) | \
   jq -c ".[]" | \
   ndjson-filter 'd.level === "county" && d.officename === "President" && ["Biden", "Trump"].indexOf(d.last) != -1' | \
