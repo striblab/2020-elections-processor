@@ -261,9 +261,10 @@ for officetype in ['U.S. Senate', 'U.S. House', 'State Senate', 'State House', '
         df['ques_lookup'] = df['district'].astype(str) + df['office_id'].astype(str)
 
         # First, join to question text, which also includes info needed to look up the school district
-        ques_lookup['ques_lookup'] = ques_lookup['school_dist_num'].astype(str) + ques_lookup['office_id'].astype(str)
+        ques_lookup_school_qs = ques_lookup.copy()
+        ques_lookup_school_qs['ques_lookup'] = ques_lookup_school_qs['school_dist_num'].astype(str) + ques_lookup_school_qs['office_id'].astype(str)
         df = df.drop(columns=['county_id_sos', 'office_id']).merge(
-            ques_lookup,
+            ques_lookup_school_qs,
             how="left",
             on="ques_lookup"
         )
@@ -295,9 +296,10 @@ for officetype in ['U.S. Senate', 'U.S. House', 'State Senate', 'State House', '
         df = df[df['county_id_sos'].isin(COUNTY_LOOKUP.keys())].drop(columns=['county_id_sos', 'county_name']).drop_duplicates()
         df['location_name'] = df['location_name'].str.replace('City of ', '')  # remove "city of" before sorting
 
-        ques_lookup['lookup'] = ques_lookup['county_id_sos'].astype(str) + ques_lookup['fips_code'].astype(str) + ques_lookup['office_id'].astype(str)
+        ques_lookup_1 = ques_lookup.copy()
+        ques_lookup_1['lookup'] = ques_lookup_1['county_id_sos'].astype(str) + ques_lookup_1['fips_code'].astype(str) + ques_lookup_1['office_id'].astype(str)
         df = df.drop(columns=['office_id']).merge(
-            ques_lookup,
+            ques_lookup_1,
             how="left",
             on="lookup"
         )

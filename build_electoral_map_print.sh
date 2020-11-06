@@ -9,7 +9,10 @@ cat <(curl -s $ELEX_S3_URL/json/results-national-ap-latest.json) | \
   ndjson-reduce '(p[d.statepostal] = p[d.statepostal] || []).push({name: d.last, votecount: d.votecount, votepct: d.votepct, bool_winner: d.winner}), p' '{}' | \
   ndjson-split 'Object.keys(d).map(key => ({statepostal: key, votes: d[key]}))' | \
   ndjson-map '{"statepostal": d.statepostal, "votes": d.votes.filter(obj => obj.name != "").sort((a, b) => b.bool_winner - a.bool_winner).sort((a, b) => b.votecount - a.votecount)}' | \
-  ndjson-map '{"statepostal": d.statepostal, "leader": d.votes.every(o => o.votecount == 0) ? "no-votes" : d.votes[0].votecount != d.votes[1].votecount ? d.votes[0].name : "even", "winner_or_leading": d.votes[0].bool_winner == true ? d.votes[0].name + "_winner"  : d.votes.every(o => o.votecount == 0) ? "no-votes" : d.votes[0].votecount != d.votes[1].votecount && d.votes[0].bool_winner == false ? d.votes[0].name + "_leader" : "even", "winner_margin": (d.votes[0].votepct - d.votes[1].votepct).toFixed(2)}' | \
+  ndjson-map 'd.leader = d.votes.every(o => o.votecount == 0) ? "no-votes" : d.votes[0].votecount != d.votes[1].votecount ? d.votes[0].name : "even", d' | \
+  ndjson-map 'd.winner_or_leading = d.votes[0].bool_winner == true ? d.votes[0].name + "_winner"  : d.votes.every(o => o.votecount == 0) ? "no-votes" : d.votes[0].votecount != d.votes[1].votecount && d.votes[0].bool_winner == false ? d.votes[0].name + "_leader" : "even", d' | \
+  ndjson-map 'd.winner_only = d.votes.filter(n => n.bool_winner == true).length == 1 ? d.votes.filter(n => n.bool_winner == true)[0].name : "no-winner", d' | \
+  ndjson-map 'd.winner_margin = d.votes[0].votepct - d.votes[1].votepct, d' | \
   ndjson-join --left 'd.statepostal' 'd.abbreviation' - <(cat json/state-electoral-votes-and-history.json | jq -c ".[]") | \
   ndjson-map 'Object.assign(d[0], d[1])' > spatial/prez_state_winners.tmp.ndjson
 
@@ -17,7 +20,7 @@ cat <(curl -s $ELEX_S3_URL/json/results-national-ap-latest.json) | \
 ndjson-split 'd.objects.states.geometries' < spatial/states-albers-10m.json | \
   ndjson-map '{"type": d.type, "arcs": d.arcs, "properties": {"name": d.properties.name}}' | \
   ndjson-join --right 'd.properties.name' 'd.name' - spatial/prez_state_winners.tmp.ndjson | \
-  ndjson-map '{"type": d[0].type, "arcs": d[0].arcs, "properties": {"name": d[0].properties.name, "leader": d[1].leader, "winner_or_leading": d[1].winner_or_leading, "winner_margin": d[1].winner_margin}}' | \
+  ndjson-map '{"type": d[0].type, "arcs": d[0].arcs, "properties": {"name": d[0].properties.name, "leader": d[1].leader, "winner_or_leading": d[1].winner_or_leading, "winner_only": d[1].winner_only, "winner_margin": d[1].winner_margin}}' | \
   ndjson-reduce 'p.geometries.push(d), p' '{"type": "GeometryCollection", "geometries":[]}' | \
   ndjson-join '1' '1' <(ndjson-cat spatial/states-albers-10m.json) - | \
   ndjson-map '{"type": d[0].type, "bbox": d[0].bbox, "transform": d[0].transform, "objects": {"states": {"type": "GeometryCollection", "geometries": d[1].geometries}}, "arcs": d[0].arcs}' > spatial/states-electoral-final-topo.json &&
@@ -27,10 +30,18 @@ topo2geo states=- < spatial/states-electoral-final-topo.json | \
   geoproject 'd3.geoIdentity().reflectY(true)' > spatial/states-electoral-final-geo.json
 
 # Colorizing SVG with leader/winner dilineated
+# mapshaper spatial/states-electoral-final-geo.json \
+#   -quiet \
+#   -colorizer name=calcFill colors='#115E9B,#CFCFCF,#AE191C,#CFCFCF,#CFCFCF,#E7E7E7' nodata='#EAEAEA' categories='Biden_winner,Biden_leader,Trump_winner,Trump_leader,no-votes,even' \
+#   -style fill='calcFill(winner_or_leading)' \
+#   -o id-field=name format=svg -
+#   # spatial/mn_2020_general_prez_electoral.svg
+
+# Colorizing SVG with winner only
 mapshaper spatial/states-electoral-final-geo.json \
   -quiet \
-  -colorizer name=calcFill colors='#115E9B,#CFCFCF,#AE191C,#CFCFCF,#CFCFCF,#E7E7E7' nodata='#EAEAEA' categories='Biden_winner,Biden_leader,Trump_winner,Trump_leader,no-votes,even' \
-  -style fill='calcFill(winner_or_leading)' \
+  -colorizer name=calcFill colors='#115E9B,#AE191C,#CFCFCF' nodata='#EAEAEA' categories='Biden,Trump,no-winner' \
+  -style fill='calcFill(winner_only)' \
   -o id-field=name format=svg -
   # spatial/mn_2020_general_prez_electoral.svg
 
